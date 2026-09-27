@@ -155,6 +155,47 @@ body:not(.play) #mkl-bar{display:none!important}.card{background:#071c27d9;borde
 @media(max-height:460px){#menu{padding:22px 5vw;gap:7px}#logo{font-size:34px}#logoSub{display:none}#menu .mbtn small{display:none}#menu #dcStart small{display:block}#menu #dcStart{padding:10px 13px}#menu .mbtn{padding:9px 13px}#menu #rndBtn{font-size:11px;padding:2px 0}#dcProgress i{width:16px}#dcMenuTools{right:5vw;top:12px}.dc-number strong{font-size:30px}.dc-number{bottom:20px}.dc-number small{font-size:8px}}
 
 @media(pointer:fine){body.play #say{bottom:52px}}
+/* 👥 ВДВОЁМ — экран пополам: слева ты, справа друг (правило Марка 19.09: всегда лево/право) */
+#раздел{position:fixed;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;background:#05101a;z-index:4;display:none;box-shadow:0 0 0 1px #ffffff24}
+body.play.вдвоём #раздел{display:block}
+#place2,#hint2,#игрушка2,#холод2{display:none}
+body.вдвоём #place{border-color:#fb923c88} body.вдвоём #place2{display:block;left:calc(50% + 12px);top:12px;border-color:#4ade8088}
+body.вдвоём #hint{left:25%;top:56px;max-width:44vw} body.вдвоём #hint2{display:block;left:75%;top:56px;transform:translateX(-50%);max-width:44vw;white-space:normal;text-align:center}
+body.вдвоём #игрушка{left:25%;top:100px} body.замер2 #игрушка2{display:block;left:75%;top:100px;transform:translateX(-50%);font-size:18px;background:#16a34acc;border-color:#bbf7d0}
+body.вдвоём #холод2.вкл{display:block;left:calc(50% + 12px);top:96px;width:170px}
+#холод2 i{display:block;height:8px;border-radius:5px;background:#ffffff22;margin-top:4px;overflow:hidden}
+#холод2 b{display:block;height:100%;width:0;background:linear-gradient(90deg,#7dd3fc,#e0f2fe)}
+body.вдвоём #rndHud{display:none!important}
+body.вдвоём #таймер{top:12px;left:auto;right:calc(50% + 10px)}
+body.вдвоём #глаз,body.вдвоём #холод,body.вдвоём #жар,body.вдвоём #глазВоды{top:auto;bottom:170px;left:60px}
+body.вдвоём #холод2.вкл{top:auto;bottom:170px}
+#вид2{position:fixed;left:50%;right:0;top:0;bottom:0;pointer-events:none;z-index:3;display:none}
+body.play.вдвоём #вид2.барабан{display:block;background:radial-gradient(ellipse 44% 40% at 50% 52%,transparent 0 76%,rgba(210,225,240,.4) 79%,#c3cad3 83%,#7b8491 88%,#1b2129 93%)}
+body.play.вдвоём #вид2.чайник{display:block;background:radial-gradient(ellipse 62% 56% at 50% 42%,transparent 0 52%,rgba(226,87,43,.4) 76%,rgba(110,28,8,.9) 100%),linear-gradient(0deg,rgba(125,211,252,.45),transparent 26%)}
+body.play.вдвоём #вид2.бак{display:block;background:linear-gradient(0deg,rgba(154,143,128,.6),transparent 20%),linear-gradient(90deg,rgba(191,227,255,.3),transparent 12%,transparent 88%,rgba(191,227,255,.3)),linear-gradient(180deg,rgba(43,46,54,.7),transparent 10%)}
+#stick2{position:fixed;left:calc(50% + 22px);bottom:22px;width:128px;height:128px;border-radius:50%;z-index:8;background:#ffffff14;border:2px solid #4ade8066;display:none;touch-action:none}
+body.play.вдвоём #stick2{display:block}
+#knob2{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#dcfce7,#4ade80);box-shadow:0 4px 12px #0008}
+body:not(.вдвоём) .abtn2{display:none!important}
+body.вдвоём #jumpBtn{right:calc(50% + 22px)} body.вдвоём #useBtn{right:calc(50% + 106px)} body.вдвоём #freezeBtn{right:calc(50% + 22px)}
+#jumpBtn2{right:22px;bottom:22px;background:radial-gradient(circle at 35% 30%,#6ee7b7,#0f766e)}
+#useBtn2{right:106px;bottom:22px;background:radial-gradient(circle at 35% 30%,#fdba74,#c2410c)}
+#freezeBtn2{right:22px;bottom:106px;background:radial-gradient(circle at 35% 30%,#d8b4fe,#6d28d9)}
+body.замер2 #freezeBtn2{box-shadow:0 0 0 4px #bbf7d0,0 0 24px #bbf7d0}
+@media (max-height:520px){#stick2{width:104px;height:104px;bottom:14px}body.play.вдвоём #stick2{left:calc(50% + 14px)}#knob2{width:48px;height:48px;margin:-24px 0 0 -24px}
+  body.вдвоём #jumpBtn{right:calc(50% + 14px);bottom:14px}body.вдвоём #useBtn{right:calc(50% + 84px);bottom:14px}body.вдвоём #freezeBtn{right:calc(50% + 14px);bottom:84px}
+  #jumpBtn2{right:14px;bottom:14px}#useBtn2{right:84px;bottom:14px}#freezeBtn2{right:14px;bottom:84px}}
+#dcKeys2{display:none;position:fixed;bottom:16px;left:0;right:0;justify-content:space-around;color:#bbcdd2;font:12px system-ui;z-index:6;pointer-events:none;text-shadow:0 1px 6px #000}
+#dcKeys2 kbd{background:#102632cc;border:1px solid #a7d3d744;border-radius:4px;padding:1px 5px;font:inherit}
+@media(pointer:fine){body.play.вдвоём #stick2,body.play.вдвоём .abtn2{display:none!important}body.play.вдвоём:not(.фото) #dcKeys2{display:flex}body.play.вдвоём #dcKeys{display:none!important}}
+#глазВоды{left:12px;top:92px;display:none;width:190px}
+#жар{left:12px;top:92px;display:none;width:200px}
+#жар i{display:block;height:8px;border-radius:5px;background:#ffffff22;margin-top:4px;overflow:hidden}
+#жар b{display:block;height:100%;width:0;background:linear-gradient(90deg,#fde047,#f97316,#dc2626)}
+#глазВоды i{display:block;height:8px;border-radius:5px;background:#ffffff22;margin-top:4px;overflow:hidden}
+#глазВоды b{display:block;height:100%;width:0;background:linear-gradient(90deg,#fde047,#ef4444)}
+#menu #hideBtn{background:#3b2a12d9;border-color:#fbbf2466}
+#menu #coopBtn.вкл{background:#14532dd9;border-color:#4ade8066}
 @media(max-height:560px){#dcMenuTools{background:#071c27d9;padding:2px 10px;border-radius:8px}#dcMenuTools button{color:#c5dadd}}
 
 </style>
@@ -169,8 +210,8 @@ body:not(.play) #mkl-bar{display:none!important}.card{background:#071c27d9;borde
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png">
   <meta name="msapplication-TileImage" content="icon-192.png">
-  <meta name="msapplication-TileColor" content="#7c3aed">
-  <script>window.__APP_VER = "3e4909138a";</script>
+  <meta name="msapplication-TileColor" content="#65a30d">
+  <script>window.__APP_VER = "7dba58656d";</script>
 </head>
 <body>
 <div id="menu">
@@ -179,12 +220,14 @@ body:not(.play) #mkl-bar{display:none!important}.card{background:#071c27d9;borde
   <div id="logo">В ГЛУБИНЕ<br><span>ПРИБОРА</span></div>
   <div id="logoSub">Обычная комната. Огромный мир.<br>Исследуй, спасай друзей и выбирайся оттуда,<br>куда никто ещё не заглядывал.</div>
   <button class="mbtn" id="dcStart"><span id="dcStartTitle">Начать приключение →</span><small>Первая история · путешествие внутри пылесоса</small></button>
-  <button class="mbtn" id="epBtn">Выбрать историю <span style="float:right;color:#7fd5da">08</span><small>Пылесос, будильник, робот и приключения на кухне</small></button>
+  <button class="mbtn" id="epBtn">Выбрать историю <span style="float:right;color:#7fd5da">10</span><small>Пылесос, будильник, робот и приключения на кухне</small></button>
   <button class="mbtn" id="walkBtn">Исследовать комнату<small>Свободная прогулка без спешки</small></button>
+  <button class="mbtn" id="hideBtn">🙈 Прятки<small>8 человечков, один водит. Прячься в любой прибор, пока он считает!</small></button>
+  <button class="mbtn" id="coopBtn">👥 Играть вдвоём<small>Экран пополам. Второй — друг, который вечно влипает в передряги</small></button>
   <button class="mbtn" id="rndBtn">↗ Удиви меня — случайное приключение</button>
   <div id="dcProgress"></div>
   <div id="dcMenuTools"><button id="dcHelp">Как играть</button><button id="dcSettings">Графика и звук</button></div>
-  <div class="dc-number"><small>ОДНА КОМНАТА. ВОСЕМЬ ИСТОРИЙ.</small><strong>Большой мир.<br>Маленький ты.</strong><span>Приключение начинается под ногами.</span></div>
+  <div class="dc-number"><small>ОДНА КОМНАТА. ДЕСЯТЬ ИСТОРИЙ.</small><strong>Большой мир.<br>Маленький ты.</strong><span>Приключение начинается под ногами.</span></div>
 </div>
 <div id="dcKeys"><kbd>W A S D</kbd> идти &nbsp; <kbd>Shift</kbd> бежать &nbsp; <kbd>Пробел</kbd> прыгнуть &nbsp; <kbd>E</kbd> действие &nbsp; <kbd>Q</kbd> замереть &nbsp; <kbd>Esc</kbd> пауза</div>
 <div class="слой" id="dcPause" role="dialog" aria-modal="true" aria-labelledby="dcPauseTitle"><div class="окно">
@@ -207,7 +250,20 @@ body:not(.play) #mkl-bar{display:none!important}.card{background:#071c27d9;borde
   <div class="card" id="глаз">👁 Великан замечает<i><b></b></i></div>
   <div class="card" id="холод">❄ Холод<i><b></b></i></div>
   <div class="card" id="rndHud">🎲 Приключение</div>
+  <div class="card" id="place2">🏠 Комната</div>
+  <div class="card" id="жар">🌡 Вода в чайнике: 20°<i><b></b></i></div>
+  <div class="card" id="глазВоды">👁 Вода видит тебя<i><b></b></i></div>
+  <div class="card" id="hint2"></div>
+  <div class="card" id="игрушка2">🧸 ДРУГ — ИГРУШКА</div>
+  <div class="card" id="холод2">❄ Холод друга<i><b></b></i></div>
 </div>
+<div id="раздел"></div>
+<div id="вид2"></div>
+<div id="stick2"><div id="knob2"></div></div>
+<div class="abtn abtn2" id="jumpBtn2">⤴<small>ПРЫЖОК</small></div>
+<div class="abtn abtn2" id="useBtn2">✋<small>ВЗЯТЬ</small></div>
+<div class="abtn abtn2" id="freezeBtn2">🧸<small>ЗАМРИ</small></div>
+<div id="dcKeys2"><span>🧡 Ты: <kbd>W A S D</kbd> <kbd>Shift</kbd> бег <kbd>Пробел</kbd> прыжок <kbd>E</kbd> действие <kbd>Q</kbd> замри</span><span>💚 Друг: <kbd>← ↑ → ↓</kbd> <kbd>правый Shift</kbd> бег <kbd>/</kbd> прыжок <kbd>.</kbd> действие <kbd>,</kbd> замри</span></div>
 <div id="stick"><div id="knob"></div></div>
 <div class="abtn" id="jumpBtn">⤴<small>ПРЫЖОК</small></div>
 <div class="abtn" id="useBtn">✋<small>ВЗЯТЬ</small></div>
@@ -256,7 +312,7 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 document.body.prepend(renderer.domElement);
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x1a1326);
-const camera = new THREE.PerspectiveCamera(62, innerWidth/innerHeight, 0.08, 900);
+let camera = new THREE.PerspectiveCamera(62, innerWidth/innerHeight, 0.08, 900);      // 👥 let: у второго игрока своя камера
 addEventListener('resize', () => { camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight); });
 
@@ -1540,9 +1596,10 @@ function великанТик(dt) {
   ВЕЛ.кx += (кцx - ВЕЛ.кx)*Math.min(1, dt*0.9); ВЕЛ.кz += (кцz - ВЕЛ.кz)*Math.min(1, dt*0.9);
   позаПылесоса({ кx:ВЕЛ.кx, кz:ВЕЛ.кz, кпов:Math.atan2(бx - ВЕЛ.кx, бz - ВЕЛ.кz) - Math.PI/2, щx:бx, щz:бz, щпов:ВЕЛ.пов, рука:H });
   // 👁 великан замечает бегущего человечка перед собой
-  const px = player.x - ВЕЛ.x, pz = player.z - ВЕЛ.z, pd = Math.hypot(px, pz);
-  const видно = !player.внутри && pd < 55 && (px*sin + pz*cos)/(pd || 1) > 0.55 && player.y < 25 && !спрятан();
-  if (видно && !player.замер && player.скор > 1.6) ВЕЛ.замечено = Math.min(1, ВЕЛ.замечено + dt*0.9);
+  let заметил = false;                                               // 👥 вдвоём — замечает любого из двоих
+  каждый(() => { const px = player.x - ВЕЛ.x, pz = player.z - ВЕЛ.z, pd = Math.hypot(px, pz);
+    if (!player.внутри && !player.вБеде && !player.спрятан && pd < 55 && (px*sin + pz*cos)/(pd || 1) > 0.55 && player.y < 25 && !спрятан() && !player.замер && player.скор > 1.6) заметил = true; });
+  if (заметил) ВЕЛ.замечено = Math.min(1, ВЕЛ.замечено + dt*0.9);
   else ВЕЛ.замечено = Math.max(0, ВЕЛ.замечено - dt*0.5);
 }
 /* 🤫 спрятан — под мебелью, где великан не увидит */
@@ -1595,6 +1652,9 @@ function свободно(x, z) {                            // можно ли 
 }
 function роботТик(dt) {
   if (!РОБ.виден) return;
+  if (!РОБ.стоит && РОБ.икота > 0) { РОБ.икота -= dt;                          // 👥 друг стукнул изнутри — робот икнул и замер
+    РОБ.g.position.set(РОБ.x, Math.abs(Math.sin(РОБ.икота*18))*0.35, РОБ.z); РОБ.g.rotation.y = РОБ.пов;
+    Object.assign(РОБ.кирпич, { x0:РОБ.x - 5.4, x1:РОБ.x + 5.4, z0:РОБ.z - 5.4, z1:РОБ.z + 5.4, y0:0, y1:3.3 }); return; }
   const наРоботе = player.где === РОБ.кирпич;
   if (!РОБ.стоит) {
     // замечает бегущего человечка на полу впереди — и едет к нему
@@ -1747,10 +1807,17 @@ const ЭПИЗОДЫ = [
   { id:'засос',  em:'🌪', имя:'Засосало!',           кратко:'Книжка-заставка: притворился игрушкой — а щётка всё ближе… Пройди весь пылесос насквозь и выберись!', старт:()=>эпЗасос() },
   { id:'мульт',  em:'📀', имя:'Мультики',            кратко:'Диск заляпан. Возьми маленькую швабру у телевизора, почисти диск и вставь в проигрыватель — пусть человек посмотрит мультики.', старт:()=>эпМульт() },
   { id:'будил',  em:'⏰', имя:'Будильник-бунтарь',   кратко:'Будильник звенит сам и не выключается! Залезь внутрь, в механизм, и останови молоточек.', старт:()=>эпБудильник() },
-  { id:'друг',   em:'🌪', имя:'Друг в пылесосе',      кратко:'Великан пылесосит — и друга засосало! Дождись, пока он бросит пылесос, и бегом внутрь: щётка, труба, шланг, мешок — и назад.', старт:()=>эпДруг() },
+  { id:'друг',   em:'🌪', имя:'Друг в пылесосе',      кратко:'Великан пылесосит — и друга засосало! Дождись, пока он бросит пылесос, и бегом внутрь: щётка, труба, шланг, мешок — и назад.',
+    кратко2:'👥 Друга (второго игрока) засасывает в пылесос, и он застревает в комке пыли в мешке. Пробеги весь пылесос и вытащи его!', старт:()=>эпДруг(), вдвоём:()=>эпДругВдвоём() },
   { id:'робот',  em:'🤖', имя:'Новый прибор',         кратко:'По комнате ездит круглая штука. Что это? Узнай в интернете — и останови её.', старт:()=>эпРобот() },
-  { id:'жвачка', em:'🧊', имя:'Жвачка в морозилке',   кратко:'Друг примёрз к жвачке в морозилке. Нужно, чтобы жвачка отмёрзла — а в морозилке мёрзнешь и сам!', старт:()=>эпЖвачка() },
-  { id:'стирка', em:'🧺', имя:'Стиральная буря',      кратко:'Друга закрутило в стиральной машине, а через минуту — отжим! Нажми «Стоп» и открой дверцу.', старт:()=>эпСтирка() },
+  { id:'жвачка', em:'🧊', имя:'Жвачка в морозилке',   кратко:'Друг примёрз к жвачке в морозилке. Нужно, чтобы жвачка отмёрзла — а в морозилке мёрзнешь и сам!',
+    кратко2:'👥 Друг примёрз к жвачке и мёрзнет — ему надо топать ногами ✋, а тебе — включить фен.', старт:()=>эпЖвачка(), вдвоём:()=>эпЖвачкаВдвоём() },
+  { id:'стирка', em:'🧺', имя:'Стиральная буря',      кратко:'Друга закрутило в стиральной машине, а через минуту — отжим! Нажми «Стоп» и открой дверцу.',
+    кратко2:'👥 Друга крутит в барабане — он видит тебя сквозь стекло и стучит ✋. Нажми «Стоп» и открой дверцу!', старт:()=>эпСтирка(), вдвоём:()=>эпСтиркаВдвоём() },
+  { id:'чайник', em:'☕', имя:'Чайник закипает',     кратко:'Друг спрятался в чайнике — а великан его включил! Выключи чайник, пока вода не закипела, залезь по ручке и открой крышку.',
+    кратко2:'👥 Друг сидит в чайнике и бултыхается ✋, чтобы вода грелась медленнее. Выключи чайник и открой крышку!', старт:()=>эпЧайник(), вдвоём:()=>эпЧайник(true) },
+  { id:'увёз',   em:'🤖', имя:'Робот увёз друга',     кратко:'Робот-пылесос засосал друга в прозрачный контейнер и катается по комнате. Догони, запрыгни, выключи ⏻ и открой контейнер!',
+    кратко2:'👥 Друг сидит в контейнере робота и едет по комнате. Стучи ✋ — робот икнёт и встанет. А ты — запрыгивай!', старт:()=>эпУвёз(), вдвоём:()=>эпУвёз(true) },
   { id:'тостер', em:'🍞', имя:'Тостер',               кратко:'Хлеб застрял, тостер раскалился и дымит! Дёрни рычаг, пока хлеб не сгорел.', старт:()=>эпТостер() },
 ];
 const СЛУЧАИ = [
@@ -1771,23 +1838,28 @@ function сбросМира() {
   великанСпрятать(); роботСпрятать(); другСпрятать(); кухняСброс(); стрелкаВхода.visible = false; пузырь.visible = false;
   if (друг) { друг.руки.forEach(р => р.rotation.x = 0); друг.ноги.forEach(н => н.rotation.x = 0); }
   if (друг && друг.g.parent !== scene) scene.attach(друг.g); if (друг) { друг.g.scale.setScalar(1); друг.g.rotation.set(0, 0, 0); }
-  дискСброс(); твВыкл(); тряпкаСброс();
+  дискСброс(); твВыкл(); тряпкаСброс(); чайникСброс(); РОБ.икота = 0; if (РОБ.бак) { РОБ.бак.visible = false; РОБ.бакКрышка.rotation.x = 0; }
   player.несёт = null; player.замер = false; document.body.classList.remove('замер');
   player.пропал = 0; герой.g.visible = true; player.лезет = null;
-  Object.assign(player, { x:СТАРТ.x, z:СТАРТ.z, y:0, vy:0 });
+  if (герой.g.parent !== scene) scene.attach(герой.g); герой.g.rotation.set(0, 0, 0);
+  Object.assign(player, { x:СТАРТ.x, z:СТАРТ.z, y:0, vy:0, застрял:false, привязан:null, вид:null, тяга:0, вБеде:false, спрятан:null, найден:false });
   ВН.вМешке = false; ВН.поток = false; ВН.щельОткрыта = false;
   сюжет = null; $('таймер').style.display = 'none'; $('глаз').style.display = 'none';
+  сбросИ2(); крик.visible = false; комок.visible = false; пряткиСброс();
 }
 function запуститьРежим(р, фн) {
-  Snd.старт(); сбросМира(); режим = р; state = 'play';
+  Snd.старт(); сбросМира(); режим = р; state = 'play'; msgT = 0; $('bigMsg').style.opacity = 0;
   document.body.classList.add('play'); $('epMenu').classList.remove('show'); $('итог').classList.remove('show');
-  наВесьЭкран(); фн(); камера(0, true);
+  наВесьЭкран(); фн(); камера(0, true); if (вдвоём) вКонтексте(И2, () => камера(0, true));
 }
-function начатьЭпизод(id) { const э = ЭПИЗОДЫ.find(x => x.id === id); if (!э || э.скоро) return; запуститьРежим('эпизод', () => { э.старт(); сюжет.id = id; }); }
+function начатьЭпизод(id) { const э = ЭПИЗОДЫ.find(x => x.id === id); if (!э || э.скоро) return;
+  const ф = вдвоём ? э.вдвоём : э.старт; if (!ф) return;                    // 👥 вдвоём — своя версия, где друг — второй игрок
+  запуститьРежим('эпизод', () => { ф(); сюжет.id = id; }); }
 function начатьСлучай(id) { const с = id ? СЛУЧАИ.find(x => x.id === id) : СЛУЧАИ[Math.floor(Math.random()*СЛУЧАИ.length)];
   запуститьРежим('случай', () => { с.старт(); сюжет.id = с.id; });
   bigMsg('🎲 ' + с.em + ' ' + с.имя.toUpperCase(), 2.6, '#fde68a'); }
 function цель(т) { if (сюжет) сюжет.цель = т; }
+function цель2(т) { if (сюжет) сюжет.цель2 = т; }                 // 👥 своя цель у друга (правая половина)
 function итог(победа, заголовок, текст) {
   if (state !== 'play' || !сюжет) return;
   const id = сюжет.id, р = режим;
@@ -1797,9 +1869,9 @@ function итог(победа, заголовок, текст) {
   state = 'итог'; сюжет.конец = true;
   $('итогЗаг').textContent = заголовок; $('итогЗаг').style.color = победа ? '#86efac' : '#fca5a5';
   $('итогТекст').textContent = текст;
-  $('итогЕщё').onclick = () => р === 'эпизод' ? начатьЭпизод(id) : начатьСлучай(id);
-  $('итогДругой').textContent = р === 'эпизод' ? '📖 Другой эпизод' : '🎲 Другое приключение';
-  $('итогДругой').onclick = () => р === 'эпизод' ? показатьЭпизоды() : начатьСлучай();
+  $('итогЕщё').onclick = () => р === 'эпизод' ? начатьЭпизод(id) : р === 'прятки' ? начатьПрятки() : начатьСлучай(id);
+  $('итогДругой').textContent = р === 'эпизод' ? '📖 Другой эпизод' : р === 'прятки' ? '📖 Истории' : '🎲 Другое приключение';
+  $('итогДругой').onclick = () => р === 'эпизод' || р === 'прятки' ? показатьЭпизоды() : начатьСлучай();
   $('итог').classList.add('show');
   if (победа) Snd.победа(); else Snd.тон(220, 0.6, 'sawtooth', 0.08, 90);
 }
@@ -1960,7 +2032,8 @@ function эпДруг() {
   Object.assign(player, { x:-55, z:50 }); let т = 0, фаза = 'уборка';
   const вМешокДруга = () => {                                           // друг прилетел в мешок и спрятался за вещами
     const место = [[ВН.мешок.x + 12, ВН.мешок.z + 20], [ВН.мешок.x - 12, ВН.мешок.z - 20], [ВН.мешок.x + 16, ВН.мешок.z - 20]][Math.floor(Math.random()*3)];
-    друг.статус = 'в мешке'; друг.g.visible = true; друг.g.position.set(место[0], 0, место[1]); };
+    друг.статус = 'в мешке'; друг.g.visible = true; друг.g.position.set(место[0], 0, место[1]); друг.g.rotation.set(0, 0, 0);
+    друг.руки.forEach(р => р.rotation.x = 0); друг.ноги.forEach(н => н.rotation.x = 0); };
   const великанУходит = () => {                                         // закончил уборку — бросил пылесос и ушёл
     фаза = 'бегом'; сюжет.входВЩётку = true; стрелкаВхода.visible = true; ВИХРЬ.вкл = false; Snd.пылесос(false); ВН.поток = false;
     ВИХРЬ.лампа.material.color.setHex(0x334155); ВИХРЬ.лампа.material.emissive.setHex(0x334155);
@@ -1997,9 +2070,23 @@ function эпДруг() {
         пузырь.position.set(P.x, 3.4 + Math.abs(Math.sin(друг.бегT*6))*0.3, P.z);
         if (Math.random() < dt*3) пылинкаВ(P, 1.2);
         if (d < 2.2) { друг.g.rotation.set(0, 0, 0); друг.руки.forEach(р => р.rotation.x = 0); друг.ноги.forEach(н => н.rotation.x = 0);
-          пузырь.visible = false; Snd.засос(); bigMsg('😱 ДРУГА ЗАСОСАЛО!', 2.4, '#fca5a5'); вМешокДруга();
+          пузырь.visible = false; Snd.засос(); bigMsg('😱 ДРУГА ЗАСОСАЛО!', 2.4, '#fca5a5');
+          /* 🕊 Марк 27.09: «если тебя засосало раньше, чем друга, ты видишь, как он тоже летит по трубе и по щётке» —
+             друг правда летит внутри пылесоса: щётка → труба → ручка → шланг → мешок */
+          друг.статус = 'летит внутри'; друг.полёт = { этап:'щётка', i:0 }; друг.g.position.set(ВН.x + rnd(-6, 6), 1.2, 3);
           say('Друг пропал под щёткой! Спрячься и дождись, пока великан закончит уборку, — тогда прыгай в щётку и ищи его.', 9);
           цель('🤫 Друга засосало! Спрячься и дождись конца уборки — пылесос затихнет, тогда и полезешь за ним'); }
+      } else if (друг.статус === 'летит внутри') {
+        const П = друг.g.position, пол = друг.полёт, v = 13.5*dt;
+        if (пол.этап === 'щётка') { const dx = ВН.x - П.x, dz = 13 - П.z, d = Math.hypot(dx, dz) || 1;
+          П.x += dx/d*Math.min(d, v); П.z += dz/d*Math.min(d, v); П.y = 1.2 + Math.sin(т*5)*0.3; if (d < 1) пол.этап = 'путь'; }
+        else { const N2 = ВН.образцы.length, до = (j) => { const q = ВН.образцы[j]; return Math.hypot(q.x - П.x, q.y - 1 - П.y, q.z - П.z); };
+          while (пол.i < N2 - 1 && до(пол.i) < v + 0.2) пол.i++;              // цель — середина трубы (на метр ниже оси)
+          const C = ВН.образцы[пол.i], dx = C.x - П.x, dy = C.y - 1 - П.y, dz = C.z - П.z, d = Math.hypot(dx, dy, dz) || 1;
+          П.x += dx/d*Math.min(d, v); П.y += dy/d*Math.min(d, v) + Math.sin(т*5)*0.02; П.z += dz/d*Math.min(d, v);
+          if (пол.i >= N2 - 1 && d < 1) { вМешокДруга(); return; } }
+        друг.g.rotation.set(1.15, Math.atan2(ВН.образцы[Math.min(пол.i + 3, ВН.образцы.length - 1)].x - П.x, ВН.образцы[Math.min(пол.i + 3, ВН.образцы.length - 1)].z - П.z), Math.sin(т*3)*0.4);
+        друг.руки.forEach(р => р.rotation.x = -2.9 + Math.sin(т*9)*0.3);
       } else if (друг.статус === 'в мешке') {
         друг.g.rotation.y += dt*0.6; друг.g.position.y = Math.abs(Math.sin(т*3))*0.3;
       } else if (друг.статус === 'идёт') {                           // идёт за тобой
@@ -2076,9 +2163,10 @@ function показатьЭпизоды() {
   $('итог').classList.remove('show');
   const box = $('epList'); box.innerHTML = '';
   ЭПИЗОДЫ.forEach((э, i) => {   // первый — «Засосало!» с книжкой
-    const d = document.createElement('button'); d.className = 'epCard' + (э.скоро ? ' скоро' : '');
-    d.innerHTML = `<span class="em">${э.em}</span><span><b>${i + 1}. ${э.имя}</b>${ПРОЙДЕНО.has(э.id) ? ' ✅' : ''}<br><small>${э.кратко}</small></span>`;
-    if (!э.скоро) d.onclick = () => начатьЭпизод(э.id);
+    const нельзя = э.скоро || (вдвоём && !э.вдвоём);                   // 👥 вдвоём — только истории, где друг влипает
+    const d = document.createElement('button'); d.className = 'epCard' + (нельзя ? ' скоро' : '');
+    d.innerHTML = `<span class="em">${э.em}</span><span><b>${i + 1}. ${э.имя}</b>${ПРОЙДЕНО.has(э.id) ? ' ✅' : ''}${э.вдвоём ? ' 👥' : ''}<br><small>${вдвоём && !э.вдвоём ? '👤 Только для одного игрока' : вдвоём && э.кратко2 ? э.кратко2 : э.кратко}</small></span>`;
+    if (!нельзя) d.onclick = () => начатьЭпизод(э.id);
     box.appendChild(d);
   });
   dcEpisodes();
@@ -2355,7 +2443,7 @@ function кухняСброс() {
   СТИР.крутит = false; СТИР.открыта = false; СТИР.дверца.rotation.y = 0; СТИР.пена.visible = false; табло('--:--', '#60a5fa');
   ТОСТ.греет = false; ТОСТ.выскочил = false; ТОСТ.рычаг.position.y = 6; ТОСТ.хлеб.forEach((х, i) => { х.position.set(0, 10.5, i ? 1.5 : -1.5); х.rotation.set(0, 0, 0); х.material.color.setHex(0xffffff); });
   ТОСТ.накал.forEach(н => н.material.emissiveIntensity = 0.2); ТОСТ.дым.forEach(q => q.m.visible = false);
-  $('холод').style.display = 'none';
+  $('холод').style.display = 'none'; $('холод2').classList.remove('вкл'); ХОЛ.холод2 = 0; СТИР.пена.material.opacity = 0.7;
 }
 function табло(т, цв) { const g = СТИР.таблоХ.getContext('2d'); g.fillStyle = '#0b1220'; g.fillRect(0, 0, 128, 48);
   g.fillStyle = цв; g.font = 'bold 30px monospace'; g.textAlign = 'center'; g.fillText(т, 64, 35); СТИР.табло.needsUpdate = true; }
@@ -2451,6 +2539,548 @@ function эпТостер() {
   say('🍞 Кто-то положил хлеб в тостер и ушёл! Хлеб застрял, тостер раскаляется. Выключи его, пока хлеб не сгорел!', 8);
 }
 
+/* ═══════════ 👥 ВДВОЁМ: ДРУГ В ПЫЛЕСОСЕ — друг теперь ЖИВОЙ второй игрок ═══════════
+   Его тянет в пылесос (бежит изо всех сил — ветер сильнее), он летит по щётке, трубе и шлангу
+   и застревает в мешке в комке пыли. Первый ждёт, пока великан бросит пылесос, пробегает весь
+   пылесос, вытаскивает друга ✋ — и назад вдвоём. Если первого засосало раньше — он видит, как
+   друг летит следом (это настоящий второй человечек в том же пылесосе). */
+function эпДругВдвоём() {
+  const П1 = И1.player, П2 = И2.player;
+  великанПоказать(1); ВИХРЬ.вкл = true; Snd.пылесос(true);
+  ВИХРЬ.лампа.material.color.setHex(0x22ff66); ВИХРЬ.лампа.material.emissive.setHex(0x22ff66);
+  Object.assign(П1, { x:-55, z:50 }); Object.assign(П2, { x:24, z:36, h:Math.PI, вБеде:true });   // друга великан не ловит — он «игрушка на ковре»
+  let т = 0, фаза = 'уборка', беда = 'играет', бегT = 0, катится = null, конец = false;
+  стрелкаВхода.visible = false;
+  const великанУходит = () => {
+    фаза = 'бегом'; сюжет.входВЩётку = true; стрелкаВхода.visible = true; ВИХРЬ.вкл = false; Snd.пылесос(false);
+    П1.вн_поток = false; П2.вн_поток = false; П2.тяга = 0;
+    ВИХРЬ.лампа.material.color.setHex(0x334155); ВИХРЬ.лампа.material.emissive.setHex(0x334155);
+    const щ = ВИХРЬ.щётка;
+    позаПылесоса({ кx:ВЕЛ.кx, кz:ВЕЛ.кz, кпов:ВИХРЬ.группа.rotation.y, щx:щ.position.x, щz:щ.position.z, щпов:щ.rotation.y,
+      рука:щ.localToWorld(new THREE.Vector3(0, 1.4, -27)) });
+    великанСпрятать(); сюжет.лимит = (сюжет.время || 0) + 150;
+    bigMsg('🚶 ВЕЛИКАН УШЁЛ!', 2.6, '#fde68a');
+    say('Великан бросил пылесос и ушёл за мусорным пакетом! Скорее: в щётку, по трубе и шлангу — в мешок. Друг застрял в комке пыли — вытащи его ✋ и назад вдвоём!', 12);
+    if (беда === 'свободен') { цель('🏃 Назад вдвоём: шланг → труба → щётка, и ✋ у ворса — наружу!'); цель2('🏃 Назад: шланг → труба → щётка, ✋ у ворса — наружу!'); }
+    else { цель(П1.внутри ? '🔎 Друг застрял в комке пыли где-то в мешке. Найди его и нажми ✋ рядом!' : '🏃 Быстро в пылесос: беги в щётку, где стрелка ⬇ ВХОД. Друг застрял в мешке!');
+      цель2('🕸 Ты застрял в комке пыли! Жми ✋ — кричи «Я ТУТ!», чтобы друг тебя нашёл'); }
+  };
+  сюжет = { лимит:40, цель:'👀 Великан пылесосит! Замри 🧸 или спрячься под мебель — и следи за другом!',
+    цель2:'🧸 Ты играешь на ковре… осторожно, пылесос!',
+    когдаВремя() {
+      if (фаза === 'уборка') { великанУходит(); return; }
+      итог(false, '🚶 ВЕЛИКАН ВЕРНУЛСЯ!', 'Он унёс пылесос вытряхивать мешок — вместе с вами внутри. В следующий раз быстрее: щётка, труба, шланг, мешок — и назад!'); },
+    тик(dt) { т += dt;
+      if (стрелкаВхода.visible) { const П = ВИХРЬ.пасть; стрелкаВхода.position.set(П.x, 6 + Math.abs(Math.sin(т*3))*1.5, П.z); if (П1.внутри) стрелкаВхода.visible = false; }
+      if (беда === 'играет' && т > 4 && фаза === 'уборка') { беда = 'тянет'; бегT = 0; пузырь.visible = true;
+        bigMsg('😱 ДРУГА ТЯНЕТ В ПЫЛЕСОС!', 2.2, '#fca5a5'); Snd.тон(900, 0.25, 'triangle', 0.06, 1300);
+        цель2('😱 Тебя тянет в пылесос! Беги прочь изо всех сил (Shift)… но ветер сильнее!'); }
+      if (беда === 'тянет') { бегT += dt; П2.тяга = Math.min(30, 2 + бегT*2.3);
+        пузырь.position.set(П2.x, П2.y + 3.4 + Math.abs(Math.sin(т*6))*0.3, П2.z);
+        if (Math.random() < dt*3) пылинкаВ(П2, 1.2);
+        if (бегT > 14 && !П2.внутри) { const П = ВИХРЬ.пасть; Object.assign(П2, { x:П.x + 1.2, z:П.z + 1.2, y:0, лезет:null }); } }   // зацепился за мебель — ветер всё равно дёрнет
+      if (катится) { катится.t = Math.min(1, катится.t + dt/1.1); const k = катится.t;               // кувырком — в дальний комок пыли
+        П2.x = катится.x0 + (катится.x1 - катится.x0)*k; П2.z = катится.z0 + (катится.z1 - катится.z0)*k; П2.y = Math.sin(k*Math.PI)*2.5;
+        if (k >= 1) { катится = null; П2.y = 0; } }
+      if (беда === 'в комке') { комок.visible = true; комок.position.set(П2.x, П2.y + 1.05, П2.z); комок.rotation.y += dt*0.8; комок.scale.setScalar(1 + Math.sin(т*7)*0.04); }
+      if (фаза === 'бегом' && беда === 'свободен' && !конец && !П1.внутри && !П2.внутри) { конец = true;
+        dcLater(() => итог(true, '🌪 ДРУГ СПАСЁН — ВДВОЁМ!', 'Друга засосало, он запутался в комке пыли — а ты пробежал весь пылесос и вытащил его. Вот это команда!'), 1200); }
+    },
+    засосало() {                                           // зовётся для того, кого засосало
+      Snd.засос(); войтиВнутрь(true);
+      if (player === П2) { беда = 'летит'; П2.тяга = 0; пузырь.visible = false; bigMsg('😱 ДРУГА ЗАСОСАЛО!', 2.4, '#fca5a5');
+        цель2('🌬 Тебя несёт по пылесосу: щётка → труба → шланг → мешок!');
+        if (!П1.внутри) цель('😱 Друга засосало! Спрячься и дождись, пока великан закончит, — тогда лезь за ним в щётку'); }
+      else цель(П2.внутри ? '🌬 Тебя тоже засосало! Летишь к другу в мешок' : '🌬 Тебя засосало! Смотри назад — друг летит следом?');
+      return true; },
+    вМешке() {                                             // зовётся для того, кто долетел
+      ВН.вМешке = true; ВН.поток = false;
+      if (player === П2 && беда === 'летит') { беда = 'в комке'; П2.застрял = true; П2.вБеде = true;
+        const м = [[ВН.мешок.x + 12, ВН.мешок.z + 20], [ВН.мешок.x - 12, ВН.мешок.z - 20], [ВН.мешок.x + 16, ВН.мешок.z - 20]][Math.floor(Math.random()*3)];
+        катится = { t:0, x0:П2.x, z0:П2.z, x1:м[0], z1:м[1] };
+        bigMsg('🕸 ДРУГ ЗАПУТАЛСЯ В КОМКЕ ПЫЛИ!', 2.4, '#fde68a');
+        цель2('🕸 Ты застрял в комке пыли! Жми ✋ — кричи «Я ТУТ!», чтобы друг тебя нашёл');
+        if (П1.внутри) цель('🔎 Друг застрял в комке пыли где-то в мешке! Найди его и нажми ✋ рядом'); return; }
+      bigMsg('🎒 ТЫ В МЕШКЕ!', 2.2, '#fde68a');
+      цель(беда === 'в комке' ? '🔎 Друг где-то тут — застрял в комке пыли. Найди его и нажми ✋ рядом!' : беда === 'свободен' ? '🏃 Назад вдвоём: шланг → труба → щётка!' : '🎒 Мешок… Жди друга — его вот-вот принесёт!'); },
+    действие() {
+      if (player === П2 && беда === 'в комке') { крикнуть('Я ТУТ!'); return true; }
+      if (player === П1 && беда === 'в комке' && П1.внутри && П2.внутри && Math.hypot(П1.x - П2.x, П1.z - П2.z) < 4 && Math.abs(П1.y - П2.y) < 3) {
+        беда = 'свободен'; П2.застрял = false; комок.visible = false; Snd.тон(520, 0.2, 'triangle', 0.07, 880);
+        for (let i = 0; i < 16; i++) пылинкаПоток();
+        bigMsg('🤝 ВЫТАЩИЛ ДРУГА ИЗ КОМКА!', 2.4, '#86efac');
+        if (фаза === 'уборка') { цель('⏳ Друг свободен! Но пылесос ещё гудит — ждите, пока затихнет'); цель2('⏳ Ты свободен! Ждите, пока пылесос затихнет'); }
+        else { цель('🏃 Назад вдвоём: шланг → труба → щётка, и ✋ у ворса — наружу!'); цель2('🏃 Беги за другом: шланг → труба → щётка, ✋ у ворса — наружу!'); }
+        return true; }
+      if (player.внутри && гдеВнутри(player) === 'щётка' && player.z < 3.2) {         // выйти через ворс щётки
+        if (ВИХРЬ.вкл || ВН.поток) { bigMsg('пылесос гудит — поток не выпускает!', 1.4, '#fca5a5'); return true; }
+        if (беда !== 'свободен') { bigMsg('🤝 без друга не уходим!', 1.4, '#fca5a5'); return true; }
+        выйтиНаружу('щётка');
+        if (player === П1 && П2.внутри) цель('👀 Ты снаружи! Жди друга у щётки — он бежит следом');
+        if (player === П2 && П1.внутри) цель2('👀 Ты снаружи! Жди друга у щётки');
+        return true; }
+      if (player === П1 && player.внутри && гдеВнутри(player) === 'мешок' && беда === 'в комке') { bigMsg('друг где-то тут — ищи комок пыли!', 1.4, '#fde68a'); return true; }
+    } };
+  say('👥 Великан пылесосит ковёр! Друг (справа) играет прямо на пути щётки… Ты (слева) — замри 🧸 или спрячься, чтобы великан не заметил!', 9);
+}
+
+/* ═══════════ 👥 ВДВОЁМ: ЖВАЧКА В МОРОЗИЛКЕ ═══════════
+   Друг (второй игрок) примёрз к жвачке и мёрзнет — ему надо топать ногами ✋, чтобы не замёрзнуть.
+   Первый бежит на кухню, втыкает фен в розетку и включает. Жвачка тает — выбегают вдвоём. */
+function эпЖвачкаВдвоём() {
+  const П1 = И1.player, П2 = И2.player;
+  Object.assign(П1, { x:70, z:-70 });
+  Object.assign(П2, { x:34, y:3.4, z:-150.5, h:0.2, застрял:true });
+  И2.yaw = 0.2; И2.pitch = 0.35;
+  ХОЛ.холод = 0; ХОЛ.холод2 = 0; let шаг = 'фен', топотКд = 0;
+  const вМороз = п => п.x > 23.5 && п.x < 44.5 && п.z > -163 && п.z < -140 && п.y < 20;
+  сюжет = { лимит:180, цель:'🧊 Друг примёрз к жвачке в морозилке! Беги на кухню: воткни вилку фена в розетку ✋ (стена слева от холодильника) и включи фен ✋',
+    цель2:'🥶 Ты примёрз к жвачке! Топай ✋ ногами, чтобы не замёрзнуть, — и жди друга',
+    когдаВремя() { итог(false, '🧊 ДВЕРЦА ЗАХЛОПНУЛАСЬ!', 'Великан закрыл морозилку. Надо было быстрее растопить жвачку!'); },
+    действие() {
+      const у = (x, z, r) => Math.hypot(player.x - x, player.z - z) < r;
+      if (player === П2 && П2.застрял) { if (топотКд <= 0) { топотКд = 0.3; ХОЛ.холод2 = Math.max(0, ХОЛ.холод2 - 0.05);
+          Snd.тон(140, 0.08, 'square', 0.05, 90); if (Math.random() < 0.3) крикнуть(Math.random() < 0.5 ? 'БРРР!' : 'ПОМОГИ!', '#0284c7'); } return true; }
+      if (!ХОЛ.вставлен && у(26, -126, 4) && player.y < 2) { ХОЛ.вставлен = true; ХОЛ.вилка.position.set(21.4, 12, -128); ХОЛ.вилка.rotation.y = Math.PI/2; Snd.клик();
+        bigMsg('🔌 ФЕН В РОЗЕТКЕ', 1.6, '#fde68a'); цель('💨 Теперь включи фен ✋ — красная кнопка на ручке'); return true; }
+      if (у(ХОЛ.фен.x, ХОЛ.фен.z, 9) && player.y < 9) {
+        if (!ХОЛ.вставлен) { bigMsg('фен не включается — вилка не в розетке!', 1.6, '#fca5a5'); return true; }
+        if (!ХОЛ.вкл) { ХОЛ.вкл = true; Snd.тон(200, 0.3, 'sawtooth', 0.04, 600); bigMsg('💨 ФЕН ДУЕТ ТЁПЛЫМ!', 1.8, '#fdba74');
+          шаг = 'тает'; цель('🍬 Тёплый воздух летит в морозилку — жвачка тает…'); цель2('🍬 Тепло! Жвачка тает — держись!'); } return true; }
+    },
+    тик(dt) { топотКд -= dt;
+      $('холод').style.display = 'block'; $('холод2').classList.add('вкл');
+      if (вМороз(П1)) ХОЛ.холод = Math.min(1, ХОЛ.холод + dt*(ХОЛ.вкл ? 0.012 : 0.035)); else ХОЛ.холод = Math.max(0, ХОЛ.холод - dt*0.08);
+      if (П2.застрял) ХОЛ.холод2 = clamp(ХОЛ.холод2 + dt*(ХОЛ.вкл ? -0.02 : 0.009), 0, 1);
+      else if (вМороз(П2)) ХОЛ.холод2 = Math.min(1, ХОЛ.холод2 + dt*(ХОЛ.вкл ? 0.012 : 0.035)); else ХОЛ.холод2 = Math.max(0, ХОЛ.холод2 - dt*0.08);
+      $('холод').querySelector('b').style.width = (ХОЛ.холод*100) + '%'; $('холод2').querySelector('b').style.width = (ХОЛ.холод2*100) + '%';
+      if (ХОЛ.холод >= 1) { итог(false, '❄ ТЫ ЗАМЁРЗ!', 'В морозилке холодно. Сначала включи фен — а потом уже лезь к другу!'); return; }
+      if (ХОЛ.холод2 >= 1) { итог(false, '❄ ДРУГ ЗАМЁРЗ!', 'Другу надо было топать ногами ✋, а тебе — быстрее включить фен!'); return; }
+      if (ХОЛ.вкл && шаг === 'тает') { ХОЛ.тает = Math.min(1, ХОЛ.тает + dt/9);
+        ХОЛ.жвачка.material.color.setHSL(0.92, 0.8, 0.7 + ХОЛ.тает*0.08); ХОЛ.жвачка.scale.y = 0.45 - ХОЛ.тает*0.2;
+        цель('🍬 Жвачка тает: ' + Math.round(ХОЛ.тает*100) + '%'); цель2('🍬 Жвачка тает: ' + Math.round(ХОЛ.тает*100) + '% — держись!');
+        if (ХОЛ.тает >= 1) { шаг = 'вон'; П2.застрял = false; bigMsg('🍬 ЖВАЧКА РАСТАЯЛА — ДРУГ СВОБОДЕН!', 2.4, '#f9a8d4');
+          цель('🏃 Выбегайте из морозилки — оба, на тёплый пол!'); цель2('🏃 Ты свободен! Выпрыгивай из морозилки на тёплый пол!'); } }
+      if (шаг === 'вон' && !вМороз(П1) && !вМороз(П2) && П1.z > -138 && П2.z > -138) { шаг = 'конец';
+        итог(true, '🧊 ДРУГ ОТТАЯЛ — ВДВОЁМ!', 'Друг топал ногами, а ты включил фен — и жвачка отпустила. Хорошо, что фен тоже бытовая техника!'); }
+    } };
+  say('👥 Друг (справа) полез в морозилку за мороженым и примёрз к жвачке! Ему — топать ✋, чтобы не замёрзнуть. Тебе (слева) — бегом на кухню, к фену!', 9);
+}
+
+/* ═══════════ 👥 ВДВОЁМ: СТИРАЛЬНАЯ БУРЯ ═══════════
+   Друга (второго игрока) крутит в барабане — он смотрит сквозь стекло дверцы и стучит ✋.
+   Первый лезет по полотенцу наверх, жмёт «Стоп» и открывает дверцу. */
+function эпСтиркаВдвоём() {
+  const П1 = И1.player, П2 = И2.player;
+  Object.assign(П1, { x:60, z:-95 });
+  СТИР.крутит = true; СТИР.барабан.add(И2.герой.g); И2.герой.g.position.set(0, -6, 0); И2.герой.g.rotation.set(0, 0, Math.PI/2);
+  Object.assign(П2, { x:84, y:15, z:-122, привязан:СТИР.барабан, застрял:true, вид:{ поз:new THREE.Vector3(84, 15.5, -122), тип:'барабан' } });
+  И2.yaw = -Math.PI/2; И2.pitch = 0.3;               // изнутри барабана — лицом к стеклу дверцы
+  СТИР.пена.material.opacity = 0.35;
+  let шаг = 'стоп', ост = 60, стукКд = 0;
+  сюжет = { лимит:60, цель:'🧺 Друга крутит в стиральной машине! Залезь наверх по полотенцу и нажми СТОП ✋',
+    цель2:'🌀 Тебя крутит в барабане! Стучи ✋ в стекло — зови друга на помощь!',
+    когдаВремя() { итог(false, '🌀 ОТЖИМ!', 'Машина включила отжим — друга так закрутило, что он теперь самый чистый в мире. Надо было успеть нажать «Стоп»!'); },
+    действие() {
+      if (player === П2) { if (П2.привязан && стукКд <= 0) { стукКд = 0.45; Snd.тон(210, 0.07, 'square', 0.08, 120); if (Math.random() < 0.45) крикнуть('ПОМОГИТЕ!', '#dc2626'); } return true; }
+      if (шаг === 'стоп' && player.y > 32 && Math.hypot(player.x - 88, player.z + 114) < 7) { шаг = 'дверца'; СТИР.крутит = false; СТИР.пена.visible = false;
+        СТИР.кнопка.material.color.setHex(0xef4444); СТИР.кнопка.material.emissive.setHex(0xef4444); табло('ПАУЗА', '#fca5a5'); Snd.клик();
+        bigMsg('⏸ СТОП!', 2, '#86efac'); цель('🚪 Слезай и открой дверцу ✋ — ручка справа от иллюминатора'); цель2('😵 Барабан встал! Друг сейчас откроет дверцу'); return true; }
+      if (Math.hypot(player.x - 75, player.z + 114) < 6 && player.y < 20) {
+        if (шаг === 'стоп') { bigMsg('🔒 дверца заблокирована — сначала «Стоп»!', 1.8, '#fca5a5'); return true; }
+        if (шаг === 'дверца') { шаг = 'конец'; СТИР.открыта = true; СТИР.дверца.rotation.y = -1.9; Snd.тон(300, 0.3, 'triangle', 0.05, 500);
+          scene.attach(И2.герой.g); И2.герой.g.rotation.set(0, 0, 0);
+          Object.assign(П2, { привязан:null, застрял:false, вид:null, x:72, y:0, z:-118, h:-1.5, vy:0 }); И2.yaw = -1.5; И2.pitch = 0.32;
+          вКонтексте(И2, () => камера(0, true));
+          bigMsg('🧺 ДРУГ СВОБОДЕН!', 2.2, '#86efac');
+          dcLater(() => итог(true, '🧺 ДРУГ СВОБОДЕН — ВДВОЁМ!', 'Друг стучал в стекло, а ты успел: «Стоп», дверца — и он на свободе. Мокрый, в пене, но очень чистый!'), 1500); return true; } }
+    },
+    тик(dt) { ост -= dt; стукКд -= dt; if (СТИР.крутит) табло('0:' + String(Math.max(0, Math.ceil(ост))).padStart(2, '0'), '#60a5fa');
+      if (П2.привязан) { const v = И2.герой.g.getWorldPosition(new THREE.Vector3()); П2.x = v.x; П2.y = v.y; П2.z = v.z; } } };
+  say('👥 Друг (справа) прыгал по белью и свалился в стиральную машину! Она стирает, а через минуту — ОТЖИМ. Ты (слева) — скорее на кухню!', 9);
+}
+
+/* ═══════════ 🙈 ПРЯТКИ (замысел Марка 27.09) ═══════════
+   «Режим прятки. Ты находишься в комнате, и появляется вода. Он находится рядом с телевизором.
+   И ты можешь спрятаться в любом бытовом приборе за определённое время. А потом он начнёт тебя
+   искать. Будет 8 ботов. И один из них будет этим водой, кто ищет.»
+   Вода (Шуруп) считает у телевизора с повязкой на глазах, 7 человечков и ты разбегаетесь по
+   приборам: пылесос, будильник, морозилка, стиральная машина, тостер, чайник, фен, робот,
+   телевизор. Потом он ходит и проверяет приборы, а кто бегает на виду — того «засекает».
+   Глубоко спрятался (в мешке пылесоса, в механизме будильника) — найти труднее. */
+const ПРЯТ = { есть:false, фаза:null, t:0, вода:null, боты:[], места:[], порядок:[], найдено:0, робот:{ x:-62, z:40 } };
+const СЧЁТ = 30, ПОИСК = 80;                                   // секунд считает и ищет
+const ИМЕНА_БОТОВ = [['Винтик', 0x2563eb, 0xfacc15], ['Шпунтик', 0x0891b2, 0xf97316], ['Кнопка', 0xdb2777, 0x22c55e], ['Пружинка', 0xa855f7, 0xfde047],
+  ['Гаечка', 0xf59e0b, 0x7c3aed], ['Болтик', 0x65a30d, 0xef4444], ['Скрепка', 0x94a3b8, 0x0ea5e9]];
+const Д = (x, y, z, лезть) => ({ x, y, z, лезть:!!лезть });
+const ДВЕРЬ_К = [Д(70, 0, -70), Д(70, 0, -88)];               // через дверь на кухню
+function пряткиМеста() {
+  const щ = (x, z) => ВИХРЬ.щётка.localToWorld(new THREE.Vector3(x, 0, z));
+  const щВход = щ(0, 1.5), щПеред = щ(0, 6), Р = ПРЯТ.робот;
+  const V = (x, y, z) => new THREE.Vector3(x, y, z);
+  return [
+    { id:'пылесос',  em:'🌪', имя:'в пылесосе',        тип:'нутро',  путь:[Д(щПеред.x, 0, щПеред.z), Д(щВход.x, 0, щВход.z)], проверка:Д(щПеред.x, 0, щПеред.z), глубоко:true },
+    { id:'будильник',em:'⏰', имя:'в будильнике',       тип:'часы',   путь:[Д(-12, 0, -46), Д(-18.5, 0, -52), Д(-18.5, 22, -52, 1), Д(-23, 22, -52), Д(-22, 22, -49.6)], проверка:Д(-15, 0, -49), глубоко:true },
+    { id:'морозилка',em:'🧊', имя:'в морозилке',        тип:'морозилка', путь:[...ДВЕРЬ_К, Д(44, 0, -128), Д(34, 0, -139), Д(34, 3.4, -147), Д(29 + Math.random()*8, 3.4, -152)], проверка:Д(34, 0, -137), видно:true },
+    { id:'стиралка', em:'🧺', имя:'в стиральной машине', тип:'щёлка', путь:[...ДВЕРЬ_К, Д(70, 0, -110), Д(73.5, 0, -120)], проверка:Д(70, 0, -118),
+      вход:{ x:75, z:-116, r:7, y0:-1, y1:20 }, вид:{ поз:V(84, 15.5, -122), yaw:-Math.PI/2, q:0 }, выход:V(71.5, 0, -118) },
+    { id:'фен',      em:'💨', имя:'в фене',             тип:'щёлка', путь:[...ДВЕРЬ_К, Д(52, 0, -122), Д(40, 0, -130), Д(41.5, 0, -139)], проверка:Д(38, 0, -131),
+      вход:{ x:43, z:-137, r:6.5, y0:-1, y1:3 }, вид:{ поз:V(42.4, 4, -139.5), yaw:Math.atan2(-10, -10), q:0.05 }, выход:V(40, 0, -134) },
+    { id:'тостер',   em:'🍞', имя:'в тостере',          тип:'щёлка', путь:[...ДВЕРЬ_К, Д(86.5, 0, -143.9), Д(86.5, 36, -143.9, 1), Д(86.5, 36, -149), Д(72, 36, -152)], проверка:Д(70, 0, -142),
+      вход:{ x:70, z:-152, r:6, y0:35, y1:42 }, вид:{ поз:V(70, 40.6, -155.1), yaw:0, q:-0.05 }, выход:V(70, 36, -151.5) },
+    { id:'чайник',   em:'☕', имя:'в чайнике',          тип:'щёлка', путь:[...ДВЕРЬ_К, Д(86.5, 0, -143.9), Д(86.5, 36, -143.9, 1), Д(86.5, 36, -149), Д(90, 36, -152.2)], проверка:Д(90, 0, -142),
+      вход:{ x:90, z:-152, r:6, y0:35, y1:42 }, вид:{ поз:V(90, 46.6, -159), yaw:0.15, q:0.12 }, выход:V(88, 36, -151.5) },
+    { id:'робот',    em:'🤖', имя:'в роботе-пылесосе',  тип:'щёлка', путь:[Д(Р.x + 9, 0, Р.z), Д(Р.x + 6.2, 0, Р.z)], проверка:Д(Р.x + 11, 0, Р.z - 4),
+      вход:{ x:Р.x, z:Р.z, r:8, y0:-1, y1:4 }, вид:{ поз:V(Р.x + 4.6, 1.6, Р.z), yaw:Math.PI/2, q:-0.05 }, выход:V(Р.x + 8, 0, Р.z) },
+    { id:'телевизор',em:'📺', имя:'за телевизором',     тип:'щёлка', путь:[Д(80.4, 0, -21), Д(80.4, 20, -21, 1), Д(85, 20, -21), Д(90, 20, -29), Д(98.5, 20, -28), Д(98.5, 20, -14)], проверка:Д(79, 0, -30),
+      вход:{ x:97, z:-18, r:8, y0:19, y1:24 }, вид:{ поз:V(98.6, 22.5, -26.5), yaw:-1.35, q:0.28 }, выход:V(98.5, 20, -28) },
+  ];
+}
+/* 🎨 человечки для пряток: вода (красный, с повязкой) и семеро */
+function пряткиСоздать() {
+  if (ПРЯТ.есть) return; ПРЯТ.есть = true;
+  const вода = человечек({ куртка:0xdc2626, тёмн:0x7f1d1d, штаны:0x1f2937, кепка:0x111827, рюк:0xf59e0b }); scene.add(вода.g); dcSuit(вода.g);
+  const повязка = new THREE.Mesh(new THREE.CylinderGeometry(0.285, 0.285, 0.1, 22, 1, true), new THREE.MeshStandardMaterial({ color:0x111111, roughness:0.8, side:THREE.DoubleSide }));
+  повязка.position.y = 1.72; вода.g.add(повязка);
+  const фонарь = new THREE.Group(); фонарь.position.set(0, -0.62, 0.06); вода.руки[1].add(фонарь);
+  фонарь.add(new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 0.34, 10), мат.металл(0x334155, 0.35)));
+  const луч = new THREE.Mesh(new THREE.ConeGeometry(1.1, 5, 18, 1, true), new THREE.MeshBasicMaterial({ color:0xfff3c4, transparent:true, opacity:0.22, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.DoubleSide }));
+  луч.position.y = -2.6; фонарь.add(луч); луч.visible = false;
+  // табличка «ВОДА» и пузырь со счётом
+  const надпись = (текст, цв) => { const c = document.createElement('canvas'); c.width = 256; c.height = 96; const g = c.getContext('2d');
+    const т = new THREE.CanvasTexture(c); т.colorSpace = THREE.SRGBColorSpace;
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map:т, depthTest:false })); sp.renderOrder = 7; sp.raycast = () => {}; scene.add(sp);
+    sp.нарисовать = (т2, цв2, фон) => { g.clearRect(0, 0, 256, 96); g.fillStyle = фон || '#dc2626'; g.strokeStyle = '#fff'; g.lineWidth = 5;
+      g.beginPath(); g.roundRect(6, 6, 244, 70, 22); g.fill(); g.stroke(); g.fillStyle = цв2 || '#fff'; g.font = '900 44px system-ui'; g.textAlign = 'center'; g.fillText(т2, 128, 57); т.needsUpdate = true; };
+    sp.нарисовать(текст, цв); sp.scale.set(3, 1.12, 1); return sp; };
+  const табличка = надпись('👁 ВОДА'), счёт = надпись('1', '#111', '#fde68a'); счёт.scale.set(3.6, 1.35, 1);
+  ПРЯТ.вода = { ч:вода, повязка, луч, табличка, счёт, x:72, y:0, z:0, h:Math.PI/2, скор:8.5, путь:[], фаза:0, дело:'считает', t:0, цель:null, видит:0 };
+  ПРЯТ.боты = ИМЕНА_БОТОВ.map(([имя, к, кеп]) => { const ч = человечек({ куртка:к, тёмн:new THREE.Color(к).multiplyScalar(0.6).getHex(), штаны:0x334155, кепка:кеп, рюк:кеп });
+    scene.add(ч.g); dcSuit(ч.g); return { имя, ч, x:0, y:0, z:0, h:0, скор:8, путь:[], фаза:0, место:null, дело:'стоит', t:0 }; });
+  [вода.g, ...ПРЯТ.боты.map(б => б.ч.g), табличка, счёт].forEach(o => o.visible = false);
+}
+function пряткиСброс() {
+  if (!ПРЯТ.есть) return;
+  ПРЯТ.фаза = null; [ПРЯТ.вода.ч.g, ПРЯТ.вода.табличка, ПРЯТ.вода.счёт, ...ПРЯТ.боты.map(б => б.ч.g)].forEach(o => o.visible = false);
+  $('глазВоды').style.display = 'none';
+}
+/* 🚶 шаг бота по дорожке точек: по полу — с толчками о мебель, по проводу — вверх/вниз */
+function ботШаг(б, dt) {
+  const w = б.путь[0]; if (!w) return true;
+  if (w.лезть) { const dy = w.y - б.y; б.y += Math.sign(dy)*Math.min(Math.abs(dy), 5.5*dt); б.x += (w.x - б.x)*Math.min(1, dt*6); б.z += (w.z - б.z)*Math.min(1, dt*6);
+    б.лезет = true; б.фаза += dt*8; if (Math.abs(w.y - б.y) < 0.02) { б.лезет = false; б.путь.shift(); } return false; }
+  б.лезет = false;
+  const dx = w.x - б.x, dz = w.z - б.z, d = Math.hypot(dx, dz);
+  if (d < 0.6) { б.y = w.y; б.путь.shift(); return б.путь.length === 0; }
+  const v = Math.min(d, б.скор*dt); б.y += (w.y - б.y)*Math.min(1, dt*8);
+  const n = { x:б.x + dx/d*v, y:б.y, z:б.z + dz/d*v };
+  if (б.обход > 0) { б.обход -= dt; n.x += -dz/d*б.скор*dt*б.знак; n.z += dx/d*б.скор*dt*б.знак; }
+  вытолкнуть(n);
+  if (Math.hypot(n.x - б.x, n.z - б.z) < v*0.3) { if ((б.застр = (б.застр || 0) + dt) > 0.5) { б.застр = 0; б.обход = 0.8; б.знак = Math.random() < 0.5 ? -1 : 1; } } else б.застр = 0;
+  б.x = n.x; б.z = n.z; б.h = Math.atan2(dx, dz); б.фаза += б.скор*dt*1.7;
+  return false;
+}
+function ботПоза(б, идёт) {
+  const g = б.ч.g; g.position.set(б.x, б.y, б.z); g.rotation.set(0, б.h, 0);
+  const [лн, пн] = б.ч.ноги, [лр, пр] = б.ч.руки, ф = Math.sin(б.фаза);
+  if (б.лезет) { лр.rotation.x = -2.6 + ф*0.5; пр.rotation.x = -2.6 - ф*0.5; лн.rotation.x = -0.6 - ф*0.4; пн.rotation.x = -0.6 + ф*0.4; return; }
+  if (б.присел) { лн.rotation.x = пн.rotation.x = -1.2; лр.rotation.x = пр.rotation.x = -0.6; g.position.y = б.y - 0.35; return; }
+  const к = идёт ? 1 : 0; лн.rotation.x = ф*0.8*к; пн.rotation.x = -ф*0.8*к; лр.rotation.x = -ф*0.7*к; пр.rotation.x = ф*0.7*к;
+}
+/* путь по полу из комнаты на кухню и обратно — через дверь */
+function путьПоПолу(от, до) {
+  const кух = т => т.z < -80, п = [];
+  if (!кух(от) && кух(до)) п.push(...ДВЕРЬ_К); else if (кух(от) && !кух(до)) п.push(Д(70, 0, -88), Д(70, 0, -70));
+  п.push(Д(до.x, 0, до.z)); return п;
+}
+/* 🙈 игрок прячется в прибор / вылезает */
+function спрятатьсяВ(м) {
+  player.спрятан = м; player.замер = false; document.body.classList.remove(КЛАСС_ЗАМЕР);
+  герой.g.visible = false; player.вид = { поз:м.вид.поз.clone() }; yaw = м.вид.yaw; pitch = 0.3 + м.вид.q; player.скор = 0;
+  Snd.тон(420, 0.12, 'triangle', 0.05, 260); bigMsg('🙈 СПРЯТАЛСЯ ' + м.имя.toUpperCase(), 1.8, '#fde68a');
+  say('Тсс! Ты ' + м.имя + '. Можно выглядывать — крути камерой. ✋ — вылезти.', 6);
+}
+function вылезти() {
+  const м = player.спрятан; if (!м) return;
+  player.спрятан = null; player.вид = null; герой.g.visible = true;
+  Object.assign(player, { x:м.выход.x, y:м.выход.y, z:м.выход.z, vy:0, h:Math.atan2(м.выход.x - м.вид.поз.x, м.выход.z - м.вид.поз.z) }); yaw = player.h; pitch = 0.32;
+  камера(0, true); bigMsg('🏃 ВЫЛЕЗ', 1, '#a7f3d0');
+}
+/* где сейчас прячется игрок (для проверки водой) */
+function гдеПрячется(q) {
+  if (q.спрятан) return q.спрятан.id;
+  if (q.внутри) return 'пылесос';
+  if (q.вЧасах) return 'будильник';
+  if (q.x > 23.5 && q.x < 44.5 && q.z > -163 && q.z < -140 && q.y < 20) return 'морозилка';
+  return null;
+}
+function насколькоГлубоко(q, id) {                          // 1 — найдёт точно; меньше — может не разглядеть
+  if (id === 'пылесос') return гдеВнутри(q) === 'щётка' ? 1 : 0.35;
+  if (id === 'будильник') return q.x < ЧАС.x - 22 ? 1 : 0.4;
+  return 1;
+}
+function начатьПрятки() {
+  пряткиСоздать();
+  запуститьРежим('прятки', () => {
+    const П = ПРЯТ, В = П.вода; П.места = пряткиМеста(); П.фаза = 'счёт'; П.t = 0; П.найдено = 0; П.порядок = [];
+    сюжет = { id:'прятки', лимит:СЧЁТ + ПОИСК, входВЩётку:true, цель:'🙈 Шуруп считает до ' + СЧЁТ + '! Беги и прячься в любой прибор: пылесос, будильник, морозилка, стиралка, тостер, чайник, фен, робот, телевизор',
+      когдаВремя() { пряткиКонец(true); }, тик(dt) { пряткиТик(dt); }, действие() { return пряткиДействие(); }, засосало() { return false; } };
+    ВН.щельОткрыта = true;
+    роботПоказать(П.робот.x, П.робот.z); РОБ.пов = -Math.PI/2; роботСтоп();
+    // вода у телевизора, лицом к экрану, с повязкой
+    Object.assign(В, { x:76, y:0, z:0, h:Math.PI/2, путь:[], дело:'считает', t:0, цель:null, видит:0, круг:0 });
+    В.ч.g.visible = true; В.повязка.visible = true; В.табличка.visible = true; В.счёт.visible = true; В.луч.visible = false;
+    // все стоят полукругом за его спиной
+    const места = П.места, занято = {};
+    П.боты.forEach((б, i) => { const a = -1.1 + i*0.37;
+      Object.assign(б, { x:66 - Math.cos(a)*6, y:0, z:Math.sin(a)*9, h:-Math.PI/2, путь:[], дело:'бежит', место:null, лезет:false, присел:false, найден:false, t:0 });
+      let м; do { м = места[Math.floor(Math.random()*места.length)]; } while ((занято[м.id] || 0) >= (м.id === 'пылесос' ? 3 : 1) && Object.keys(занято).length < места.length);
+      занято[м.id] = (занято[м.id] || 0) + 1; б.место = м; б.путь = м.путь.map(w => ({ ...w })); б.задержка = Math.random()*1.5;
+      б.ч.g.visible = true; ботПоза(б, false); });
+    каждый(() => { Object.assign(player, { x:62 + (активный === И2 ? 0 : 3), z:активный === И2 ? 5 : -5, y:0, h:-Math.PI/2 }); yaw = -Math.PI/2; pitch = 0.3; });
+    bigMsg('🙈 ПРЯТКИ!', 2.4, '#fde68a');
+    say('👁 Водит Шуруп (в красной куртке). Пока он считает до ' + СЧЁТ + ' у телевизора — прячься в любой прибор! В пылесос — забеги в щётку, в будильник — ✋ на тумбочке, в остальные — ✋ рядом.', 11);
+  });
+}
+function пряткиДействие() {
+  if (player.найден) { bigMsg('тебя уже нашли — смотри, как прячутся другие', 1.4, '#cbd5e1'); return true; }
+  if (player.спрятан) { вылезти(); return true; }
+  if (player.вЧасах) { if (player.x < ЧАС.x - 26 && player.y < 5) { выйтиИзЧасов(); bigMsg('⏰ ВЫЛЕЗ ИЗ БУДИЛЬНИКА', 1.4, '#a7f3d0'); }
+    else bigMsg('выход — там, где залез: внизу слева', 1.4, '#cbd5e1'); return true; }
+  if (player.внутри) return false;                        // из пылесоса — как обычно: ✋ у ворса щётки
+  if (Math.hypot(player.x - БУД.x, player.z - БУД.z) < 6 && player.y > БУД.y - 1) { войтиВЧасы(); say('Тсс! Ты в будильнике. Шестерёнки — отличное укрытие. Чем дальше заберёшься — тем труднее найти. Выход — ✋ внизу у входа.', 8); return true; }
+  for (const м of ПРЯТ.места) { const в = м.вход; if (!в) continue;
+    if (Math.hypot(player.x - в.x, player.z - в.z) < в.r && player.y >= в.y0 && player.y <= в.y1) { спрятатьсяВ(м); return true; } }
+  bigMsg('🙈 тут не спрятаться — нужен прибор!', 1.3, '#cbd5e1');
+  return true;
+}
+function нашёлБота(б) {
+  б.найден = true; б.дело = 'домой'; б.присел = false; б.ч.g.visible = true; ПРЯТ.найдено++;
+  const м = б.место, пп = м.путь, обратно = [];
+  for (let i = пп.length - 2; i >= 0; i--) обратно.push({ ...пп[i], лезть:пп[i + 1].лезть });   // по проводу — теперь вниз
+  const x0 = пп[пп.length - 1]; Object.assign(б, { x:x0.x, y:x0.y, z:x0.z });
+  б.путь = [...обратно, ...путьПоПолу(обратно.length ? обратно[обратно.length - 1] : б, { x:58 + Math.random()*8, z:-22 + ПРЯТ.найдено*5 })];
+  bigMsg('👁 ТУК-ТУК, ' + б.имя.toUpperCase() + '!', 1.8, '#fca5a5'); Snd.тон(660, 0.12, 'square', 0.04, 440);
+}
+function нашёлИгрока(И, как) {
+  const q = И.player; if (q.найден) return;
+  вКонтексте(И, () => { if (player.спрятан) вылезти(); if (player.вЧасах) выйтиИзЧасов(); if (player.внутри) выйтиНаружу('щётка');
+    player.найден = true; player.замер = false; document.body.classList.remove(КЛАСС_ЗАМЕР); Object.assign(player, { x:60, y:0, z:14 + И.номер*3, vy:0 }); камера(0, true); });
+  bigMsg('👁 ТУК-ТУК! ' + (вдвоём ? (И === И2 ? 'ДРУГА' : 'ТЕБЯ') + ' НАШЛИ' : 'ТЕБЯ НАШЛИ') + '!', 2.2, '#fca5a5'); Snd.тон(300, 0.4, 'sawtooth', 0.06, 150);
+  if (!вдвоём || ИГРОКИ().every(Я => Я.player.найден)) dcLater(() => пряткиКонец(false, как), 900);
+  else say((И === И2 ? 'Друга' : 'Тебя') + ' нашли (' + как + '). Держись, второй! Если он дотянет до конца — вы победили.', 7);
+}
+function пряткиКонец(время, как) {
+  if (state !== 'play' || !сюжет || сюжет.id !== 'прятки') return;
+  const целы = ИГРОКИ().filter(И => !И.player.найден), боты = ПРЯТ.найдено;
+  if (время && целы.length) итог(true, вдвоём && целы.length === 1 ? (целы[0] === И1 ? '🏆 ТЕБЯ НЕ НАШЛИ!' : '🏆 ДРУГА НЕ НАШЛИ!') : '🏆 НЕ НАШЁЛ!',
+    'Шуруп искал ' + ПОИСК + ' секунд и нашёл ' + боты + ' из 7 человечков' + (вдвоём && целы.length < 2 ? ' и одного из вас' : '') + '. А ' + (целы.length > 1 ? 'вы спрятались' : 'кто-то спрятался') + ' лучше всех!');
+  else итог(false, '🙈 ТУК-ТУК, НАШЁЛ!', 'Шуруп нашёл ' + (вдвоём ? 'вас обоих' : 'тебя') + (как ? ' (' + как + ')' : '') + '. Нашёл ещё ' + боты + ' из 7 человечков. Прячься глубже: в мешок пылесоса или в самую середину будильника!');
+}
+/* 🔁 каждый кадр: счёт → поиск */
+function пряткиТик(dt) {
+  const П = ПРЯТ, В = П.вода; П.t += dt; В.t += dt;
+  // человечки: бегут прятаться, прячутся, найденные идут домой
+  for (const б of П.боты) {
+    if (б.дело === 'бежит') { if ((б.задержка -= dt) > 0) { ботПоза(б, false); continue; }
+      if (ботШаг(б, dt)) { б.дело = 'спрятан'; if (б.место.видно) б.присел = true; else б.ч.g.visible = false; } ботПоза(б, true); }
+    else if (б.дело === 'спрятан') { if (б.присел) ботПоза(б, false); }
+    else if (б.дело === 'домой') { const ок = ботШаг(б, dt); ботПоза(б, !ок); if (ок) { б.дело = 'дома'; б.h = Math.PI/2; } }
+    else if (б.дело === 'дома') { б.фаза += dt*3; ботПоза(б, false); б.ч.руки[1].rotation.x = -2.6 + Math.sin(б.фаза*2)*0.4; }
+  }
+  В.табличка.position.set(В.x, В.y + 3.1, В.z);
+  if (П.фаза === 'счёт') {
+    const n = Math.min(СЧЁТ, Math.floor(П.t) + 1); if (n !== В.число) { В.число = n; В.счёт.нарисовать(String(n), '#111', '#fde68a'); if (n % 5 === 0) Snd.тон(520, 0.08, 'sine', 0.03, 520); }
+    В.счёт.position.set(В.x, В.y + 4.4, В.z); ботПоза(В, false); В.ч.руки[0].rotation.set(-2.3, 0, 0.62); В.ч.руки[1].rotation.set(-2.3, 0, -0.62); В.ч.g.rotation.y = В.h;   // ладони на глазах
+    const ост = Math.ceil(СЧЁТ - П.t); цель('🙈 Шуруп считает: ' + n + '… Прячься! Осталось ' + Math.max(0, ост) + ' с');
+    if (П.t >= СЧЁТ) { П.фаза = 'поиск'; В.дело = 'идёт'; В.повязка.visible = false; В.ч.руки.forEach(р => р.rotation.z = 0); В.счёт.visible = false; В.луч.visible = true;
+      bigMsg('👁 КТО НЕ СПРЯТАЛСЯ —\nЯ НЕ ВИНОВАТ!', 2.6, '#fca5a5'); Snd.тон(330, 0.3, 'square', 0.05, 440);
+      П.порядок = [...П.места].sort(() => Math.random() - 0.5); В.цель = null;
+      for (const б of П.боты) if (б.дело === 'бежит') { const к = б.место.путь[б.место.путь.length - 1];   // застрявший по дороге — «успел в последний миг»
+        Object.assign(б, { x:к.x, y:к.y, z:к.z, путь:[], дело:'спрятан', лезет:false }); if (б.место.видно) б.присел = true; else б.ч.g.visible = false; }
+      const ктоНаВиду = ИГРОКИ().filter(И => !гдеПрячется(И.player) && !И.player.найден);
+      if (ктоНаВиду.length) say('Время вышло! Ты не спрятался — Шуруп заметит тебя, если попадёшься на глаза. Замри 🧸 или беги в прибор!', 7); }
+    return;
+  }
+  if (П.фаза !== 'поиск') return;
+  // 🔎 вода ходит по приборам и проверяет
+  const осталосьБотов = П.боты.filter(б => !б.найден).length;
+  цель('🔦 Шуруп ищет! Найдено: ' + П.найдено + ' из 7' + (вдвоём ? '' : '. Не высовывайся!'));
+  if (В.дело === 'идёт') {
+    if (!В.цель) { if (!П.порядок.length) П.порядок = [...П.места].sort(() => Math.random() - 0.5);
+      В.цель = П.порядок.shift(); В.путь = путьПоПолу(В, В.цель.проверка); }
+    if (ботШаг(В, dt)) { В.дело = 'смотрит'; В.t = 0; }
+    ботПоза(В, true);
+  } else if (В.дело === 'смотрит') {
+    const м = В.цель, цx = м.вход ? м.вход.x : м.путь[м.путь.length - 1].x, цz = м.вход ? м.вход.z : м.путь[м.путь.length - 1].z;
+    В.h = Math.atan2(цx - В.x, цz - В.z); ботПоза(В, false); В.ч.руки[1].rotation.x = -1.6 - Math.sin(В.t*3)*0.4;
+    if (В.t > 2.3) {
+      let кого = 0;
+      for (const б of П.боты) if (!б.найден && б.дело === 'спрятан' && б.место.id === м.id && Math.random() < (м.глубоко ? 0.55 : 1)) { нашёлБота(б); кого++; }
+      for (const И of ИГРОКИ()) { const q = И.player; if (q.найден || гдеПрячется(q) !== м.id) continue;
+        if (Math.random() < насколькоГлубоко(q, м.id)) { нашёлИгрока(И, м.имя); кого++; }
+        else { bigMsg('🔦 «Тут темно… никого»', 1.6, '#cbd5e1'); } }
+      if (!кого) Snd.тон(240, 0.1, 'sine', 0.03, 200);
+      В.дело = 'идёт'; В.цель = null;
+      if (!осталосьБотов && ИГРОКИ().every(И => И.player.найден)) пряткиКонец(false);
+    }
+  }
+  // 👁 глаза: кто бегает на виду — того засекает
+  let макс = 0;
+  for (const И of ИГРОКИ()) { const q = И.player; if (q.найден) continue;
+    if (гдеПрячется(q)) { И.видимВодой = Math.max(0, (И.видимВодой || 0) - dt*0.5); continue; }
+    const dx = q.x - В.x, dz = q.z - В.z, d = Math.hypot(dx, dz), перед = (dx*Math.sin(В.h) + dz*Math.cos(В.h))/(d || 1);
+    let r = 0; if (d < 32 && перед > 0.25 && Math.abs(q.y - В.y) < 30) r = (1.25 - d/32)*(q.скор > 1 ? 1.4 : 0.55)*(q.замер ? (d < 9 ? 0.6 : 0) : 1);
+    И.видимВодой = clamp((И.видимВодой || 0) + (r > 0 ? r*dt : -dt*0.4), 0, 1);
+    if (И.видимВодой > 0.35 && В.дело === 'идёт') В.h = Math.atan2(dx, dz);
+    if (И.видимВодой >= 1) { И.видимВодой = 0; нашёлИгрока(И, 'бегал на виду'); }
+    макс = Math.max(макс, И.видимВодой);
+  }
+  const гл = $('глазВоды'); гл.style.display = 'block'; гл.querySelector('b').style.width = (макс*100) + '%';
+  // морозилка: долго сидеть нельзя
+  каждый(() => { if (гдеПрячется(player) !== 'морозилка') { player.мёрзнет = Math.max(0, (player.мёрзнет || 0) - dt*0.1); return; }
+    player.мёрзнет = (player.мёрзнет || 0) + dt/28;
+    if (player.мёрзнет >= 1) { player.мёрзнет = 0.5; Object.assign(player, { x:34, y:0, z:-134, vy:0 }); bigMsg('🥶 БРРР! ВЫСКОЧИЛ ГРЕТЬСЯ', 1.8, '#bae6fd'); } });
+}
+
+/* ═══════════ ☕ ЭПИЗОД: ЧАЙНИК ЗАКИПАЕТ (новый, 27.09) ═══════════
+   Друг спрятался в чайнике, а великан включил его — вода греется! Залезь на столешницу по проводу,
+   выключи чайник красной кнопкой на подставке, потом по ручке — наверх, и открой крышку ✋.
+   👥 Вдвоём: друг (второй игрок) сидит в чайнике, видит тебя сквозь стенку и бултыхается ✋ —
+   брызги остужают воду, и она греется медленнее. */
+const ЧАЙ = { T:20, греет:false, крышка:null, кнопка:null, лампа:null, пар:[], пузыри:[], вода:null, открыта:false };
+function чайникДетали() {
+  сетка(new THREE.CylinderGeometry(6, 6.3, 0.9, 32), мат.пластик(0x1f2937, 0.4), 90, 36.45, -160);             // подставка
+  ЧАЙ.лампа = сетка(new THREE.TorusGeometry(6.08, 0.2, 8, 44), мат.светит(0x38bdf8, 0.15), 90, 36.8, -160); ЧАЙ.лампа.rotation.x = Math.PI/2;
+  ЧАЙ.кнопка = сетка(скругл(1.8, 1, 1.3, 0.35), мат.светит(0x64748b, 0.1), 93.2, 37.2, -154.8); ЧАЙ.кнопка.rotation.y = -0.6;
+  const нос = сетка(new THREE.CylinderGeometry(0.8, 1.5, 4.2, 16), мат.глянец(0xe2572b), 90, 44.4, -153.8); нос.rotation.x = 0.85;   // носик
+  const пет = new THREE.Group(); пет.position.set(90, 47.15, -163.2); scene.add(пет); ЧАЙ.крышка = пет;               // крышка на петле сзади
+  сетка(new THREE.CylinderGeometry(3.3, 3.45, 0.5, 32), мат.глянец(0xc2410c), 0, 0, 3.2, пет);
+  сетка(new THREE.SphereGeometry(0.85, 14, 10), мат.пластик(0x1f2937), 0, 0.55, 3.2, пет);
+  ЧАЙ.вода = сетка(new THREE.CircleGeometry(4.7, 32), new THREE.MeshStandardMaterial({ color:0x7dd3fc, transparent:true, opacity:0.5, roughness:0.08, side:THREE.DoubleSide }), 90, 41.2, -160);
+  ЧАЙ.вода.rotation.x = -Math.PI/2; ЧАЙ.вода.castShadow = false;
+  for (let i = 0; i < 26; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(rnd(0.7, 1.5), 8, 6), new THREE.MeshBasicMaterial({ color:0xf1f5f9, transparent:true, opacity:0.4, depthWrite:false }));
+    m.visible = false; scene.add(m); ЧАЙ.пар.push({ m, t:rnd(0, 2) }); }
+  for (let i = 0; i < 18; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(rnd(0.12, 0.3), 8, 6), new THREE.MeshStandardMaterial({ color:0xe0f2fe, transparent:true, opacity:0.7, roughness:0.1 }));
+    m.visible = false; scene.add(m); ЧАЙ.пузыри.push({ m, t:rnd(0, 1), x:rnd(-3.5, 3.5), z:rnd(-3.5, 3.5) }); }
+  лазалка(90, -168.4, 36, 47, { x:90, z:-161.5 }, 'ручка чайника', 1.8);
+}
+function чайникСброс() {
+  if (!ЧАЙ.крышка) return;
+  Object.assign(ЧАЙ, { T:20, греет:false, открыта:false }); ЧАЙ.крышка.rotation.x = 0; ЧАЙ.вода.position.y = 41.2;
+  ЧАЙ.лампа.material.emissiveIntensity = 0.15; ЧАЙ.кнопка.material.color.setHex(0x64748b); ЧАЙ.кнопка.material.emissive.setHex(0x64748b);
+  ЧАЙ.пар.forEach(q => q.m.visible = false); ЧАЙ.пузыри.forEach(q => q.m.visible = false); $('жар').style.display = 'none';
+}
+function чайникТик(dt) {
+  const k = clamp((ЧАЙ.T - 20)/80, 0, 1);
+  ЧАЙ.лампа.material.emissiveIntensity = ЧАЙ.греет ? 1.6 + Math.sin(time*4)*0.3 : 0.15;
+  ЧАЙ.вода.position.y = 41.2 + (ЧАЙ.греет ? Math.sin(time*9)*0.08*k : 0);
+  for (const q of ЧАЙ.пар) { if (k < 0.45 || ЧАЙ.открыта && !ЧАЙ.греет && ЧАЙ.T < 50) { q.m.visible = false; continue; }
+    q.t += dt*(0.5 + k*0.6); if (q.t > 2) q.t -= 2; q.m.visible = true;
+    const из = ЧАЙ.открыта ? [90, 47.5, -160] : [90, 46.5, -151.8];                               // пар из носика, а открыта — сверху
+    q.m.position.set(из[0] + Math.sin(q.t*3 + q.m.id)*1.4, из[1] + q.t*8, из[2] + Math.cos(q.t*2 + q.m.id)*1.2); q.m.material.opacity = 0.42*(1 - q.t/2)*k; }
+  for (const q of ЧАЙ.пузыри) { if (!ЧАЙ.греет || k < 0.25) { q.m.visible = false; continue; }
+    q.t += dt*(0.6 + k*1.8); if (q.t > 1) { q.t -= 1; q.x = rnd(-3.5, 3.5); q.z = rnd(-3.5, 3.5); } q.m.visible = true;
+    q.m.position.set(90 + q.x, 36.8 + q.t*4.4, -160 + q.z); }
+  const ж = $('жар'); ж.style.display = 'block'; ж.firstChild.textContent = '🌡 Вода в чайнике: ' + Math.round(ЧАЙ.T) + '° ';
+  ж.querySelector('b').style.width = (k*100) + '%';
+  if (ЧАЙ.греет && Math.random() < dt*(2 + k*10)) Snd.тон(rnd(90, 160), 0.06, 'sine', 0.02 + k*0.03, rnd(70, 110));   // буль-буль
+}
+function эпЧайник(вдвоёмИ) {
+  const П1 = И1.player, П2 = И2.player;
+  Object.assign(П1, { x:60, z:-95 }); ЧАЙ.греет = true; ЧАЙ.T = 24;
+  ЧАЙ.кнопка.material.color.setHex(0xef4444); ЧАЙ.кнопка.material.emissive.setHex(0xef4444);
+  let шаг = 'выключи', бултыхКд = 0, крикТ = 2;
+  if (вдвоёмИ) { Object.assign(П2, { x:90, y:39.2, z:-160, привязан:ЧАЙ.крышка, застрял:true, вид:{ поз:new THREE.Vector3(86.8, 43.2, -160.2), тип:'чайник' } });
+    И2.герой.g.visible = false; И2.yaw = -0.5; И2.pitch = 0.36; }
+  сюжет = { лимит:90, цель:'☕ Друг в чайнике, а чайник включён! Беги на кухню, залезь по проводу чайника на столешницу и выключи его — красная кнопка на подставке ✋',
+    цель2:'♨ Ты в чайнике, и вода греется! Бултыхайся ✋ — брызги остужают воду. Жди друга!',
+    когдаВремя() { итог(false, '☕ ВЕЛИКАН ПРИШЁЛ ЗА ЧАЕМ!', 'Он чуть не налил друга в чашку! Надо было быстрее: кнопка на подставке, потом по ручке наверх и ✋ — крышка.'); },
+    действие() {
+      if (вдвоёмИ && player === П2) { if (П2.привязан && бултыхКд <= 0) { бултыхКд = 0.35; ЧАЙ.T = Math.max(20, ЧАЙ.T - 0.55);
+          Snd.тон(rnd(300, 420), 0.07, 'sine', 0.05, 180); if (Math.random() < 0.3) крикнуть(Math.random() < 0.5 ? 'БУЛЬ!' : 'ГОРЯЧО!', '#dc2626'); } return true; }
+      if (шаг === 'выключи' && player.y > 35 && Math.hypot(player.x - 93.2, player.z + 154) < 4.5) { шаг = 'крышка'; ЧАЙ.греет = false;
+        ЧАЙ.кнопка.material.color.setHex(0x64748b); ЧАЙ.кнопка.material.emissive.setHex(0x64748b); Snd.клик(); bigMsg('🔌 ЩЁЛК! ЧАЙНИК ВЫКЛЮЧЕН', 2, '#86efac');
+        цель('🪜 Теперь открой крышку: обойди чайник сзади, залезь по ручке наверх и нажми ✋'); цель2('😮‍💨 Чайник выключен! Друг сейчас откроет крышку'); return true; }
+      if (player.y > 46 && Math.hypot(player.x - 90, player.z + 160) < 5.5 && !ЧАЙ.открыта) {
+        if (шаг === 'выключи') { bigMsg('♨ горячий пар! сначала выключи чайник', 1.8, '#fca5a5'); return true; }
+        ЧАЙ.открыта = true; ЧАЙ.крышка.rotation.x = -1.9; Snd.тон(300, 0.25, 'triangle', 0.05, 520); bigMsg('☕ КРЫШКА ОТКРЫТА!', 2, '#86efac');
+        if (вдвоёмИ) { Object.assign(П2, { привязан:null, застрял:false, вид:null, x:92, y:47, z:-158, vy:9, h:0 }); И2.герой.g.visible = true; И2.yaw = 0; И2.pitch = 0.32;
+          вКонтексте(И2, () => камера(0, true)); }
+        else { друг.g.visible = true; друг.g.position.set(90, 47, -160); друг.статус = 'выпрыгнул'; }
+        dcLater(() => итог(true, '☕ ДРУГ СПАСЁН ИЗ ЧАЙНИКА!', вдвоёмИ ? 'Друг бултыхался, чтобы вода не закипела, а ты выключил чайник и открыл крышку. Мокрые, тёплые — и вместе!'
+          : 'Кнопка на подставке, ручка-лестница и крышка — и друг выпрыгнул, мокрый и тёплый. Хорошо, что вода не успела закипеть!'), 1700);
+        return true; }
+    },
+    тик(dt) { бултыхКд -= dt;
+      if (ЧАЙ.греет) ЧАЙ.T = Math.min(100, ЧАЙ.T + dt*1.55); else ЧАЙ.T = Math.max(20, ЧАЙ.T - dt*0.6);
+      чайникТик(dt);
+      if (ЧАЙ.T >= 100 && шаг === 'выключи') { итог(false, '♨ БУЛЬ-БУЛЬ! ВСКИПЕЛ!', 'Друг выскочил из чайника красный, как варёный рак! Выключать надо быстрее — красная кнопка на подставке.'); return; }
+      if (!вдвоёмИ && !ЧАЙ.открыта && (крикТ -= dt) <= 0) { крикТ = 5; крик.visible = true; крик.т = 1.8; крик.кто = { x:90, y:44, z:-160 };
+        const c = крик.холст, g = c.getContext('2d'); g.clearRect(0, 0, 320, 120); g.fillStyle = '#fff'; g.strokeStyle = '#111'; g.lineWidth = 6;
+        g.beginPath(); g.roundRect(8, 8, 304, 78, 24); g.fill(); g.stroke(); g.fillStyle = '#dc2626'; g.font = '900 44px system-ui'; g.textAlign = 'center';
+        g.fillText('ГОРЯЧО!', 160, 64); крик.текстура.needsUpdate = true; }
+      if (!вдвоёмИ && друг.статус === 'выпрыгнул') { const P = друг.g.position; if (P.y > 36) { P.y = Math.max(36, P.y - dt*6); P.z += dt*4; } друг.g.rotation.y = 0; }
+    } };
+  say(вдвоёмИ ? '👥 Друг (справа) спрятался в чайнике, а великан включил его! Друг — бултыхайся ✋. Ты (слева) — скорее на кухню выключать!'
+    : '☕ Друг спрятался в чайнике, а великан его ВКЛЮЧИЛ! Вода греется… Беги на кухню!', 9);
+}
+
+/* ═══════════ 🤖 ЭПИЗОД: РОБОТ УВЁЗ ДРУГА (новый, 27.09) ═══════════
+   Робот-пылесос засосал друга в прозрачный контейнер для пыли и катается по комнате. Догони,
+   запрыгни сверху, нажми ⏻ — и открой контейнер ✋. Под носом у робота не бегай — засосёт!
+   👥 Вдвоём: друг (второй игрок) едет в контейнере и смотрит вперёд, стучит ✋ — робот «икает» и встаёт. */
+function роботБак() {
+  if (РОБ.бак) return;
+  const б = new THREE.Group(); б.position.set(0, 3.3, -3.4); РОБ.g.add(б); РОБ.бак = б;
+  const стекло = new THREE.Mesh(скругл(5.4, 2.6, 3.4, 0.5), new THREE.MeshStandardMaterial({ color:0xbfe3ff, transparent:true, opacity:0.32, roughness:0.05, depthWrite:false }));
+  стекло.position.y = 1.3; б.add(стекло);
+  const пыль = new THREE.Mesh(скругл(5, 0.6, 3, 0.3), new THREE.MeshStandardMaterial({ color:0x9a8f80, roughness:1 })); пыль.position.y = 0.3; б.add(пыль);
+  const кр = new THREE.Group(); кр.position.set(0, 2.6, -1.7); б.add(кр); РОБ.бакКрышка = кр;             // крышка на петле сзади
+  const кМ = new THREE.Mesh(скругл(5.5, 0.35, 3.5, 0.15), мат.пластик(0x2b2e36, 0.4)); кМ.position.set(0, 0.1, 1.7); кр.add(кМ);
+  const защ = new THREE.Mesh(скругл(1.4, 0.5, 0.6, 0.2), мат.светит(0xf59e0b, 0.6)); защ.position.set(0, 0.35, 3.3); кр.add(защ);
+  б.visible = false;
+}
+function эпУвёз(вдвоёмИ) {
+  const П1 = И1.player, П2 = И2.player;
+  роботБак(); РОБ.бак.visible = true; РОБ.бакКрышка.rotation.x = 0;
+  роботПоказать(-20, 30); РОБ.скор = 7.5; Object.assign(П1, { x:50, z:-60 });
+  const сидит = вдвоёмИ ? И2.герой : друг;
+  РОБ.бак.add(сидит.g); сидит.g.position.set(0, 0.55, 0); сидит.g.rotation.set(0, 0, 0); сидит.g.scale.setScalar(0.95); сидит.g.visible = true;
+  сидит.ноги.forEach(н => н.rotation.x = -1.4); сидит.руки.forEach(р => р.rotation.x = -2.5);
+  if (вдвоёмИ) { Object.assign(П2, { привязан:РОБ.бак, застрял:true, вид:{ поз:new THREE.Vector3(), тип:'бак' } }); И2.pitch = 0.3; }
+  else { друг.статус = 'в роботе'; }
+  let шаг = 'поймай', стукКд = 0, самИкT = 6;
+  сюжет = { лимит:100, цель:'🤖 Робот-пылесос засосал друга в контейнер! Догони его, запрыгни сверху и нажми ⏻ ✋. Под носом у робота не бегай — засосёт!',
+    цель2:'🤖 Тебя везёт робот-пылесос! Стучи ✋ — он икнёт и замрёт, и друг сможет запрыгнуть',
+    когдаВремя() { итог(false, '🤖 РОБОТ УЕХАЛ НА БАЗУ!', 'Он вытряхнул весь мусор вместе с другом — прямо в мусорный мешок. Догоняй быстрее: запрыгни сзади или сбоку, пока он едет мимо!'); },
+    действие() {
+      if (вдвоёмИ && player === П2) { if (П2.привязан && стукКд <= 0 && !РОБ.стоит) { стукКд = 3.5; РОБ.икота = 1.8; Snd.тон(160, 0.12, 'square', 0.08, 90); крикнуть('БУМ!', '#f59e0b'); }
+        else if (стукКд > 0) bigMsg('рука устала — подожди секунду', 0.8, '#cbd5e1'); return true; }
+      if (player.где === РОБ.кирпич) {
+        if (шаг === 'поймай') { шаг = 'открой'; роботСтоп(); bigMsg('⏻ РОБОТ ВЫКЛЮЧЕН!', 2, '#86efac'); цель('🗑 Теперь открой контейнер ✋ — он сзади, прозрачный, там друг'); цель2('😮‍💨 Робот встал! Друг сейчас откроет контейнер'); return true; }
+        if (шаг === 'открой') { шаг = 'конец'; РОБ.бакКрышка.rotation.x = -1.8; Snd.тон(420, 0.2, 'triangle', 0.05, 700); bigMsg('🗑 КОНТЕЙНЕР ОТКРЫТ!', 2, '#86efac');
+          scene.attach(сидит.g); сидит.g.scale.setScalar(1); сидит.g.rotation.set(0, 0, 0); сидит.ноги.forEach(н => н.rotation.x = 0); сидит.руки.forEach(р => р.rotation.x = 0);
+          const в = РОБ.бак.localToWorld(new THREE.Vector3(0, 0, -5));
+          if (вдвоёмИ) { Object.assign(П2, { привязан:null, застрял:false, вид:null, x:в.x, y:0, z:в.z, vy:8 }); вКонтексте(И2, () => камера(0, true)); }
+          else { друг.g.position.set(в.x, 0, в.z); друг.статус = 'свобода'; }
+          dcLater(() => итог(true, '🤖 ДРУГ ВЫТРЯХНУТ НА СВОБОДУ!', вдвоёмИ ? 'Друг стучал изнутри, робот икал — а ты запрыгнул, выключил его и открыл контейнер. Команда!'
+            : 'Ты догнал робота, запрыгнул, выключил его кнопкой ⏻ и открыл контейнер. Друг весь в пыли, но свободен!'), 1600);
+          return true; }
+      }
+    },
+    тик(dt) { стукКд -= dt;
+      if (!вдвоёмИ && шаг === 'поймай' && (самИкT -= dt) <= 0) { самИкT = rnd(6, 9); РОБ.икота = 1.4; Snd.тон(160, 0.1, 'square', 0.06, 90);   // друг сам стучит изнутри
+        крик.visible = true; крик.т = 1.6; const в = РОБ.бак.getWorldPosition(new THREE.Vector3()); крик.кто = { x:в.x, y:в.y, z:в.z };
+        const c = крик.холст, g = c.getContext('2d'); g.clearRect(0, 0, 320, 120); g.fillStyle = '#fff'; g.strokeStyle = '#111'; g.lineWidth = 6;
+        g.beginPath(); g.roundRect(8, 8, 304, 78, 24); g.fill(); g.stroke(); g.fillStyle = '#f59e0b'; g.font = '900 44px system-ui'; g.textAlign = 'center'; g.fillText('БУМ! БУМ!', 160, 64); крик.текстура.needsUpdate = true; }
+      if (вдвоёмИ && П2.привязан) { const в = РОБ.бак.localToWorld(new THREE.Vector3(0, 2.2, 1.2)); П2.вид.поз.copy(в); П2.x = в.x; П2.y = в.y - 2; П2.z = в.z;
+        И2.yaw = РОБ.пов; }
+    } };
+  say(вдвоёмИ ? '👥 Робот-пылесос засосал друга (справа) в контейнер и катается! Друг — стучи ✋, чтобы робот замер. Ты (слева) — догоняй и запрыгивай!'
+    : '🤖 Робот-пылесос засосал друга в контейнер для пыли и катается по комнате! Догони его, запрыгни и выключи ⏻.', 9);
+}
+
 /* ═══════════ 🏗 СОБИРАЕМ КОМНАТУ ═══════════ */
 построитьКомнату(); ковёр(); диван(); столик(); тумбаИТелевизор(); полки(); столИНоутбук(); тумбочка(); шкаф(); игрушки();
 будильник(-25, 22, -53.5, Math.PI/2);
@@ -2459,13 +3089,16 @@ const пятнистыйДиск = диск(-66, 12);
 пылинкиСоздать();
 построитьНутро();
 построитьЧасы();
-построитьКухню();
+построитьКухню(); чайникДетали();
 великан(); робот(); дискПодготовить();
 
-const герой = человечек(); scene.add(герой.g);
+let герой = человечек(); scene.add(герой.g);
 другСоздать();
 const СТАРТ = { x:44, z:26 };
-const player = { x:СТАРТ.x, y:0, z:СТАРТ.z, vy:0, h:-2.4, скор:0, наЗемле:true, лезет:null, замер:false, фаза:0, шагT:0, пропал:0 };
+let player = { x:СТАРТ.x, y:0, z:СТАРТ.z, vy:0, h:-2.4, скор:0, наЗемле:true, лезет:null, замер:false, фаза:0, шагT:0, пропал:0 };
+/* 👥 поток, мешок и участок трубы — у каждого игрока СВОИ: ВН.поток читает поток ТЕКУЩЕГО игрока */
+for (const к of ['поток', 'вМешке', 'i', 'кдЩели']) { player['вн_' + к] = ВН[к];
+  Object.defineProperty(ВН, к, { get(){ return player['вн_' + к]; }, set(v){ player['вн_' + к] = v; }, configurable:true, enumerable:true }); }
 const R = 0.42, H = 1.9, ШАГ = 0.75;
 let режим = 'прогулка';
 let state = 'menu', time = 0, yaw = -2.4, pitch = 0.32, дистКам = 7;
@@ -2504,14 +3137,23 @@ function потолокНад(x, z, y) {
 }
 
 /* ═══════════ 🎮 УПРАВЛЕНИЕ ═══════════ */
-const keys = {}; const стик = { x:0, y:0 };
-addEventListener('keydown', e => { if (e.target && e.target.tagName === 'INPUT') return; keys[e.code] = true;
+let keys = {}; let стик = { x:0, y:0 };
+/* 👥 вдвоём: правая половина клавиатуры — другу (стрелки, правый Shift — бег, / прыжок, . действие, , замри) */
+const КЛАВИШИ2 = { ArrowUp:'KeyW', ArrowDown:'KeyS', ArrowLeft:'KeyA', ArrowRight:'KeyD', Numpad8:'KeyW', Numpad5:'KeyS', Numpad2:'KeyS',
+  Numpad4:'KeyA', Numpad6:'KeyD', ShiftRight:'ShiftLeft', Slash:'Space', Numpad0:'Space', Period:'KeyE', Enter:'KeyE', NumpadEnter:'KeyE',
+  NumpadDecimal:'KeyE', Comma:'KeyQ', Numpad1:'KeyQ', Quote:'KeyC' };
+const чьяКлавиша = e => вдвоём && КЛАВИШИ2[e.code] ? [И2, КЛАВИШИ2[e.code]] : [И1, e.code];
+addEventListener('keydown', e => { if (e.target && e.target.tagName === 'INPUT') return;
+  const [И, код] = чьяКлавиша(e); И.keys[код] = true;
   if (state !== 'play') return;
-  if (e.code === 'Space') { e.preventDefault(); прыжок(); }
-  if (e.code === 'KeyE') действие();
-  if (e.code === 'KeyQ') замри();
-  if (e.code === 'KeyC') сменитьКамеру(); });
-addEventListener('keyup', e => keys[e.code] = false);
+  if (код === 'Space' || И === И2) e.preventDefault();
+  if (e.repeat && код !== 'Space') return;                         // зажатая E/Q не щёлкает туда-сюда
+  вКонтексте(И, () => {
+    if (код === 'Space') прыжок();
+    if (код === 'KeyE') действие();
+    if (код === 'KeyQ') замри();
+    if (код === 'KeyC') сменитьКамеру(); }); });
+addEventListener('keyup', e => { const [И, код] = чьяКлавиша(e); И.keys[код] = false; });
 const стикЭл = $('stick'), ручка = $('knob'); let стикId = null;
 function стикДвиг(e) { const r = стикЭл.getBoundingClientRect(), cx = r.left + r.width/2, cy = r.top + r.height/2;
   let dx = (e.clientX - cx)/(r.width/2), dy = (e.clientY - cy)/(r.height/2); const l = Math.hypot(dx, dy);
@@ -2522,11 +3164,16 @@ const стикСтоп = e => { if (e.pointerId !== стикId) return; стик
 стикЭл.addEventListener('pointerup', стикСтоп); стикЭл.addEventListener('pointercancel', стикСтоп);
 /* 👆 камера: тянешь пальцем или мышкой по экрану — оглядываешься */
 let взглядId = null, вx = 0, вy = 0;
-renderer.domElement.addEventListener('pointerdown', e => { if (state !== 'play') return; взглядId = e.pointerId; вx = e.clientX; вy = e.clientY;
-  renderer.domElement.setPointerCapture(e.pointerId); });
-renderer.domElement.addEventListener('pointermove', e => { if (e.pointerId !== взглядId) return;
+const взгляды2 = new Map();                     // 👥 вдвоём: пальцы/мышь на правой половине крутят камеру друга
+renderer.domElement.addEventListener('pointerdown', e => { if (state !== 'play') return; renderer.domElement.setPointerCapture(e.pointerId);
+  if (вдвоём && e.clientX > innerWidth/2) { взгляды2.set(e.pointerId, { x:e.clientX, y:e.clientY }); return; }
+  взглядId = e.pointerId; вx = e.clientX; вy = e.clientY; });
+renderer.domElement.addEventListener('pointermove', e => { const в2 = взгляды2.get(e.pointerId);
+  if (в2) { И2.yaw -= (e.clientX - в2.x)*0.0055; И2.pitch = clamp(И2.pitch + (e.clientY - в2.y)*0.004, -0.25, 1.25); в2.x = e.clientX; в2.y = e.clientY; return; }
+  if (e.pointerId !== взглядId) return;
   yaw -= (e.clientX - вx)*0.0055; pitch = clamp(pitch + (e.clientY - вy)*0.004, -0.25, 1.25); вx = e.clientX; вy = e.clientY; });
-renderer.domElement.addEventListener('pointerup', () => { взглядId = null; });
+const взглядСтоп = e => { взгляды2.delete(e.pointerId); if (e.pointerId === взглядId) взглядId = null; };
+renderer.domElement.addEventListener('pointerup', взглядСтоп); renderer.domElement.addEventListener('pointercancel', взглядСтоп);
 renderer.domElement.addEventListener('wheel', e => { дистКам = clamp(дистКам + Math.sign(e.deltaY)*0.8, 3, 18); }, { passive:true });
 const кнопка = (id, f) => $(id).addEventListener('pointerdown', e => { e.preventDefault(); f(); });
 кнопка('jumpBtn', () => прыжок()); кнопка('useBtn', () => действие()); кнопка('freezeBtn', () => замри());
@@ -2536,15 +3183,15 @@ $('fullBtn').onclick = () => { if (document.fullscreenElement) document.exitFull
 function сменитьКамеру() { видКам = (видКам + 1) % ДИСТ.length; дистКам = ДИСТ[видКам][0]; bigMsg(ДИСТ[видКам][1], 0.8, '#e9d5ff'); }
 
 function прыжок() {
-  if (state !== 'play' || player.замер || player.пропал > 0) return;
+  if (state !== 'play' || player.замер || player.пропал > 0 || player.застрял || player.привязан) return;
   if (player.лезет) { player.лезет = null; player.vy = 6; player.x -= Math.sin(player.h)*0.8; player.z -= Math.cos(player.h)*0.8; return; }
   if (player.наЗемле) { player.vy = 12; player.наЗемле = false; Snd.прыжок(); }
 }
 /* 🧸 ЗАМРИ — притворись игрушкой (идея Марка) */
 function замри() {
-  if (state !== 'play' || player.лезет) return;
+  if (state !== 'play' || player.лезет || player.застрял || player.привязан || player.спрятан) return;
   player.замер = !player.замер;
-  document.body.classList.toggle('замер', player.замер);
+  document.body.classList.toggle(КЛАСС_ЗАМЕР, player.замер);
   Snd.тон(player.замер ? 520 : 780, 0.12, 'triangle', 0.06, player.замер ? 380 : 980);
   if (player.замер) say('🧸 Замер. Для великанов ты теперь просто игрушка. Нажми 🧸 ещё раз — отомрёшь.', 5);
 }
@@ -2584,12 +3231,13 @@ function действие() {
 
 /* ═══════════ 🏃 ДВИЖЕНИЕ, ЛАЗАНИЕ, ГРАВИТАЦИЯ ═══════════ */
 function двигать(dt) {
+  if (player.привязан || player.спрятан) return;                      // 👥 друга крутит в барабане / 🙈 сидит в приборе — стоит
   let mx = 0, mz = 0;
   if (keys.KeyW || keys.ArrowUp) mz -= 1; if (keys.KeyS || keys.ArrowDown) mz += 1;
   if (keys.KeyA || keys.ArrowLeft) mx -= 1; if (keys.KeyD || keys.ArrowRight) mx += 1;
   mx += стик.x; mz += стик.y;
   let l = Math.hypot(mx, mz); if (l > 1) { mx /= l; mz /= l; l = 1; }
-  if (player.замер || player.пропал > 0) { mx = mz = 0; l = 0; }
+  if (player.замер || player.пропал > 0 || player.застрял) { mx = mz = 0; l = 0; }
   const бег = keys.ShiftLeft || keys.ShiftRight || Math.hypot(стик.x, стик.y) > 0.85;
   const sin = Math.sin(yaw), cos = Math.cos(yaw);
   const wx = sin*(-mz) - cos*mx, wz = cos*(-mz) + sin*mx;           // куда жмём — в мире
@@ -2608,6 +3256,9 @@ function двигать(dt) {
   player.скор += (макс - player.скор)*Math.min(1, dt*10);
   if (l > 0.05) player.h = Math.atan2(wx, wz);
   const n = { x:player.x + Math.sin(player.h)*player.скор*dt, y:player.y, z:player.z + Math.cos(player.h)*player.скор*dt };
+  /* 👥 друга тянет СИЛЬНЕЕ обычного — ветер его не отпускает (передряга второго игрока) */
+  if (player.тяга && ВИХРЬ.вкл) { const dx = ВИХРЬ.пасть.x - n.x, dz = ВИХРЬ.пасть.z - n.z, d = Math.hypot(dx, dz) || 1;
+    n.x += dx/d*Math.min(d, player.тяга*dt); n.z += dz/d*Math.min(d, player.тяга*dt); }
   /* 🌪 пылесос тянет к щётке */
   if (ВИХРЬ.вкл && player.y < 3) {
     const dx = ВИХРЬ.пасть.x - n.x, dz = ВИХРЬ.пасть.z - n.z, d = Math.hypot(dx, dz);
@@ -2661,7 +3312,7 @@ function щельОткрыта() {
   return !!ВН.щельОткрыта;
 }
 /* ═══════════ 🌀 ВХОД И ВЫХОД ИЗ ПЫЛЕСОСА ═══════════ */
-const было = {};
+let было = {};                     // 👥 у каждого игрока свой «свет до входа»
 function войтиВнутрь(сПотоком) {
   Object.assign(было, { солнце:солнце.intensity, небо:небо.intensity, люстра:люстраСвет.intensity });
   солнце.intensity = 0; небо.intensity = 0.62; люстраСвет.intensity = 0; ВН.свет.forEach(L => L.visible = true);
@@ -2744,7 +3395,7 @@ function пылинкаПоток() {
 }
 /* 🌑 ПОЛУМРАК В ТРУБЕ И ШЛАНГЕ (Марк 27.09): «давай сделаем в трубе и шланге слегка темноту».
    В щётке и мешке светлее; в трубах — сумрак, а вокруг героя слабый тёплый огонёк, чтобы себя видеть. */
-const огонёкГероя = new THREE.PointLight(0xffe8c0, 0, 7, 1.8); огонёкГероя.position.set(0, 1.7, 0.4); герой.g.add(огонёкГероя);
+let огонёкГероя = new THREE.PointLight(0xffe8c0, 0, 7, 1.8); огонёкГероя.position.set(0, 1.7, 0.4); герой.g.add(огонёкГероя);
 function обновитьНутро(dt) {
   if (player.внутри) {
     const з = гдеВнутри(player), вТрубе = з === 'труба' || з === 'ручка' || з === 'шланг';
@@ -2754,23 +3405,27 @@ function обновитьНутро(dt) {
     const вМ = з === 'мешок';
     if (scene.fog) { scene.fog.near += ((вТрубе ? 3 : вМ ? 4 : 10) - scene.fog.near)*k; scene.fog.far += ((вТрубе ? 34 : вМ ? 52 : 75) - scene.fog.far)*k;
       scene.fog.color.setHex(вТрубе ? 0x07060a : вМ ? 0x2a241c : 0x14110d); }       // 🌫 в мешке — пыльная дымка
-    if (вМ && ВН.пыль) { const a = ВН.пыль.geometry.attributes.position;                // пылинки медленно кружат
+    if (вМ && ВН.пыль && ВН.пыльКадр !== time) { ВН.пыльКадр = time; const a = ВН.пыль.geometry.attributes.position;                // пылинки медленно кружат
       for (let i = 0; i < a.count; i++) { const y = a.getY(i) + dt*(0.3 + (i % 5)*0.08); a.setY(i, y > 32 ? 0.5 : y);
         a.setX(i, a.getX(i) + Math.sin(time*0.7 + i)*dt*0.6); a.setZ(i, a.getZ(i) + Math.cos(time*0.6 + i*1.3)*dt*0.6); }
       a.needsUpdate = true; }
   } else огонёкГероя.intensity = 0;
-  if (ВН.щельМ) { const откр = щельОткрыта(); ВН.щельМ.material.color.setHex(откр ? 0xfff3c4 : 0x3a3228); ВН.луч.visible = откр; }
   if (player.внутри && гдеВнутри(player) === 'мешок' && player.y > 28.5 && Math.hypot(player.x - ВН.щель.x, player.z - ВН.щель.z) < 5.5) {
     if (щельОткрыта()) { if (сюжет && сюжет.вылез) сюжет.вылез(); else выйтиНаружу('мешок'); }
     else if ((ВН.кдЩели = (ВН.кдЩели || 0) - dt) <= 0) { ВН.кдЩели = 3; bigMsg('🔒 КРЫШКА ЗАКРЫТА', 1.6, '#cbd5e1');
       say(сюжет && сюжет.id === 'друг' ? 'Крышка закрыта! Выход один — назад тем же путём: шланг → труба → щётка.' : 'Крышка закрыта — отсюда не вылезти…', 6); }
   }
+  if (ВН.поток) Snd.пылесосРядом(1);
+}
+/* 🌀 то, что в пылесосе одно на всех: щель крышки и пылинки в потоке (👥 поток — если несёт хоть кого-то) */
+function обновитьНутроОбщее(dt) {
+  if (ВН.щельМ) { const откр = щельОткрыта(); ВН.щельМ.material.color.setHex(откр ? 0xfff3c4 : 0x3a3228); ВН.луч.visible = откр; }
+  const поток = ИГРОКИ().some(И => И.player.вн_поток);
   for (const p of пылинкиВн) { if (!p.жив) continue; p.t += dt;
     const i = ближайшееНаПути(p.m.position), a = ВН.образцы[Math.max(0, i - 2)], b = ВН.образцы[Math.min(ВН.образцы.length - 1, i + 2)];
-    const d = Math.hypot(b.x - a.x, b.z - a.z) || 1; const v = ВН.поток ? 26 : 3;
+    const d = Math.hypot(b.x - a.x, b.z - a.z) || 1; const v = поток ? 26 : 3;
     p.m.position.x += (b.x - a.x)/d*v*dt; p.m.position.z += (b.z - a.z)/d*v*dt;
-    if (p.t > 1.6 || !ВН.поток) { p.жив = false; p.m.visible = false; } }
-  if (ВН.поток) Snd.пылесосРядом(1);
+    if (p.t > 1.6 || !поток) { p.жив = false; p.m.visible = false; } }
 }
 function засосало() {
   if (режим === 'прогулка') { Snd.засос(); for (let i = 0; i < 20; i++) пылинкаВ(ВИХРЬ.пасть, 1.5); войтиВнутрь(true); return; }
@@ -2780,6 +3435,132 @@ function засосало() {
   bigMsg('🌪 ЗАСОСАЛО!', 2.2, '#f0abfc');
   say('Внутри тебя ждёт путь: щётка → труба → шланг → мешок. Это будет в эпизоде «Друг в пылесосе»! А пока — обратно в комнату.', 8);
 }
+
+/* ═══════════ 👥 ВДВОЁМ НА ОДНОМ ЭКРАНЕ (Марк 27.09) ═══════════
+   «Давай сделаем вариант играть вдвоём. Ты же ищешь друга в пылесосе — и второму игроку вечно
+   придётся влипать в передряги: его засасывают в пылесос, он оказывается в жвачке в холодильнике.
+   И если тебя засосало раньше, чем друга, ты видишь, как он тоже летит по трубе и по щётке.»
+   Как устроено: у каждого игрока свой «уголок» — человечек, камера, кнопки, свет вокруг.
+   Весь старый код работает с player/герой/camera — стать(И) просто подставляет нужного игрока.
+   Экран — пополам слева/справа (правило Марка 19.09.2026: всегда лево/право, а не верх/низ). */
+let вдвоём = false;
+let ЭЛ_МЕСТО = $('place'), ЭЛ_ПОДСКАЗКА = $('hint'), КЛАСС_ЗАМЕР = 'замер';
+const ПУСТОЙ_ТУМАН = new THREE.Fog(0x000000, 1e5, 2e5);    // «тумана нет», а шейдеры те же — половинки не перекомпилируются
+const И1 = { номер:1, player, герой, огонёк:огонёкГероя, camera, keys, стик, было, yaw, pitch, дистКам, видКам, кдПодск:0,
+  эл:{ место:$('place'), подсказка:$('hint') }, классЗамер:'замер', св:null };
+const И2 = (() => {
+  const г = человечек({ куртка:0x16a34a, тёмн:0x0f5f2e, штаны:0x6b21a8, кепка:0xf472b6, рюк:0xfacc15 });   // как друг из эпизодов
+  г.g.visible = false; scene.add(г.g);
+  const ог = new THREE.PointLight(0xffe8c0, 0, 7, 1.8); ог.position.set(0, 1.7, 0.4); г.g.add(ог);
+  return { номер:2, player:{ x:СТАРТ.x + 3, y:0, z:СТАРТ.z + 2, vy:0, h:-2.4, скор:0, наЗемле:true, лезет:null, замер:false, фаза:0, шагT:0, пропал:0,
+      вн_поток:false, вн_вМешке:false, вн_i:0, вн_кдЩели:0 },
+    герой:г, огонёк:ог, camera:new THREE.PerspectiveCamera(62, innerWidth/innerHeight, 0.08, 900), keys:{}, стик:{ x:0, y:0 }, было:{},
+    yaw:-2.4, pitch:0.32, дистКам:7, видКам:1, кдПодск:0, эл:{ место:$('place2'), подсказка:$('hint2') }, классЗамер:'замер2', св:null };
+})();
+let активный = И1;
+const ИГРОКИ = () => вдвоём ? [И1, И2] : [И1];
+function стать(И) {
+  if (активный === И) return;
+  const А = активный;
+  А.yaw = yaw; А.pitch = pitch; А.дистКам = дистКам; А.видКам = видКам; А.кдПодск = подсказкаКд;
+  А.св = { солнце:солнце.intensity, небо:небо.intensity, люстра:люстраСвет.intensity, фон:scene.background, туман:scene.fog };
+  ({ player, герой, camera, keys, стик, было } = И); огонёкГероя = И.огонёк;
+  yaw = И.yaw; pitch = И.pitch; дистКам = И.дистКам; видКам = И.видКам; подсказкаКд = И.кдПодск;
+  ЭЛ_МЕСТО = И.эл.место; ЭЛ_ПОДСКАЗКА = И.эл.подсказка; КЛАСС_ЗАМЕР = И.классЗамер;
+  const с = И.св || А.св;                             // впервые — тот же свет, что у первого (оба в комнате)
+  солнце.intensity = с.солнце; небо.intensity = с.небо; люстраСвет.intensity = с.люстра; scene.background = с.фон; scene.fog = с.туман;
+  активный = И;
+}
+function вКонтексте(И, fn) { const был = активный; стать(И); try { return fn(); } finally { стать(был); } }
+function каждый(fn) { for (const И of ИГРОКИ()) вКонтексте(И, fn); }
+const целиИгрока = () => (активный === И2 && сюжет && сюжет.цель2) || (сюжет && сюжет.цель) || '';
+/* 🔁 сброс второго игрока: вылезает отовсюду и встаёт рядом со стартом */
+function сбросИ2() {
+  И2.св = null;
+  вКонтексте(И2, () => {
+    if (player.вЧасах) выйтиИзЧасов(); if (player.внутри) выйтиНаружу('щётка');
+    if (герой.g.parent !== scene) scene.attach(герой.g); герой.g.rotation.set(0, 0, 0); герой.g.scale.setScalar(1);
+    Object.assign(player, { x:СТАРТ.x + 3, z:СТАРТ.z + 2, y:0, vy:0, h:-2.4, скор:0, лезет:null, замер:false, пропал:0, несёт:null, внутри:false, вЧасах:false,
+      застрял:false, привязан:null, вид:null, тяга:0, вБеде:false, спрятан:null, найден:false, летит:false, вн_поток:false, вн_вМешке:false, вн_i:0, вн_кдЩели:0 });
+    герой.g.visible = вдвоём; огонёкГероя.intensity = 0; yaw = -2.4; pitch = 0.32; });
+  И2.св = null; document.body.classList.remove('замер2'); $('холод2').classList.remove('вкл');
+}
+/* 🖼 кадр: один игрок — как раньше; вдвоём — две половинки, у каждой своя камера и свой свет */
+function нарисоватьКадр() {
+  if (!вдвоём || (state !== 'play' && state !== 'итог')) {
+    стать(И1); const a = innerWidth/innerHeight;
+    if (Math.abs(camera.aspect - a) > 1e-4) { camera.aspect = a; camera.updateProjectionMatrix(); }
+    renderer.render(scene, camera); return;
+  }
+  const w = innerWidth, h = innerHeight, п = Math.floor(w/2);
+  renderer.setScissorTest(true); renderer.shadowMap.autoUpdate = false; renderer.shadowMap.needsUpdate = true;   // тени — один раз на оба
+  for (const [И, x] of [[И1, 0], [И2, w - п]]) {
+    стать(И);
+    /* лампы внутри пылесоса и будильника вдвоём горят всегда (они далеко и комнату не освещают):
+       если их включать-выключать для каждой половинки, шейдеры пересобирались бы дважды за кадр */
+    ВН.свет.forEach(L => L.visible = true); ЧАС.свет.forEach(L => L.visible = true); if (!scene.fog) scene.fog = ПУСТОЙ_ТУМАН;
+    if (Math.abs(camera.aspect - п/h) > 1e-4) { camera.aspect = п/h; camera.updateProjectionMatrix(); }
+    renderer.setViewport(x, 0, п, h); renderer.setScissor(x, 0, п, h); renderer.render(scene, camera);
+  }
+  renderer.setScissorTest(false); renderer.setViewport(0, 0, w, h); renderer.shadowMap.autoUpdate = true;
+  стать(И1);
+  const рамка = (И2.player.вид && И2.player.вид.тип) || '';                       // друг внутри прибора — рамка-окошко
+  if (рамка !== нарисоватьКадр.рамка) { нарисоватьКадр.рамка = рамка; $('вид2').className = рамка; }
+}
+/* 👥 кнопка в меню: играть вдвоём / одному */
+function переключитьВдвоём(вкл) {
+  вдвоём = вкл ?? !вдвоём;
+  document.body.classList.toggle('вдвоём', вдвоём);
+  $('coopBtn').classList.toggle('вкл', вдвоём);
+  $('coopBtn').innerHTML = вдвоём ? '👥 Сейчас: вдвоём ✓<small>Нажми, чтобы играть одному. Слева — ты (WASD), справа — друг (стрелки)</small>'
+                                  : '👥 Играть вдвоём<small>Экран пополам. Второй — друг, который вечно влипает в передряги</small>';
+  $('epBtn').querySelector('small').textContent = вдвоём ? 'Вдвоём: истории, где друг влипает в передряги' : 'Пылесос, будильник, робот и приключения на кухне';
+  $('rndBtn').style.display = вдвоём ? 'none' : '';
+  if (!вдвоём) { стать(И1); ВН.свет.forEach(L => L.visible = !!player.внутри); ЧАС.свет.forEach(L => L.visible = !!player.вЧасах);
+    if (scene.fog === ПУСТОЙ_ТУМАН) scene.fog = null; И2.герой.g.visible = false; И2.огонёк.intensity = 0; }
+  dc.done = -1; Snd.клик && Snd.клик();
+  return вдвоём;
+}
+$('coopBtn').onclick = () => переключитьВдвоём();
+$('hideBtn').onclick = () => начатьПрятки();
+function следующийЭпизод() { const спис = ЭПИЗОДЫ.filter(e => !e.скоро && (!вдвоём || e.вдвоём)); return спис.find(e => !ПРОЙДЕНО.has(e.id)) || спис[0]; }
+/* 🕹 второй джойстик и кнопки — в правой половине */
+function джойстик(эл, кноб, чей) { let id = null;
+  const двиг = e => { const r = эл.getBoundingClientRect(), cx = r.left + r.width/2, cy = r.top + r.height/2;
+    let dx = (e.clientX - cx)/(r.width/2), dy = (e.clientY - cy)/(r.height/2); const l = Math.hypot(dx, dy);
+    if (l > 1) { dx /= l; dy /= l; } const с = чей(); с.x = dx; с.y = dy; кноб.style.transform = `translate(${dx*34}px,${dy*34}px)`; };
+  эл.addEventListener('pointerdown', e => { id = e.pointerId; эл.setPointerCapture(e.pointerId); двиг(e); });
+  эл.addEventListener('pointermove', e => { if (e.pointerId === id) двиг(e); });
+  const стоп = e => { if (e && e.pointerId !== id) return; id = null; const с = чей(); с.x = с.y = 0; кноб.style.transform = ''; };
+  эл.addEventListener('pointerup', стоп); эл.addEventListener('pointercancel', стоп);
+  return () => стоп(); }
+const сбросДжойстика2 = джойстик($('stick2'), $('knob2'), () => И2.стик);
+кнопка('jumpBtn2', () => вКонтексте(И2, прыжок)); кнопка('useBtn2', () => вКонтексте(И2, действие)); кнопка('freezeBtn2', () => вКонтексте(И2, замри));
+/* 💬 друг кричит — пузырь над головой («ПОМОГИТЕ!», «Я ТУТ!») */
+const крик = (() => { const c = document.createElement('canvas'); c.width = 320; c.height = 120;
+  const т = new THREE.CanvasTexture(c); т.colorSpace = THREE.SRGBColorSpace;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map:т, depthTest:false })); sp.scale.set(4.2, 1.6, 1); sp.visible = false; sp.renderOrder = 6;
+  sp.raycast = () => {}; scene.add(sp); sp.холст = c; sp.текстура = т; sp.т = 0; sp.кто = null; return sp; })();
+function крикнуть(текст, цвет) {
+  const c = крик.холст, g = c.getContext('2d'); g.clearRect(0, 0, 320, 120);
+  g.fillStyle = '#fff'; g.strokeStyle = '#111'; g.lineWidth = 6; g.beginPath(); g.roundRect(8, 8, 304, 78, 24); g.fill(); g.stroke();
+  g.beginPath(); g.moveTo(140, 84); g.lineTo(160, 114); g.lineTo(178, 84); g.closePath(); g.fill(); g.stroke();
+  g.fillStyle = цвет || '#16a34a'; g.font = '900 44px system-ui'; g.textAlign = 'center'; g.fillText(текст, 160, 64); крик.текстура.needsUpdate = true;
+  крик.visible = true; крик.т = 2.2; крик.кто = player;
+  Snd.тон(760, 0.18, 'triangle', 0.07, 1100); setTimeout(() => Snd.тон(980, 0.2, 'triangle', 0.05, 1300), 120);
+}
+function крикТик(dt) { if (!крик.visible) return; if ((крик.т -= dt) <= 0) { крик.visible = false; return; }
+  const q = крик.кто; if (q) крик.position.set(q.x, q.y + 3.7 + Math.abs(Math.sin(time*6))*0.25, q.z); }
+/* 🕸 комок пыли, в котором застревает друг (вдвоём в «Друге в пылесосе») */
+const комок = (() => { const geo = new THREE.SphereGeometry(1.75, 26, 18), p = geo.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const k = 1 + 0.16*Math.sin(v.x*3.1 + v.y*2.3)*Math.cos(v.z*2.7 - v.y*1.9) + 0.07*Math.sin(v.x*7 + v.z*6);
+    v.multiplyScalar(k); p.setXYZ(i, v.x, v.y, v.z); }
+  geo.computeVertexNormals();
+  const g = new THREE.Group(); g.visible = false; scene.add(g);
+  g.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color:0x8d8272, roughness:1, transparent:true, opacity:0.62, depthWrite:false })));
+  const нить = new THREE.MeshStandardMaterial({ color:0xc9bfa8, roughness:1 });
+  for (let i = 0; i < 5; i++) { const т = new THREE.Mesh(new THREE.TorusGeometry(1.5 + i*0.08, 0.035, 5, 40), нить); т.rotation.set(rnd(0, 3), rnd(0, 3), rnd(0, 3)); g.add(т); }
+  return g; })();
 
 /* ═══════════ 🎥 КАМЕРА: из-за спины, не пролезает сквозь мебель ═══════════ */
 function лучВКирпич(ax, ay, az, bx, by, bz) {
@@ -2799,6 +3580,9 @@ function лучВКирпич(ax, ay, az, bx, by, bz) {
 }
 const камЦель = new THREE.Vector3();
 function камера(dt, сразу) {
+  if (player.вид) {                                             // 🙈 из щёлочки: стоишь на месте, но можно оглядываться
+    const в = player.вид, q = pitch - 0.3;
+    camera.position.copy(в.поз); camera.lookAt(в.поз.x + Math.sin(yaw)*Math.cos(q), в.поз.y - Math.sin(q), в.поз.z + Math.cos(yaw)*Math.cos(q)); return; }
   const tx = player.x, ty = player.y + 1.35, tz = player.z;
   const гор = Math.cos(pitch)*дистКам, вер = Math.sin(pitch)*дистКам + 0.6;
   let cx = tx - Math.sin(yaw)*гор, cy = ty + вер, cz = tz - Math.cos(yaw)*гор;
@@ -2838,9 +3622,12 @@ function нарисоватьГероя(dt) {
     if (player.пропал <= 0) { player.x = СТАРТ.x; player.z = СТАРТ.z; player.y = 0; герой.g.visible = true; камера(0, true); }
     return;
   }
+  if (player.привязан) { const [лр, пр] = герой.руки; лр.rotation.x = -2.6 + Math.sin(time*11)*0.6; пр.rotation.x = -2.6 - Math.sin(time*11)*0.6; return; }
   герой.g.position.set(player.x, player.y, player.z);
   герой.g.rotation.set(player.летит ? 1.15 : 0, player.h, player.летит ? Math.sin(time*3)*0.4 : 0);   // 🕊 летит головой вперёд
   const [лн, пн] = герой.ноги, [лр, пр] = герой.руки;
+  if (player.застрял) { const ф = Math.sin(time*9);                 // 👥 застрял: дёргается и машет руками
+    герой.g.rotation.z = Math.sin(time*13)*0.12; лр.rotation.x = -2.4 + ф*0.5; пр.rotation.x = -2.4 - ф*0.5; лн.rotation.x = ф*0.3; пн.rotation.x = -ф*0.3; return; }
   if (player.замер) {                                     // 🧸 поза игрушки: руки вперёд, ноги ровно
     лн.rotation.x = пн.rotation.x = 0; лр.rotation.x = пр.rotation.x = -1.45; лр.rotation.z = -0.08; пр.rotation.z = 0.08; return;
   }
@@ -2903,24 +3690,25 @@ function подсказки(dt) {
   let место = '🏠 Комната';
   if (player.внутри) {
     const з = гдеВнутри(player);
-    $('place').textContent = { 'щётка':'🪥 Внутри щётки', 'труба':'🔩 В трубе', 'ручка':'✊ В ручке', 'шланг':'🐍 В шланге', 'мешок':'🎒 В мешке' }[з] || '🌀 Внутри пылесоса';
-    if (сюжет && режим !== 'прогулка') { $('hint').textContent = сюжет.цель || ''; return; }
+    ЭЛ_МЕСТО.textContent = { 'щётка':'🪥 Внутри щётки', 'труба':'🔩 В трубе', 'ручка':'✊ В ручке', 'шланг':'🐍 В шланге', 'мешок':'🎒 В мешке' }[з] || '🌀 Внутри пылесоса';
+    if (сюжет && режим !== 'прогулка') { ЭЛ_ПОДСКАЗКА.textContent = целиИгрока(); return; }
     if ((подсказкаКд -= dt) > 0) return; подсказкаКд = 0.4;
-    $('hint').textContent = ВН.поток ? '🌬 Поток несёт к мешку! Бежать назад можно, но он сильнее' :
+    ЭЛ_ПОДСКАЗКА.textContent = ВН.поток ? '🌬 Поток несёт к мешку! Бежать назад можно, но он сильнее' :
       з === 'щётка' ? (player.z < 3.2 ? '✋ — вылезти из щётки наружу' : '🪥 Вперёд — в трубу. Назад, к ворсу, — выход') :
       з === 'мешок' ? (player.y > 20 ? '✋ — выбраться через щель крышки' : '🪜 Забирайся по куче вещей к щели крышки наверху') :
       з === 'шланг' ? '🐍 Гофра: рёбра-кольца. Дальше — мешок' : з === 'ручка' ? '✊ Изгиб ручки. Сверху светит окошко подсоса' : '🔩 Гладкая хромированная труба. Уступ — где она раздвигается';
     return;
   }
+  if (player.спрятан) { ЭЛ_МЕСТО.textContent = '🙈 Спрятался: ' + player.спрятан.имя; if (!(сюжет && режим !== 'прогулка')) ЭЛ_ПОДСКАЗКА.textContent = '✋ — вылезти'; else ЭЛ_ПОДСКАЗКА.textContent = целиИгрока(); return; }
   if (player.где && МЕСТА[player.где.имя]) место = МЕСТА[player.где.имя];
   else if (player.y < 1 && player.x > -30 && player.x < -4 && Math.abs(player.z) < 33) место = '🕳 Под диваном';
   else if (player.y < 1 && player.x > -70 && player.x < -20 && player.z > 62) место = '🤫 Под шкафом — секретное место';
   else if (player.y < 1 && player.x > -93 && player.x < -51 && player.z < -55) место = '🖥 Под столом';
   else if (player.y < 1 && player.x > 18 && player.x < 46 && Math.abs(player.z) < 16) место = '☕ Под столиком';
-  $('place').textContent = место;
-  if (player.вЧасах) $('place').textContent = '⚙️ Внутри будильника';
-  else if (player.z < КОМ.z0 && !(player.где && МЕСТА[player.где.имя])) $('place').textContent = вМорозилке() ? '🧊 В морозилке' : '🍳 Кухня';
-  if (сюжет && режим !== 'прогулка') { $('hint').textContent = сюжет.цель || ''; return; }
+  ЭЛ_МЕСТО.textContent = место;
+  if (player.вЧасах) ЭЛ_МЕСТО.textContent = '⚙️ Внутри будильника';
+  else if (player.z < КОМ.z0 && !(player.где && МЕСТА[player.где.имя])) ЭЛ_МЕСТО.textContent = вМорозилке() ? '🧊 В морозилке' : '🍳 Кухня';
+  if (сюжет && режим !== 'прогулка') { ЭЛ_ПОДСКАЗКА.textContent = целиИгрока(); return; }
   if ((подсказкаКд -= dt) > 0) return;
   подсказкаКд = 0.4;
   let т = 'Беги (Shift или джойстик до края), прыгай, лазай по проводам. 🧸 — замереть игрушкой';
@@ -2933,7 +3721,7 @@ function подсказки(dt) {
   else if (ВИХРЬ.точки.some(q => рядом(q.x, q.z, 9)) && player.y < 12) т = ВИХРЬ.вкл ? '🌪 ТЯНЕТ! Беги от щётки! ✋ у корпуса — выключить' : '🌪 Пылесос ВИХРЬ-3000. ✋ — включить (осторожно!)';
   else if (рядом(-66, 12, 7)) т = '💿 Заляпанный диск. В эпизоде «Мультики» его надо протереть и вставить в проигрыватель';
   else if (место.startsWith('🤫')) т = '🤫 Сюда пылесос не достаёт. Лучшее место, чтобы переждать уборку';
-  $('hint').textContent = т;
+  ЭЛ_ПОДСКАЗКА.textContent = т;
 }
 
 /* ═══════════ 💬 СООБЩЕНИЯ ═══════════ */
@@ -2946,7 +3734,8 @@ function начать() {
   Snd.старт(); сбросМира(); режим = 'прогулка'; state = 'play'; document.body.classList.add('play');
   $('epMenu').classList.remove('show'); $('итог').classList.remove('show');
   наВесьЭкран();
-  камера(0, true);
+  камера(0, true); if (вдвоём) { вКонтексте(И2, () => камера(0, true));
+    say('👥 Вдвоём! Слева — ты (WASD или левый джойстик), справа — друг (стрелки или правый джойстик). Бегайте, лазайте, залезайте в пылесос вместе!', 10); return; }
   say('🏠 Это твоя гигантская комната. Залезь по пледу на диван, по проводу лампы — на тумбочку к будильнику, по зарядке — на стол к ноутбуку. А к пылесосу подходи осторожно…', 10);
 }
 /* ⛶ НА ВЕСЬ ЭКРАН — правило Марка: игры всегда во весь экран, и на компьютере тоже */
@@ -2959,7 +3748,7 @@ function наВесьЭкран() {
 function вМеню() {
   if (player.вЧасах) выйтиИзЧасов();
   сбросМира(); режим = 'прогулка';
-  state = 'menu'; document.body.classList.remove('play', 'замер'); player.замер = false;
+  state = 'menu'; document.body.classList.remove('play', 'замер', 'замер2'); player.замер = false; И2.герой.g.visible = false;
   if (ВИХРЬ.вкл) { ВИХРЬ.вкл = false; Snd.пылесос(false); }
   if (БУД.звенит) { БУД.звенит = false; Snd.будильник(false); }
 }
@@ -3007,27 +3796,27 @@ for(const {g,R}of ЧАС.шест){const metal=new THREE.MeshStandardMaterial({c
 scene.children.filter(o=>o.isMesh&&Math.abs(o.position.x-718)<.01&&o.geometry.type==='CylinderGeometry').forEach(o=>{for(const y of[-.615,.615]){const ring=dcMesh(new THREE.TorusGeometry(6.64,.075,6,96),o.material[0],[0,y,0],o);ring.rotation.x=Math.PI/2;}const m=o.material[0];for(let i=0;i<64;i++){const a=i*Math.PI/32;const n=dcMesh(new THREE.BoxGeometry(.07,.88,.07),m,[Math.cos(a)*7,0,Math.sin(a)*7],o);n.rotation.y=-a;}});
 const dcSew=new THREE.MeshStandardMaterial({color:0xe3d3b0,roughness:.97,bumpMap:dcWeave,bumpScale:.07});for(const k of[-.1,0,.1]){dcLine([[706.9,1.2,162.9+k],[708,1.5,164+k],[709.1,1.2,165.1+k]],.05,dcSew);dcLine([[709.1,1.2,162.9+k],[708,1.5,164+k],[706.9,1.2,165.1+k]],.05,dcSew);}
 function dcSuit(g){const strap=new THREE.MeshStandardMaterial({color:0x384c43,roughness:.96,bumpMap:dcWeave,bumpScale:.02}),zip=new THREE.MeshStandardMaterial({color:0xe6d7b3,metalness:.65,roughness:.33});for(const s of[-1,1])dcLine([[s*.19,1.38,-.22],[s*.23,1.48,.04],[s*.21,1.30,.22],[s*.17,.97,.23]],.032,strap,g);dcMesh(new THREE.BoxGeometry(.025,.34,.02),zip,[0,1.14,.25],g);dcMesh(new THREE.TorusGeometry(.024,.007,5,10),zip,[0,1.28,.267],g);const patch=dcMesh(new THREE.CircleGeometry(.065,16),new THREE.MeshStandardMaterial({color:0xffdf91,roughness:.5}),[.145,1.26,.248],g);patch.rotation.y=.18;for(const x of[-.1,.1])dcMesh(new THREE.SphereGeometry(.012,8,6),new THREE.MeshBasicMaterial({color:0xffffff}),[x-.008,1.736,.282],g);}
-dcSuit(герой.g);if(друг?.g)dcSuit(друг.g);
-const dcHeroShadow=dcShadow(0,.025,0,1.65,1.3);
+dcSuit(герой.g);if(друг?.g)dcSuit(друг.g);dcSuit(И2.герой.g);
+const dcHeroShadow=dcShadow(0,.025,0,1.65,1.3);const dcHeroShadow2=dcShadow(0,.025,0,1.65,1.3);dcHeroShadow2.visible=false;
 // The cover uses a posed duplicate; the playable hero and saved position remain untouched.
 const dcCover=герой.g.clone(true);scene.add(dcCover);dcCover.position.set(66,.53,47);dcCover.scale.setScalar(2.5);dcCover.rotation.y=2.8;
 const dcCoverShadow=dcShadow(66,.54,47,4,3.3);
-function dcClearInput(){взглядId=null;for(const k in keys)keys[k]=false;стик.x=стик.y=0;стикId=null;ручка.style.transform='';}
+function dcClearInput(){взглядId=null;for(const k in И1.keys)И1.keys[k]=false;И1.стик.x=И1.стик.y=0;стикId=null;ручка.style.transform='';for(const k in И2.keys)И2.keys[k]=false;сбросДжойстика2();взгляды2.clear();}
 function dcSave(){try{localStorage.setItem('zasosalo-cinema',JSON.stringify({quality:dc.quality,muted:dc.muted}));}catch(_){} }
 function dcQuality(){const fast=dc.quality==='fast',mobile=matchMedia('(pointer:coarse)').matches;renderer.setPixelRatio(Math.min(devicePixelRatio,fast?1:dc.quality==='high'?2:mobile?1.35:1.65));const size=fast?1024:2048;if(солнце.shadow.mapSize.x!==size){солнце.shadow.mapSize.set(size,size);if(солнце.shadow.map){солнце.shadow.map.dispose();солнце.shadow.map=null;}}dcDust.visible=!fast;dcRays.visible=!fast;dcFuzz.visible=!fast;dcSave();}
 function dcAudio(){if(Snd.общий)Snd.общий.gain.setTargetAtTime(dc.muted||dc.paused?0:.9,Snd.ctx.currentTime,.05);$('dcSound').textContent=dc.muted?'Выключен':'Включён';}
 function dcPause(open,help=false){if(open&&!help&&state!=='play')return;dc.help=help;dc.paused=open;dcClearInput();$('dcPause').classList.toggle('show',open);document.body.classList.toggle('dc-paused',open);$('dcPauseTitle').textContent=help?'Как играть':'Приключение на паузе';$('dcPauseNote').textContent=help?'Ты маленький исследователь. Большие приборы — целые миры.':'Время остановлено. Можно перевести дух или показать друзьям управление.';$('dcResume').textContent=help?'Понятно':'Продолжить';$('dcExit').hidden=help;$('dcExitNote').hidden=help;dcAudio();if(open)$('dcResume').focus();else last=performance.now();}
-$('dcStart').onclick=()=>{начатьЭпизод((ЭПИЗОДЫ.find(e=>!e.скоро&&!ПРОЙДЕНО.has(e.id))||ЭПИЗОДЫ[0]).id);};
+$('dcStart').onclick=()=>{начатьЭпизод((следующийЭпизод()).id);};
 $('dcHelp').onclick=()=>dcPause(true,true);$('dcSettings').onclick=()=>dcPause(true,true);$('dcResume').onclick=()=>dcPause(false);$('dcExit').onclick=()=>{dcPause(false);вМеню();};$('menuBtn').textContent='Ⅱ Пауза';$('menuBtn').onclick=()=>dcPause(true);$('dcQuality').value=dc.quality;$('dcQuality').onchange=e=>{dc.quality=e.target.value;dcQuality();};$('dcSound').onclick=()=>{dc.muted=!dc.muted;dcSave();dcAudio();};
 addEventListener('keydown',e=>{if(e.code==='Escape'&&(state==='play'||dc.paused)){e.preventDefault();e.stopImmediatePropagation();dcPause(!dc.paused);return;}if(dc.paused&&['Space','KeyW','KeyA','KeyS','KeyD','KeyE','KeyQ','KeyC','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){if(!((e.code==='Space'&&e.target.tagName==='BUTTON')||e.target.tagName==='SELECT'))e.preventDefault();e.stopImmediatePropagation();}},true);
 addEventListener('blur',()=>{dcClearInput();if(state==='play'&&!dc.paused)dcPause(true);});document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='play'&&!dc.paused)dcPause(true);});renderer.domElement.addEventListener('pointercancel',()=>{взглядId=null;});
 function dcEpisodes(){[...$('epList').children].forEach((el,i)=>{const e=ЭПИЗОДЫ[i];el.dataset.done=ПРОЙДЕНО.has(e.id);const label=document.createElement('span');label.className='dc-tag';label.textContent=ПРОЙДЕНО.has(e.id)?'ПРОЙДЕНО · МОЖНО ПОВТОРИТЬ':'ИСТОРИЯ '+String(i+1).padStart(2,'0');el.lastElementChild.appendChild(label);const shots=window.__dcScenes;if(shots?.[e.id]){el.classList.add('has-shot');el.style.setProperty('--shot',`url("${shots[e.id]}")`);}});}
 const dcPending=[];
 function dcLater(fn,ms){dcPending.push({fn,left:ms/1000,story:сюжет});}
-function dcTick(dt){for(let i=dcPending.length-1;i>=0;i--){const q=dcPending[i];if(q.story!==сюжет){dcPending.splice(i,1);continue;}if(state==='play'&&(q.left-=dt)<=0){dcPending.splice(i,1);q.fn();}}const menu=state==='menu';dcCover.visible=dcCoverShadow.visible=menu;dcHeroShadow.visible=(state==='play'||state==='фото')&&player.наЗемле;dcHeroShadow.position.set(player.x,player.y+.025,player.z);dcHeroShadow.material.opacity=player.наЗемле?.58:.22;
+function dcTick(dt){for(let i=dcPending.length-1;i>=0;i--){const q=dcPending[i];if(q.story!==сюжет){dcPending.splice(i,1);continue;}if(state==='play'&&(q.left-=dt)<=0){dcPending.splice(i,1);q.fn();}}const menu=state==='menu';dcCover.visible=dcCoverShadow.visible=menu;dcHeroShadow.visible=(state==='play'||state==='фото')&&player.наЗемле;dcHeroShadow.position.set(player.x,player.y+.025,player.z);dcHeroShadow.material.opacity=player.наЗемле?.58:.22;{const q=И2.player;dcHeroShadow2.visible=вдвоём&&(state==='play'||state==='итог')&&q.наЗемле&&И2.герой.g.visible&&!q.привязан&&!q.спрятан;dcHeroShadow2.position.set(q.x,q.y+.025,q.z);}
  if(menu){const t=matchMedia('(prefers-reduced-motion:reduce)').matches?0:time;camera.position.set(56+Math.sin(t*.1)*.5,5.4,34);camera.lookAt(101,6,61);}
  dcDust.rotation.y=Math.sin(time*.025)*.012;
- if(menu&&dc.done!==ПРОЙДЕНО.size){dc.done=ПРОЙДЕНО.size;$('dcProgress').innerHTML=ЭПИЗОДЫ.map(e=>`<i class="${ПРОЙДЕНО.has(e.id)?'done':''}"></i>`).join('')+`<span>${ПРОЙДЕНО.size} / 8 историй</span>`;$('dcStartTitle').textContent=ПРОЙДЕНО.size?'Следующая история →':'Начать приключение →';const next=ЭПИЗОДЫ.find(e=>!e.скоро&&!ПРОЙДЕНО.has(e.id))||ЭПИЗОДЫ[0];$('dcStart').querySelector('small').textContent='История '+(ЭПИЗОДЫ.indexOf(next)+1)+' · '+next.имя;}
+ if(menu&&dc.done!==ПРОЙДЕНО.size+(вдвоём?100:0)){dc.done=ПРОЙДЕНО.size+(вдвоём?100:0);$('dcProgress').innerHTML=ЭПИЗОДЫ.map(e=>`<i class="${ПРОЙДЕНО.has(e.id)?'done':''}"></i>`).join('')+`<span>${ПРОЙДЕНО.size} / ${ЭПИЗОДЫ.length} историй</span>`;$('dcStartTitle').textContent=ПРОЙДЕНО.size?'Следующая история →':'Начать приключение →';const next=следующийЭпизод();$('dcStart').querySelector('small').textContent='История '+(ЭПИЗОДЫ.indexOf(next)+1)+' · '+next.имя;}
  dcAudio();
 }
 // Separate reflected room light from the dim light inside appliances.
@@ -3059,10 +3848,14 @@ function loop(now) {
   const dt = Math.min(0.05, (now - last)/1000); last = now; time += dt;
   if (state === 'play') {
     document.body.classList.toggle('прогулка', режим === 'прогулка');
-    двигать(dt); нарисоватьГероя(dt); обновитьТехнику(dt); обновитьНутро(dt);
+    if (вдвоём) { for (const И of [И2, И1]) { стать(И); двигать(dt); нарисоватьГероя(dt); обновитьНутро(dt); } обновитьТехнику(dt); }
+    else { двигать(dt); нарисоватьГероя(dt); обновитьТехнику(dt); обновитьНутро(dt); }
+    обновитьНутроОбщее(dt); крикТик(dt);
     великанТик(dt); роботТик(dt); твТик(dt); дискТик(); кухняТик(dt); сюжетТик(dt);
-    подсказки(dt); камера(dt, false);
-  } else if (state === 'итог') { великанТик(dt); роботТик(dt); твТик(dt); обновитьТехнику(dt); камера(dt, false);
+    if (вдвоём) { for (const И of [И2, И1]) { стать(И); подсказки(dt); камера(dt, false); } }
+    else { подсказки(dt); камера(dt, false); }
+  } else if (state === 'итог') { великанТик(dt); роботТик(dt); твТик(dt); обновитьТехнику(dt);
+    if (вдвоём) { for (const И of [И2, И1]) { стать(И); камера(dt, false); } } else камера(dt, false);
   } else if (state === 'фото') { обновитьТехнику(dt); нарисоватьГероя(dt); великанТик(dt); роботТик(dt); твТик(dt);
   } else {
     обновитьТехнику(dt);
@@ -3072,7 +3865,7 @@ function loop(now) {
   if (msgT > 0 && (msgT -= dt) <= 0) $('bigMsg').style.opacity = 0;
   if (sayT > 0 && (sayT -= dt) <= 0) $('say').style.display = 'none';
   dcTick(dt);
-  renderer.render(scene, camera);
+  нарисоватьКадр();
 }
 requestAnimationFrame(loop);
 
@@ -3123,6 +3916,29 @@ window.__dbg = {
   unphoto(){ state = 'play'; document.body.classList.remove('фото'); $('hud').style.display = ''; камера(0, true); return state; },
   _щётка(){ return (x, z) => { const v = ВИХРЬ.щётка.localToWorld(new THREE.Vector3(x, 0, z)); return { x:+v.x.toFixed(2), z:+v.z.toFixed(2) }; }; },
   get audio(){ return Snd.ctx ? Snd.ctx.state : 'нет'; },
+  coop(v){ if (!!v !== вдвоём) переключитьВдвоём(!!v); return вдвоём; },
+  get p2(){ const q = И2.player; return { x:+q.x.toFixed(2), y:+q.y.toFixed(2), z:+q.z.toFixed(2), внутри:!!q.внутри, зона:q.внутри ? гдеВнутри(q) : null,
+    поток:!!q.вн_поток, мешок:!!q.вн_вМешке, застрял:!!q.застрял, привязан:!!q.привязан, видно:И2.герой.g.visible, спрятан:q.спрятан ? q.спрятан.id : null, найден:!!q.найден,
+    место:$('place2').textContent }; },
+  get p1(){ const q = И1.player; return { x:+q.x.toFixed(2), y:+q.y.toFixed(2), z:+q.z.toFixed(2), внутри:!!q.внутри, зона:q.внутри ? гдеВнутри(q) : null,
+    поток:!!q.вн_поток, мешок:!!q.вн_вМешке, спрятан:q.спрятан ? q.спрятан.id : null, найден:!!q.найден }; },
+  key2(k, v){ И2.keys[k] = !!v; return !!И2.keys[k]; },
+  use2(){ вКонтексте(И2, действие); return true; },
+  jump2(){ вКонтексте(И2, прыжок); return И2.player.vy; },
+  freeze2(){ вКонтексте(И2, замри); return И2.player.замер; },
+  tp2(x, z, y){ Object.assign(И2.player, { x, z, y:y || 0, vy:0, лезет:null }); return this.p2; },
+  look2(x, z){ И2.yaw = Math.atan2(x - И2.player.x, z - И2.player.z); return +И2.yaw.toFixed(2); },
+  get split(){ return { вдвоём, раздел:getComputedStyle($('раздел')).display, stick2:getComputedStyle($('stick2')).display, кнопки2:getComputedStyle($('jumpBtn2')).display,
+    аспект1:+И1.camera.aspect.toFixed(3), аспект2:+И2.camera.aspect.toFixed(3) }; },
+  get goal2(){ return $('hint2').textContent; },
+  hide(){ начатьПрятки(); return режим; },
+  get kettle(){ return { T:+ЧАЙ.T.toFixed(1), греет:ЧАЙ.греет, открыта:ЧАЙ.открыта }; },
+  get robo(){ return { x:+РОБ.x.toFixed(1), z:+РОБ.z.toFixed(1), стоит:РОБ.стоит, икота:+(РОБ.икота || 0).toFixed(2), бак:РОБ.бак ? РОБ.бакКрышка.rotation.x : null }; },
+  roboStop(x, z){ РОБ.икота = 999; if (x !== undefined) { РОБ.x = x; РОБ.z = z; } return true; },
+  get hs(){ if (!ПРЯТ.есть) return null; const В = ПРЯТ.вода; return { фаза:ПРЯТ.фаза, t:+ПРЯТ.t.toFixed(1), найдено:ПРЯТ.найдено, вода:{ x:+В.x.toFixed(1), z:+В.z.toFixed(1), h:+В.h.toFixed(2), дело:В.дело, цель:В.цель ? В.цель.id : null },
+    боты:ПРЯТ.боты.map(б => ({ имя:б.имя, дело:б.дело, место:б.место && б.место.id, x:+б.x.toFixed(1), y:+б.y.toFixed(1), z:+б.z.toFixed(1) })), места:ПРЯТ.места.map(м => м.id) }; },
+  hsSkip(){ ПРЯТ.t = СЧЁТ - 0.2; if (сюжет) сюжет.время = СЧЁТ - 0.2; return true; },
+  hsCheck(id){ const В = ПРЯТ.вода, м = ПРЯТ.места.find(q => q.id === id); В.цель = м; В.x = м.проверка.x; В.z = м.проверка.z; В.путь = []; В.дело = 'смотрит'; В.t = 0; return true; },
 };
 </script>
 <!-- 🪐 ПАНЕЛЬ ПЛАНЕТЫ ИГР (заказ Марка 12.09.2026): кнопка «в лобби» и приближение экрана.
