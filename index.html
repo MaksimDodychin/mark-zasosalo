@@ -170,7 +170,7 @@ body:not(.play) #mkl-bar{display:none!important}.card{background:#071c27d9;borde
   <link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png">
   <meta name="msapplication-TileImage" content="icon-192.png">
   <meta name="msapplication-TileColor" content="#7c3aed">
-  <script>window.__APP_VER = "22fb26ff90";</script>
+  <script>window.__APP_VER = "3e4909138a";</script>
 </head>
 <body>
 <div id="menu">
@@ -3024,7 +3024,7 @@ addEventListener('blur',()=>{dcClearInput();if(state==='play'&&!dc.paused)dcPaus
 function dcEpisodes(){[...$('epList').children].forEach((el,i)=>{const e=ЭПИЗОДЫ[i];el.dataset.done=ПРОЙДЕНО.has(e.id);const label=document.createElement('span');label.className='dc-tag';label.textContent=ПРОЙДЕНО.has(e.id)?'ПРОЙДЕНО · МОЖНО ПОВТОРИТЬ':'ИСТОРИЯ '+String(i+1).padStart(2,'0');el.lastElementChild.appendChild(label);const shots=window.__dcScenes;if(shots?.[e.id]){el.classList.add('has-shot');el.style.setProperty('--shot',`url("${shots[e.id]}")`);}});}
 const dcPending=[];
 function dcLater(fn,ms){dcPending.push({fn,left:ms/1000,story:сюжет});}
-function dcTick(dt){for(let i=dcPending.length-1;i>=0;i--){const q=dcPending[i];if(q.story!==сюжет){dcPending.splice(i,1);continue;}if(state==='play'&&(q.left-=dt)<=0){dcPending.splice(i,1);q.fn();}}const menu=state==='menu';dcCover.visible=dcCoverShadow.visible=menu;dcHeroShadow.visible=state==='play'||state==='фото';dcHeroShadow.position.set(player.x,player.y+.025,player.z);dcHeroShadow.material.opacity=player.наЗемле?.58:.22;
+function dcTick(dt){for(let i=dcPending.length-1;i>=0;i--){const q=dcPending[i];if(q.story!==сюжет){dcPending.splice(i,1);continue;}if(state==='play'&&(q.left-=dt)<=0){dcPending.splice(i,1);q.fn();}}const menu=state==='menu';dcCover.visible=dcCoverShadow.visible=menu;dcHeroShadow.visible=(state==='play'||state==='фото')&&player.наЗемле;dcHeroShadow.position.set(player.x,player.y+.025,player.z);dcHeroShadow.material.opacity=player.наЗемле?.58:.22;
  if(menu){const t=matchMedia('(prefers-reduced-motion:reduce)').matches?0:time;camera.position.set(56+Math.sin(t*.1)*.5,5.4,34);camera.lookAt(101,6,61);}
  dcDust.rotation.y=Math.sin(time*.025)*.012;
  if(menu&&dc.done!==ПРОЙДЕНО.size){dc.done=ПРОЙДЕНО.size;$('dcProgress').innerHTML=ЭПИЗОДЫ.map(e=>`<i class="${ПРОЙДЕНО.has(e.id)?'done':''}"></i>`).join('')+`<span>${ПРОЙДЕНО.size} / 8 историй</span>`;$('dcStartTitle').textContent=ПРОЙДЕНО.size?'Следующая история →':'Начать приключение →';const next=ЭПИЗОДЫ.find(e=>!e.скоро&&!ПРОЙДЕНО.has(e.id))||ЭПИЗОДЫ[0];$('dcStart').querySelector('small').textContent='История '+(ЭПИЗОДЫ.indexOf(next)+1)+' · '+next.имя;}
