@@ -219,7 +219,7 @@ body.вдвоём #шум{top:auto;bottom:170px;left:60px}
   <link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png">
   <meta name="msapplication-TileImage" content="icon-192.png">
   <meta name="msapplication-TileColor" content="#65a30d">
-  <script>window.__APP_VER = "403ffe7da0";</script>
+  <script>window.__APP_VER = "8c79bfcb21";</script>
 </head>
 <body>
 <div id="menu">
@@ -7195,7 +7195,7 @@ window.__dbg = {
 
 <!-- 👥 ОНЛАЙН ПЛАНЕТЫ ИГР (заказ Марка 12.09.2026).
      Один и тот же кусок вставляется во ВСЕ игры и в лобби. Даёт:
-     профиль (имя + аватарка), комнату по коду из 5 букв, список друзей,
+     профиль (имя + аватарка), СЕРВЕР по коду из 5 букв с 3D-миром (с 18.10.2026), друзья по нику и блок,
      чат готовыми фразами, голосовую связь и переход «идём играть вместе».
      Связь идёт НАПРЯМУЮ между устройствами (WebRTC), своего сервера нет.
      Все имена с приставкой mkn-, чтобы ничего не задеть в самой игре. -->
@@ -7204,7 +7204,15 @@ window.__dbg = {
     background:radial-gradient(ellipse at 50% 20%, #1b2340f2, #05070ef8);
     font-family:-apple-system,"Segoe UI",system-ui,sans-serif; color:#eaf0ff; padding:16px; }
   #mkn-экран.mkn-on { display:block; }
-  .mkn-box { max-width:560px; margin:0 auto; }
+  .mkn-box { max-width:760px; margin:0 auto; display:flex; flex-direction:column; }
+  .mkn-шапка { order:0 } #mkn-заявка { order:1 } #mkn-комната { order:2 } #mkn-чаткарта { order:3 } #mkn-друзья { order:4 } #mkn-начало { order:5 } #mkn-профиль { order:6 }
+  #mkn-мир { position:relative; } #mkn-мир canvas { width:100%; display:block; border-radius:14px; border:2px solid #ffffff1a; touch-action:none; cursor:pointer; }
+  #mkn-портал { background:#14243f; border:2px solid #7dd3fc66; border-radius:14px; padding:10px; margin:8px 0; text-align:center; font-size:15px; }
+  #mkn-заявка { background:#1f2a12; border-color:#a3e63588; font-size:16px; text-align:center; position:sticky; top:0; z-index:3; box-shadow:0 8px 24px #000a; }
+  #mkn-ник { width:100%; font:800 17px/1 inherit; padding:11px 12px; border-radius:12px; border:2px solid #ffffff2a; background:#0a0e1c; color:#fff; }
+  .mkn-мелк { font:800 12px/1 inherit; padding:6px 9px; border-radius:10px; cursor:pointer; border:1.5px solid #ffffff26; background:#ffffff12; color:#dbe7ff; margin-left:4px; }
+  .mkn-блокн { opacity:.55; }
+  @media (max-height:560px) { .mkn-код { font-size:26px; padding:2px 0; letter-spacing:8px } #mkn-ктоМожет { display:none } #mkn-экран { padding:8px } }
   .mkn-шапка { display:flex; align-items:center; gap:12px; background:#121a33cc; border:2px solid #ffffff1f;
     border-radius:18px; padding:12px 14px; margin-bottom:14px; }
   .mkn-ава { width:54px; height:54px; border-radius:16px; flex:none; background:#0a0e1c;
@@ -7309,21 +7317,24 @@ window.__dbg = {
     <div class="mkn-х" id="mkn-закрыть">✖️</div>
   </div>
 
+  <div class="mkn-карта" id="mkn-заявка" style="display:none"></div>
+
   <div class="mkn-карта" id="mkn-начало">
-    <h3>👥 Играть вместе</h3>
-    <button class="mkn-кн mkn-зел" id="mkn-создать">🏠 СОЗДАТЬ КОМНАТУ</button>
-    <div class="mkn-под" style="margin:4px 0 8px">Код придумается сам — его и скажешь друзьям.</div>
-    <input id="mkn-поле" maxlength="5" placeholder="КОД ДРУГА (5 русских букв)">
-    <div class="mkn-под" style="margin:4px 0 8px">Буквы <b>русские</b>. Вписал свой код — им и откроется твоя комната.</div>
-    <button class="mkn-кн" id="mkn-войти">🚪 ВОЙТИ ПО КОДУ</button>
+    <h3>🌍 Серверы</h3>
+    <div class="mkn-под" style="margin-bottom:8px">Ты сразу онлайн на <b>своём</b> сервере. Скажи код другу — или зайди к нему по его коду. Сервера нет — он откроется сам.</div>
+    <button class="mkn-кн mkn-зел" id="mkn-мойсервер">🏠 МОЙ СЕРВЕР <span id="mkn-мойкод"></span></button>
+    <input id="mkn-поле" maxlength="5" placeholder="КОД СЕРВЕРА (5 русских букв)">
+    <div class="mkn-под" style="margin:4px 0 8px">Буквы <b>русские</b>.</div>
+    <button class="mkn-кн" id="mkn-войти">🚪 НА СЕРВЕР ПО КОДУ</button>
+    <button class="mkn-кн mkn-сер" id="mkn-создать">🎲 НОВЫЙ СЕРВЕР</button>
     <div style="height:8px"></div>
-    <button class="mkn-кн mkn-сер" id="mkn-искать">🔍 НАЙТИ ЧУЖИЕ КОМНАТЫ</button>
+    <button class="mkn-кн mkn-сер" id="mkn-искать">🔍 НАЙТИ ДРУГИЕ СЕРВЕРЫ</button>
     <div id="mkn-списокКомнат"></div>
     <button class="mkn-кн mkn-сер" id="mkn-проверка" style="margin-top:6px">🩺 ПРОВЕРИТЬ СВЯЗЬ</button>
     <button class="mkn-кн mkn-сер" id="mkn-обновить" style="margin-top:6px">🔄 ОБНОВИТЬ ИГРУ НАСИЛУ</button>
     <div class="mkn-сост" id="mkn-сост"></div>
     <details id="mkn-настройки" style="margin-top:10px">
-      <summary style="cursor:pointer;font-weight:900;padding:6px 0">⚙️ Настройки комнаты</summary>
+      <summary style="cursor:pointer;font-weight:900;padding:6px 0">⚙️ Настройки сервера</summary>
       <div class="mkn-под">Сколько нас будет?</div>
       <div id="mkn-сколько"></div>
       <div class="mkn-под" style="margin-top:8px">Как играем?</div>
@@ -7348,18 +7359,20 @@ window.__dbg = {
 
 
   <div class="mkn-карта" id="mkn-комната" style="display:none">
-    <h3>🏠 Комната</h3>
-    <div class="mkn-под" style="text-align:center">Скажи друзьям этот код</div>
+    <h3>🌍 Сервер</h3>
+    <div class="mkn-под" style="text-align:center">Код сервера — скажи его друзьям</div>
     <div class="mkn-код" id="mkn-кодтут">—</div>
     <div class="mkn-ряд" style="margin-bottom:8px">
       <button class="mkn-кн mkn-сер" id="mkn-копи">📋 СКОПИРОВАТЬ КОД</button>
       <button class="mkn-кн mkn-сер" id="mkn-позвать">📨 ПОЗВАТЬ ДРУГА</button>
     </div>
     <div class="mkn-под" id="mkn-ктоМожет" style="text-align:center;margin-bottom:8px"></div>
+    <div id="mkn-мир" style="display:none"></div>
     <canvas id="mkn-пол" width="640" height="380"></canvas>
     <div class="mkn-под" style="text-align:center;margin:4px 0 8px">
-      Бегай стрелками или тяни пальцем по комнате
+      Бегай стрелками или держи палец там, куда идти. Встань в портал — позовёшь всех в игру
     </div>
+    <div id="mkn-портал" style="display:none"></div>
     <div class="mkn-под" id="mkn-ждём" style="text-align:center;margin-bottom:8px"></div>
     <div class="mkn-под" style="text-align:center;margin-bottom:4px">👕 Гардероб</div>
     <div id="mkn-цвета"></div>
@@ -7392,8 +7405,15 @@ window.__dbg = {
 
   <div class="mkn-карта" id="mkn-друзья">
     <h3>⭐ Друзья</h3>
+    <input id="mkn-ник" maxlength="18" placeholder="Ник героя">
+    <div class="mkn-ряд" style="margin:8px 0">
+      <button class="mkn-кн mkn-зел" id="mkn-дружить">🤝 ДРУЖИТЬ</button>
+      <button class="mkn-кн mkn-сер" id="mkn-заблок">🚫 ЗАБЛОКИРОВАТЬ</button>
+    </div>
     <div id="mkn-друзьяспис"></div>
-    <div class="mkn-под" id="mkn-друзьяпусто">Пока никого. Сыграй с кем-нибудь — и сможешь добавить.</div>
+    <div class="mkn-под" id="mkn-друзьяпусто">Пока никого. Впиши ник героя и нажми «Дружить» — ему придёт заявка.</div>
+    <div id="mkn-заявкиспис"></div>
+    <div id="mkn-блокспис"></div>
   </div>
 </div></div>
 <script>
@@ -7528,6 +7548,7 @@ window.__dbg = {
     { id:'ghostlife', имя:'Жизнь призрака', em:'👻', вместе:false },
     { id:'dustmaze',  имя:'Пыльный мститель', em:'🌫', вместе:false },
     { id:'phantom',   имя:'Поместье',     em:'👻', вместе:false },
+    { id:'polthotel', имя:'Отель Полтергейстовых', em:'🏨', вместе:false },
     { id:'zasosalo',  имя:'В глубине прибора', em:'🌀', вместе:false },
     { id:'emoplanet', имя:'Эмоциональная планета', em:'🪐', вместе:false },
     { id:'technobunt',имя:'Технобунт',    em:'⏻', вместе:false },
@@ -7598,7 +7619,7 @@ window.__dbg = {
     $('mkn-имяполе').value = профиль.имя;
     пузырь('🏷 Пока будешь ' + профиль.имя + ' — имя можно поменять сверху', 4);
   }
-  async function создатьКомнату(готовыйКод) {
+  async function создатьКомнату(готовыйКод, илиВойти) {
     именаЕсли();
     состояние('Открываю комнату…'); сторожВкл('Создать комнату');
     try { await загрузитьPeer(); }
@@ -7609,8 +7630,8 @@ window.__dbg = {
     peer = new Peer(идКомнаты(код), { debug:0 });
     peer.on('open', ид => {
       сторожВыкл();
-      мойИд = ид; игроки = [{ ид, имя:профиль.имя, ава:профиль.ава, хозяин:true }];
-      показатьКомнату(); состояние('Комната открыта. Диктуй код!');
+      сменитьИд(ид); игроки = [{ ид, имя:профиль.имя, ава:профиль.ава, хозяин:true }]; попыткиСерв = 0;
+      показатьКомнату(); состояние(илиВойти ? '🌍 Ты держишь сервер ' + код + '. Друзья заходят по этому коду!' : 'Комната открыта. Диктуй код!');
       обновитьМини();
       объявитьКомнату();          // 🔍 чтобы друзья нашли её в списке открытых комнат
     });
@@ -7630,7 +7651,9 @@ window.__dbg = {
         рисоватьИгроков(); });
     });
     peer.on('error', e => {
-      if (String(e).includes('is taken')) { состояние('Такая комната уже есть — беру другой код', true);
+      if (String(e).includes('is taken')) {
+        if (илиВойти) { сторожВыкл(); try { peer.destroy(); } catch (_) {} peer = null; войтиВКомнату(готовыйКод); return; }   // 🌍 сервер уже кто-то держит — к нему
+        состояние('Такая комната уже есть — беру другой код', true);
         setTimeout(() => создатьКомнату(), 400); return; }
       сторожВыкл();
       состояние('😕 Не получилось: ' + (e.type || e.message) + '. Проверь интернет и нажми ещё раз.', true);
@@ -7648,21 +7671,23 @@ window.__dbg = {
     if (peer) { try { peer.destroy(); } catch (_) {} }
     peer = new Peer({ debug:0 });
     peer.on('open', ид => {
-      мойИд = ид;
+      сменитьИд(ид);
       хозСвязь = peer.connect(идКомнаты(к), { reliable:true });
       хозСвязь.on('open', () => {
         сторожВыкл();
-        хозСвязь.send({ т:'явился', имя:профиль.имя, ава:профиль.ава });
-        показатьКомнату(); состояние('Вошёл в комнату ' + к);
+        хозСвязь.send({ т:'явился', имя:профиль.имя, ава:профиль.ава }); попыткиСерв = 0;
+        показатьКомнату(); состояние(наСервереНадо === к ? '🌍 Ты на сервере ' + к : 'Вошёл в комнату ' + к);
         обновитьМини();
       });
       хозСвязь.on('data', d => приняли(d, хозСвязь));
       хозСвязь.on('error', () => состояние('Комната не отвечает', true));
-      хозСвязь.on('close', () => { состояние('Хозяин закрыл комнату', true); выйти(); });
-      setTimeout(() => { if (!хозСвязь || !хозСвязь.open) состояние('Такой комнаты нет. Проверь код.', true); }, 6000);
+      const моя = хозСвязь;
+      хозСвязь.on('close', () => { if (хозСвязь !== моя) return; if (наСервереНадо === к) { переподключить(); return; } состояние('Хозяин закрыл комнату', true); выйти(); });
+      setTimeout(() => { if (хозСвязь !== моя || моя.open) return; if (наСервереНадо === к) { переподключить(); return; } состояние('Такой комнаты нет. Проверь код.', true); }, 6000);
     });
     peer.on('call', зв => { зв.answer(мойПоток || undefined); принятьЗвонок(зв); });
     peer.on('error', e => { сторожВыкл();
+      if (наСервереНадо === к && (e.type === 'peer-unavailable' || String(e).includes('Could not connect'))) { переподключить(); return; }   // хозяина нет — сервер держим сами
       состояние('😕 Не получилось: ' + (e.type || e.message) + '. Проверь код и интернет.', true); });
   }
 
@@ -7677,9 +7702,8 @@ window.__dbg = {
       игроки.push({ ид:откуда.peer, имя:d.имя, ава:d.ава, хозяин:false });
       разослать({ т:'люди', игроки });
       рисоватьИгроков();
-      чатСтрока('система', d.имя + ' зашёл в комнату');
-      разослать({ т:'чат', имя:'', текст:d.имя + ' зашёл в комнату', сист:true });
-      запомнитьДруга({ имя:d.имя, ава:d.ава });
+      чатСтрока('система', d.имя + ' зашёл на сервер');
+      разослать({ т:'чат', имя:'', текст:d.имя + ' зашёл на сервер', сист:true });
       return;
     }
     if (d.т === 'полно') { состояние('🚪 В этой комнате уже полно игроков (' + d.макс + '). ' +
@@ -7687,8 +7711,10 @@ window.__dbg = {
     if (d.т === 'привет') { игроки = d.игроки.concat([{ ид:мойИд, имя:профиль.имя, ава:профиль.ава }]);
       if (d.настройки) { настройки = d.настройки; рисоватьВыборИгр(); показатьКтоМожет(); }
       if (d.гонка !== undefined) { гонка = d.гонка; сохранитьГонку(); показатьГонку(); }
-      рисоватьИгроков(); if (d.хозяин) запомнитьДруга(d.хозяин); return; }
+      рисоватьИгроков(); return; }
     if (d.т === 'люди') { игроки = d.игроки; рисоватьИгроков(); return; }
+    if (d.т === 'дружба?' || d.т === 'дружба!' || d.т === 'дружбаНет') { if (хозяин) разослать(d, откуда); принятьДружбу(d); return; }
+    if (d.т === 'чат' && !d.сист && вБлоке(d.имя)) { if (хозяин) разослать(d, откуда); return; }   // 🚫 заблокирован
     if (d.т === 'чат') { чатСтрока(d.сист ? 'система' : d.имя, d.текст);
       if (!d.сист) { сказатьЧат(d.имя, d.текст);
         for (const к in человечки) if (человечки[к].имя === d.имя) {
@@ -7699,7 +7725,8 @@ window.__dbg = {
     if (d.т === 'комн') {                       // положение и цвет человечка в 2D-комнате
       if (хозяин) разослать(d, откуда);
       const ч = человечки[d.ид] || (человечки[d.ид] = { x:0.5, y:0.6, цx:0.5, цy:0.6, цв:0, имя:d.имя });
-      ч.цx = d.x; ч.цy = d.y; ч.цв = d.цв; ч.имя = d.имя; ч.шляпа = d.шляпа || 0;
+      ч.цx = d.x; ч.цy = d.y; ч.цв = d.цв; ч.имя = d.имя; ч.шляпа = d.шляпа || 0; ч.вид = d.вид || 'человечек';
+      if (d.wx !== undefined && d.wx !== null) { ч.цwx = d.wx; ч.цwz = d.wz; ч.цr = d.r; } else { const w = вМир(d.x, d.y); ч.цwx = w.x; ч.цwz = w.z; }
       return;
     }
     if (d.т === 'вечеринка') { вечеринка = d.в; показатьВечеринку(); return; }
@@ -7857,7 +7884,7 @@ window.__dbg = {
         b.className = 'mkn-кн mkn-сер'; b.style.marginTop = '6px';
         b.innerHTML = '🚪 ' + к.код + ' · у ' + (к.имя || 'кого-то') +
           ' · ' + (к.людей || 1) + ' из ' + (к.мест || 4);
-        b.onclick = () => войтиВКомнату(к.код);
+        b.onclick = () => наСервер(к.код);
         с.appendChild(b);
       });
     }, почему => { с.innerHTML = '<div class="mkn-под">😕 ' + почему +
@@ -7911,6 +7938,10 @@ window.__dbg = {
       r.appendChild(x);
       с.appendChild(r);
     });
+    const з = $('mkn-заявкиспис'); if (з) { з.innerHTML = заявки.length ? '<div class="mkn-под" style="margin-top:8px">📨 Ждут ответа: </div>' : '';
+      заявки.forEach(ник => { const b = document.createElement('span'); b.className = 'mkn-мелк'; b.style.display = 'inline-block'; b.style.margin = '4px 4px 0 0'; b.textContent = ник + ' ✖️'; b.onclick = () => { заявки = заявки.filter(x2 => x2 !== ник); сохранитьБлок(); рисоватьДрузей(); }; з.appendChild(b); }); }
+    const бл = $('mkn-блокспис'); if (бл) { бл.innerHTML = блок.length ? '<div class="mkn-под" style="margin-top:8px">🚫 Заблокированы: </div>' : '';
+      блок.forEach(ник => { const b = document.createElement('span'); b.className = 'mkn-мелк'; b.style.display = 'inline-block'; b.style.margin = '4px 4px 0 0'; b.textContent = ник + ' 🔓'; b.title = 'Разблокировать'; b.onclick = () => разблокировать(ник); бл.appendChild(b); }); }
   }
 
   /* ── ЭКРАНЫ ── */
@@ -7926,14 +7957,18 @@ window.__dbg = {
       r.appendChild(cv);
       const n = document.createElement('div'); n.className = 'mkn-н'; n.textContent = г.имя; r.appendChild(n);
       const t = document.createElement('div'); t.className = 'mkn-т';
-      t.textContent = г.хозяин ? 'хозяин' : (г.ид === мойИд ? 'это ты' : 'друг');
+      t.textContent = г.хозяин ? 'держит сервер' : (г.ид === мойИд ? 'это ты' : (другЛи(г.имя) ? '⭐ друг' : 'игрок'));
       r.appendChild(t);
+      if (г.ид !== мойИд) { if (вБлоке(г.имя)) { r.classList.add('mkn-блокн'); const ub = document.createElement('button'); ub.className = 'mkn-мелк'; ub.textContent = '🔓'; ub.title = 'Разблокировать'; ub.onclick = () => разблокировать(г.имя); r.appendChild(ub); }
+        else { if (!другЛи(г.имя)) { const дб = document.createElement('button'); дб.className = 'mkn-мелк'; дб.textContent = '🤝'; дб.title = 'Предложить дружбу'; дб.onclick = () => предложитьДружбу(г.имя); r.appendChild(дб); }
+          const бб = document.createElement('button'); бб.className = 'mkn-мелк'; бб.textContent = '🚫'; бб.title = 'Заблокировать'; бб.onclick = () => заблокировать(г.имя); r.appendChild(бб); } }
       с.appendChild(r);
     });
-    $('mkn-моёсост').textContent = код ? ('в комнате ' + код + ' · игроков ' + игроки.length) : 'не в комнате';
+    $('mkn-моёсост').textContent = код ? ('🌍 на сервере ' + код + ' · игроков ' + игроки.length) : 'не на сервере';
+    послатьЗаявки();
     const ж = $('mkn-ждём');
     if (ж) ж.innerHTML = игроки.length < 2
-      ? '⏳ <b>Жди игроков</b> — скажи другу код <b>' + код + '</b> или пришли ссылку'
+      ? '⏳ Пока ты один. Скажи другу код сервера <b>' + код + '</b> или пришли ссылку'
       : '✅ Вас уже <b>' + игроки.length + '</b> · можно начинать';
     обновитьМини();
     слушатели.игроки.forEach(f => f(игроки));
@@ -7945,20 +7980,18 @@ window.__dbg = {
       имена.slice(0, 10).join(' ');
   }
   function показатьКомнату() {
-    $('mkn-начало').style.display = 'none';
     /* ⚠️ Раньше комната открывалась ВНИЗУ длинной страницы, и Марк её просто
        не видел: «человечек не появляется». Прячем профиль и прокручиваем к комнате. */
-    $('mkn-профиль').style.display = 'none';
-    $('mkn-друзья').style.display = 'none';
     $('mkn-комната').style.display = 'block';
     $('mkn-чаткарта').style.display = 'block';
     setTimeout(() => { try { $('mkn-экран').scrollTop = 0;
-      $('mkn-комната').scrollIntoView({ block:'start', behavior:'smooth' }); } catch (_) {} }, 60);
-    $('mkn-кодтут').textContent = код;
+      const м = $('mkn-мир'); (м && м.style.display === 'block' ? м : $('mkn-комната')).scrollIntoView({ block:м && м.style.display === 'block' ? 'center' : 'start' }); } catch (_) {} }, 60);
+    $('mkn-кодтут').textContent = код || наСервереНадо || '…';
     рисоватьЦвета(); рисоватьШляпы(); рисоватьВыборИгр(); показатьВечеринку(); показатьКтоМожет();
     рисоватьИгроков();
   }
   function выйти() {
+    наСервереНадо = '';
     убратьВсехЧужих();
     $('mkn-профиль').style.display = '';
     $('mkn-друзья').style.display = '';
@@ -7982,6 +8015,11 @@ window.__dbg = {
     рисоватьАву($('mkn-мояава'), профиль.ава);
     $('mkn-моёимя').textContent = профиль.имя || 'Игрок';
     рисоватьРядАватарок(); рисоватьНики(); рисоватьДрузей(); рисоватьНастройки();
+    $('mkn-мойкод').textContent = мойСервер;
+    if (!peer) { let к = ''; try { к = localStorage.getItem(КЛЮЧ_СЕРВ) || ''; } catch (_) {}
+      показатьКомнату(); состояние('🌍 Подключаюсь к серверу…'); наСервер(/^[А-Я]{5}$/.test(к) ? к : мойСервер); }
+    включитьМир3().then(ок => { if (!ок) { $('mkn-пол').style.display = ''; } });
+    показатьВходящие();
   }
   function рисоватьНики() {
     const р = $('mkn-ники'); if (!р) return;
@@ -8136,7 +8174,8 @@ window.__dbg = {
     if (!peer || !код) return;
     const я = мойЧеловечек();
     разослать({ т:'комн', ид:мойИд, имя:профиль.имя, x:+я.x.toFixed(3), y:+я.y.toFixed(3),
-      цв:мойЦвет, шляпа:мояШляпа });
+      цв:мойЦвет, шляпа:мояШляпа, wx:я.wx === undefined ? undefined : +я.wx.toFixed(2), wz:я.wz === undefined ? undefined : +я.wz.toFixed(2),
+      r:+(я.r || 0).toFixed(2), вид:мойВид });
   }
 
   function рисоватьКомнату(dt) {
@@ -8218,7 +8257,13 @@ window.__dbg = {
   function цикл(now) {
     requestAnimationFrame(цикл);
     const dt = Math.min(0.05, (now - прошлоеВремя)/1000); прошлоеВремя = now;
-    if (!$('mkn-экран').classList.contains('mkn-on') || !код) return;
+    if (!$('mkn-экран').classList.contains('mkn-on')) return;
+    if (м3 && $('mkn-комната').style.display !== 'none') {                // 🌍 3D-мир сервера
+      const я = мойЧеловечек(); я.имя = профиль.имя; я.цв = мойЦвет; я.шляпа = мояШляпа;
+      try { тикМира3(dt); } catch (e) { console.warn('3D-мир:', e); }
+      послT -= dt; if (послT <= 0) { послT = я.идёт ? 0.09 : 0.8; послатьМесто(); }
+      return; }
+    if (!код) return;
     const я = мойЧеловечек(); я.имя = профиль.имя; я.цв = мойЦвет; я.шляпа = мояШляпа;
     let dx = 0, dy = 0;
     if (КЛАВ.ArrowLeft || КЛАВ.KeyA) dx -= 1;
@@ -8247,6 +8292,315 @@ window.__dbg = {
     рисоватьКомнату(dt);
   }
   requestAnimationFrame(цикл);
+
+  /* ═══════════ 🌍 3D-МИР СЕРВЕРА (заказ Марка 17–18.10.2026) ═══════════
+     «Вместо того, чтобы создавать комнату, ты играешь за уже 3D-человечка — уже онлайн. По серверам,
+     по кодам, могут заходить игроки. Там чат. Можешь вводить ник героя и предлагать дружбу — или заблокировать.»
+     «…с 3D-человечками в каждой игре, кроме тех, что с пылесосами» — там ты 3D-пылесос.
+     Площадь с фонтаном, деревьями, фонарями и порталами во все игры. Движок three.js берём у самой игры
+     (её import map — работает и офлайн), а если его нет — с CDN; не вышло совсем — остаётся старая 2D-комната. */
+  const ПЫЛЕСОСНЫЕ = ['kart', 'bitva', 'obzhora'];
+  const мойВид = ПЫЛЕСОСНЫЕ.includes(ИГРА) ? 'пылесос' : 'человечек';
+  const R_ПЛОЩАДИ = 13.2;
+  let Т = null, м3 = null, грузимТри = null;
+  const вМир = (x01, y01) => ({ x:(x01 - 0.5)*26, z:(y01 - 0.6)*22 });          // старые 2D-координаты → мир
+  const из3 = (x, z) => ({ x:Math.max(0.05, Math.min(0.95, x/26 + 0.5)), y:Math.max(0.12, Math.min(0.92, z/22 + 0.6)) });
+  function загрузитьТри() {
+    if (грузимТри) return грузимТри;
+    грузимТри = (async () => {
+      try { return await import('three'); } catch (_) {}
+      for (const u of ['https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js', 'https://unpkg.com/three@0.160.0/build/three.module.js']) {
+        try { return await import(u); } catch (_) {} }
+      return null; })();
+    return грузимТри;
+  }
+  function холстТ(w, h, рис) { const c = document.createElement('canvas'); c.width = w; c.height = h; рис(c.getContext('2d'), w, h);
+    const t = new Т.CanvasTexture(c); t.colorSpace = Т.SRGBColorSpace; return t; }
+  function надпись(текст, цвет, фон) {                     // табличка с именем над головой
+    const c = document.createElement('canvas'); c.width = 512; c.height = 96; const g = c.getContext('2d');
+    g.font = '800 46px system-ui, "Apple Color Emoji", "Segoe UI Emoji"'; const w = Math.min(500, g.measureText(текст).width + 40);
+    g.fillStyle = фон || 'rgba(8,12,24,.72)'; g.beginPath(); g.roundRect((512 - w)/2, 14, w, 68, 30); g.fill();
+    g.fillStyle = цвет || '#eaf0ff'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(текст, 256, 50);
+    const t = new Т.CanvasTexture(c); t.colorSpace = Т.SRGBColorSpace;
+    const s = new Т.Sprite(new Т.SpriteMaterial({ map:t, depthTest:false, transparent:true })); s.scale.set(2.6, 0.49, 1); s.renderOrder = 10; return s;
+  }
+  function пузырьТ(спрайт, текст) {                        // облачко с фразой из чата
+    const c = document.createElement('canvas'); c.width = 512; c.height = 160; const g = c.getContext('2d');
+    g.font = '700 38px system-ui, "Apple Color Emoji", "Segoe UI Emoji"';
+    const т = текст.length > 28 ? текст.slice(0, 27) + '…' : текст, w = Math.min(500, g.measureText(т).width + 44);
+    g.fillStyle = 'rgba(255,255,255,.95)'; g.beginPath(); g.roundRect((512 - w)/2, 10, w, 92, 34); g.fill();
+    g.beginPath(); g.moveTo(240, 100); g.lineTo(272, 100); g.lineTo(256, 140); g.closePath(); g.fill();
+    g.fillStyle = '#10131f'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(т, 256, 57);
+    if (спрайт.material.map) спрайт.material.map.dispose();
+    спрайт.material.map = new Т.CanvasTexture(c); спрайт.material.map.colorSpace = Т.SRGBColorSpace; спрайт.material.needsUpdate = true;
+  }
+  const мт = (цв, г) => new Т.MeshStandardMaterial({ color:цв, roughness:г ?? 0.6 });
+  function шляпа3D(i) {                                     // 👕 те же шляпы, что в 2D, — только объёмные
+    const g = new Т.Group(), ш = ШЛЯПЫ[i % ШЛЯПЫ.length];
+    if (ш === '🎩') { const п = new Т.Mesh(new Т.CylinderGeometry(0.22, 0.22, 0.36, 20), мт(0x111827, 0.4)); п.position.y = 0.2; g.add(п);
+      g.add(new Т.Mesh(new Т.CylinderGeometry(0.36, 0.36, 0.04, 24), мт(0x111827, 0.4)));
+      const л = new Т.Mesh(new Т.CylinderGeometry(0.225, 0.225, 0.07, 20), мт(0xb91c1c)); л.position.y = 0.06; g.add(л); }
+    if (ш === '👑') { const к = new Т.Mesh(new Т.CylinderGeometry(0.24, 0.24, 0.14, 20, 1, true), new Т.MeshStandardMaterial({ color:0xfacc15, metalness:0.8, roughness:0.25, side:Т.DoubleSide })); к.position.y = 0.07; g.add(к);
+      for (let k = 0; k < 6; k++) { const з = new Т.Mesh(new Т.ConeGeometry(0.06, 0.16, 6), мт(0xfacc15, 0.3)); const a = k/6*Math.PI*2; з.position.set(Math.cos(a)*0.22, 0.2, Math.sin(a)*0.22); g.add(з); }
+      const кам = new Т.Mesh(new Т.SphereGeometry(0.045, 10, 8), мт(0xdc2626, 0.2)); кам.position.set(0, 0.08, 0.24); g.add(кам); }
+    if (ш === '🎀') { for (const s of [-1, 1]) { const б = new Т.Mesh(new Т.ConeGeometry(0.11, 0.22, 10), мт(0xec4899, 0.5)); б.rotation.z = s*Math.PI/2; б.position.set(s*0.12, 0.05, 0.05); g.add(б); }
+      const у = new Т.Mesh(new Т.SphereGeometry(0.06, 10, 8), мт(0xbe185d)); у.position.set(0, 0.05, 0.05); g.add(у); g.position.x = 0.12; }
+    if (ш === '🧢') { const к = new Т.Mesh(new Т.SphereGeometry(0.3, 20, 10, 0, Math.PI*2, 0, Math.PI/2), мт(0x2563eb, 0.6)); g.add(к);
+      const к2 = new Т.Mesh(new Т.BoxGeometry(0.34, 0.03, 0.26), мт(0x1d4ed8, 0.6)); к2.position.set(0, 0.01, 0.3); g.add(к2); g.position.y = -0.1; }
+    if (ш === '🐱') { for (const s of [-1, 1]) { const у = new Т.Mesh(new Т.ConeGeometry(0.09, 0.22, 4), мт(0xfb923c, 0.6)); у.position.set(s*0.17, 0.02, 0); у.rotation.z = -s*0.25; g.add(у);
+        const в = new Т.Mesh(new Т.ConeGeometry(0.05, 0.13, 4), мт(0xfecaca)); в.position.set(s*0.17, 0.0, 0.03); в.rotation.z = -s*0.25; g.add(в); } }
+    if (ш === '⭐') { const ф = new Т.Shape(); for (let k = 0; k < 10; k++) { const r = k % 2 ? 0.09 : 0.22, a = k/10*Math.PI*2 + Math.PI/2; k ? ф.lineTo(Math.cos(a)*r, Math.sin(a)*r) : ф.moveTo(Math.cos(a)*r, Math.sin(a)*r); }
+      const з = new Т.Mesh(new Т.ExtrudeGeometry(ф, { depth:0.06, bevelEnabled:false }), new Т.MeshStandardMaterial({ color:0xfde047, emissive:0xfacc15, emissiveIntensity:0.5 })); з.position.y = 0.3; g.add(з); g.userData.крутить = з; }
+    if (ш === '🌸') { for (let k = 0; k < 5; k++) { const л = new Т.Mesh(new Т.SphereGeometry(0.07, 8, 6), мт(0xf9a8d4)); const a = k/5*Math.PI*2; л.position.set(Math.cos(a)*0.09, Math.sin(a)*0.09, 0); g.add(л); }
+      const ц = new Т.Mesh(new Т.SphereGeometry(0.05, 8, 6), мт(0xfacc15)); ц.position.z = 0.03; g.add(ц); g.position.set(0.22, -0.02, 0.12); g.rotation.y = 0.6; }
+    return g;
+  }
+  function фигура3D(вид, цв, шляпа) {                       // 🧍 человечек или 🧹 пылесос
+    const g = new Т.Group(), тело = new Т.Group(); g.add(тело); const цвет = new Т.Color(ЦВЕТА[(цв|0) % ЦВЕТА.length]);
+    const u = { ноги:[], руки:[], тело, голова:null, шляпа:null, вид };
+    if (вид === 'пылесос') {
+      const к = new Т.Mesh(new Т.CylinderGeometry(0.46, 0.52, 0.5, 26), new Т.MeshStandardMaterial({ color:цвет, roughness:0.35, metalness:0.15 })); к.position.y = 0.42; тело.add(к);
+      const полоса = new Т.Mesh(new Т.TorusGeometry(0.5, 0.04, 8, 28), мт(0x111827, 0.5)); полоса.rotation.x = Math.PI/2; полоса.position.y = 0.2; тело.add(полоса);
+      const купол = new Т.Mesh(new Т.SphereGeometry(0.34, 20, 12, 0, Math.PI*2, 0, Math.PI/2), new Т.MeshStandardMaterial({ color:0xbae6fd, roughness:0.1, transparent:true, opacity:0.75 })); купол.position.y = 0.66; тело.add(купол);
+      for (const s of [-1, 1]) { const гл = new Т.Mesh(new Т.SphereGeometry(0.09, 12, 10), мт(0xffffff, 0.3)); гл.position.set(s*0.15, 0.5, 0.43); тело.add(гл);
+        const зр = new Т.Mesh(new Т.SphereGeometry(0.045, 10, 8), мт(0x111111, 0.3)); зр.position.set(s*0.15, 0.5, 0.51); тело.add(зр); }
+      const шл = new Т.Mesh(new Т.TorusGeometry(0.3, 0.06, 8, 20, Math.PI*1.1), мт(0x374151, 0.5)); шл.position.set(0, 0.62, -0.2); шл.rotation.y = Math.PI/2; тело.add(шл);
+      const щ = new Т.Mesh(new Т.BoxGeometry(0.5, 0.08, 0.16), мт(0x1f2937, 0.5)); щ.position.set(0, 0.06, 0.5); тело.add(щ);
+      for (const [x, z] of [[-0.36, 0.25], [0.36, 0.25], [-0.36, -0.25], [0.36, -0.25]]) { const кол = new Т.Mesh(new Т.CylinderGeometry(0.1, 0.1, 0.08, 14), мт(0x111111, 0.7)); кол.rotation.z = Math.PI/2; кол.position.set(x, 0.1, z); тело.add(кол); u.ноги.push(кол); }
+      u.голова = купол; u.высота = 1.25; u.верх = 0.95;
+    } else {
+      const кожа = мт(0xf0c3a0, 0.7), штаны = мт(0x2b2233, 0.7), одежда = new Т.MeshStandardMaterial({ color:цвет, roughness:0.55 });
+      for (const s of [-1, 1]) { const п = new Т.Group(); п.position.set(s*0.14, 0.62, 0); тело.add(п);
+        const н = new Т.Mesh(new Т.CapsuleGeometry(0.1, 0.38, 4, 10), штаны); н.position.y = -0.3; п.add(н);
+        const б = new Т.Mesh(new Т.BoxGeometry(0.17, 0.09, 0.26), мт(0x111827, 0.6)); б.position.set(0, -0.58, 0.05); п.add(б); u.ноги.push(п); }
+      const торс = new Т.Mesh(new Т.CapsuleGeometry(0.27, 0.36, 6, 14), одежда); торс.position.y = 0.98; тело.add(торс);
+      for (const s of [-1, 1]) { const п = new Т.Group(); п.position.set(s*0.36, 1.18, 0); тело.add(п);
+        const р = new Т.Mesh(new Т.CapsuleGeometry(0.075, 0.36, 4, 10), одежда); р.position.y = -0.24; п.add(р);
+        const к = new Т.Mesh(new Т.SphereGeometry(0.085, 10, 8), кожа); к.position.y = -0.48; п.add(к); п.rotation.z = s*0.12; u.руки.push(п); }
+      const гол = new Т.Mesh(new Т.SphereGeometry(0.3, 22, 16), кожа); гол.position.y = 1.62; тело.add(гол); u.голова = гол;
+      for (const s of [-1, 1]) { const гл = new Т.Mesh(new Т.SphereGeometry(0.045, 10, 8), мт(0x1f1a2e, 0.3)); гл.position.set(s*0.11, 1.66, 0.27); тело.add(гл);
+        const щк = new Т.Mesh(new Т.SphereGeometry(0.05, 8, 6), мт(0xf9a8a8, 0.8)); щк.scale.set(1, 0.6, 0.4); щк.position.set(s*0.19, 1.55, 0.25); тело.add(щк); }
+      const рот = new Т.Mesh(new Т.TorusGeometry(0.06, 0.015, 6, 12, Math.PI), мт(0x7f1d1d, 0.6)); рот.position.set(0, 1.55, 0.29); рот.rotation.z = Math.PI; тело.add(рот);
+      u.высота = 2.2; u.верх = 1.9;
+    }
+    if (шляпа) { const ш = шляпа3D(шляпа); ш.position.y += вид === 'пылесос' ? 1.0 : 1.88; тело.add(ш); u.шляпа = ш; }
+    g.traverse(o => { if (o.isMesh) o.castShadow = true; });
+    const тень = new Т.Mesh(new Т.CircleGeometry(вид === 'пылесос' ? 0.6 : 0.42, 20), new Т.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.28, depthWrite:false }));
+    тень.rotation.x = -Math.PI/2; тень.position.y = 0.02; g.add(тень);
+    g.userData = u; return g;
+  }
+  function построитьМир3() {
+    const сцена = new Т.Scene(); сцена.background = new Т.Color(0x9ad7ff); сцена.fog = new Т.Fog(0x9ad7ff, 22, 48);
+    const кам = new Т.PerspectiveCamera(55, 1.6, 0.1, 120);
+    const рен = new Т.WebGLRenderer({ antialias:true }); рен.setPixelRatio(Math.min(1.5, devicePixelRatio || 1)); рен.outputColorSpace = Т.SRGBColorSpace;
+    рен.shadowMap.enabled = true; рен.shadowMap.type = Т.PCFSoftShadowMap;
+    сцена.add(new Т.HemisphereLight(0xe0f2fe, 0x3f6212, 1.1));
+    const солнце = new Т.DirectionalLight(0xfff7e6, 2.2); солнце.position.set(8, 16, 10); солнце.castShadow = true; солнце.shadow.mapSize.set(1024, 1024);
+    Object.assign(солнце.shadow.camera, { left:-16, right:16, top:16, bottom:-16, near:1, far:50 }); сцена.add(солнце);
+    // 🌍 небо-градиент, облака, остров-планета
+    const небо = new Т.Mesh(new Т.SphereGeometry(80, 24, 16), new Т.MeshBasicMaterial({ side:Т.BackSide, fog:false, map:холстТ(16, 256, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#3b82f6'); gr.addColorStop(0.5, '#9ad7ff'); gr.addColorStop(1, '#e0f2fe'); g.fillStyle = gr; g.fillRect(0, 0, w, h); }) }));
+    сцена.add(небо);
+    const трава = холстТ(256, 256, (g, w, h) => { g.fillStyle = '#4d9a3a'; g.fillRect(0, 0, w, h); for (let i = 0; i < 4000; i++) { g.fillStyle = Math.random() < 0.5 ? 'rgba(20,70,10,.25)' : 'rgba(170,230,110,.2)'; g.fillRect(Math.random()*w, Math.random()*h, 2, 3); } });
+    трава.wrapS = трава.wrapT = Т.RepeatWrapping; трава.repeat.set(8, 8);
+    const земля = new Т.Mesh(new Т.CylinderGeometry(R_ПЛОЩАДИ + 3, R_ПЛОЩАДИ + 1, 2.4, 64), [new Т.MeshStandardMaterial({ color:0x7c5a3a, roughness:1 }), new Т.MeshStandardMaterial({ map:трава, roughness:0.95 }), мт(0x5b4028, 1)]);
+    земля.position.y = -1.2; земля.receiveShadow = true; сцена.add(земля);
+    const дорожка = new Т.Mesh(new Т.RingGeometry(5.6, 7.2, 64), мт(0xd6c7a1, 0.9)); дорожка.rotation.x = -Math.PI/2; дорожка.position.y = 0.01; дорожка.receiveShadow = true; сцена.add(дорожка);
+    // ⛲ фонтан в центре
+    const ф = new Т.Group(); сцена.add(ф);
+    const чаша = new Т.Mesh(new Т.CylinderGeometry(2.2, 2.4, 0.6, 32), мт(0xcbd5e1, 0.5)); чаша.position.y = 0.3; ф.add(чаша);
+    const вода = new Т.Mesh(new Т.CylinderGeometry(1.95, 1.95, 0.05, 32), new Т.MeshStandardMaterial({ color:0x38bdf8, roughness:0.1, metalness:0.2, emissive:0x0c4a6e, emissiveIntensity:0.3 })); вода.position.y = 0.56; ф.add(вода);
+    const столб = new Т.Mesh(new Т.CylinderGeometry(0.22, 0.3, 1.4, 16), мт(0xe2e8f0, 0.5)); столб.position.y = 1.1; ф.add(столб);
+    const струи = []; for (let k = 0; k < 8; k++) { const с = new Т.Mesh(new Т.SphereGeometry(0.09, 8, 6), new Т.MeshStandardMaterial({ color:0xbae6fd, emissive:0x38bdf8, emissiveIntensity:0.6, transparent:true, opacity:0.85 })); ф.add(с); струи.push({ с, ф:k/8 }); }
+    // 🌳 деревья и 💡 фонари по краю
+    for (let k = 0; k < 10; k++) { const a = k/10*Math.PI*2 + 0.31, r = R_ПЛОЩАДИ - 0.8, x = Math.cos(a)*r, z = Math.sin(a)*r;
+      const ст = new Т.Mesh(new Т.CylinderGeometry(0.16, 0.22, 1.6, 8), мт(0x7c4a2a, 0.9)); ст.position.set(x, 0.8, z); ст.castShadow = true; сцена.add(ст);
+      const кр = new Т.Mesh(k % 2 ? new Т.ConeGeometry(1.1, 2.4, 10) : new Т.IcosahedronGeometry(1.1, 1), мт(k % 2 ? 0x166534 : 0x22a34a, 0.8)); кр.position.set(x, k % 2 ? 2.6 : 2.3, z); кр.castShadow = true; сцена.add(кр); }
+    for (let k = 0; k < 6; k++) { const a = k/6*Math.PI*2, x = Math.cos(a)*7.8, z = Math.sin(a)*7.8;
+      const ст = new Т.Mesh(new Т.CylinderGeometry(0.06, 0.08, 2.4, 8), мт(0x1f2937, 0.4)); ст.position.set(x, 1.2, z); сцена.add(ст);
+      const л = new Т.Mesh(new Т.SphereGeometry(0.2, 12, 10), new Т.MeshStandardMaterial({ color:0xfff7cc, emissive:0xffe08a, emissiveIntensity:1.4 })); л.position.set(x, 2.5, z); сцена.add(л); }
+    // 🚪 порталы во все игры — по кругу, лицом к фонтану
+    const порталы = [];
+    СПИСОК.forEach((и, k) => { const a = k/СПИСОК.length*Math.PI*2 + Math.PI/2, r = 10.6, x = Math.cos(a)*r, z = Math.sin(a)*r, гр = new Т.Group(); гр.position.set(x, 0, z); гр.rotation.y = Math.atan2(-x, -z); сцена.add(гр);
+      const цв = new Т.Color().setHSL(k/СПИСОК.length, 0.7, 0.55);
+      const арка = new Т.Mesh(new Т.TorusGeometry(0.95, 0.12, 10, 28, Math.PI), new Т.MeshStandardMaterial({ color:цв, emissive:цв, emissiveIntensity:0.35, roughness:0.4 })); арка.position.y = 1.15; гр.add(арка);
+      for (const s of [-1, 1]) { const н = new Т.Mesh(new Т.CylinderGeometry(0.12, 0.12, 1.15, 10), арка.material); н.position.set(s*0.95, 0.575, 0); гр.add(н); }
+      const дыра = new Т.Mesh(new Т.CircleGeometry(0.9, 28, 0, Math.PI), new Т.MeshBasicMaterial({ color:цв, transparent:true, opacity:0.45, side:Т.DoubleSide })); дыра.position.y = 1.15; гр.add(дыра);
+      const дыра2 = new Т.Mesh(new Т.PlaneGeometry(1.8, 1.15), дыра.material); дыра2.position.y = 0.575; гр.add(дыра2);
+      const таб = надпись(и.em + ' ' + и.имя, '#fff', 'rgba(15,23,42,.82)'); таб.position.set(0, 2.55, 0); таб.scale.set(2.9, 0.55, 1); гр.add(таб);
+      порталы.push({ и, x, z, гр, дыра }); });
+    // 🏝 облака вокруг
+    for (let k = 0; k < 9; k++) { const о = new Т.Group(), a = k/9*Math.PI*2, r = 30 + (k % 3)*6;
+      for (let q = 0; q < 4; q++) { const ш = new Т.Mesh(new Т.SphereGeometry(1.4 + Math.random(), 12, 8), new Т.MeshStandardMaterial({ color:0xffffff, roughness:1, emissive:0xffffff, emissiveIntensity:0.25 })); ш.position.set(q*1.5 - 2, Math.random()*0.6, Math.random()); о.add(ш); }
+      о.position.set(Math.cos(a)*r, 4 + (k % 4)*2.5, Math.sin(a)*r); сцена.add(о); }
+    return { сцена, кам, рен, струи, порталы, люди:{}, пол:new Т.Plane(new Т.Vector3(0, 1, 0), 0), луч:new Т.Raycaster(), камЦ:new Т.Vector3(0, 0, 4) };
+  }
+  /* фигуры игроков: создаём, перекрашиваем, двигаем; заблокированных не показываем */
+  function фигураИгрока(ид, ч) {
+    let ф = м3.люди[ид]; const ключ = (ч.вид || 'человечек') + ':' + (ч.цв|0) + ':' + (ч.шляпа|0);
+    if (ф && ф.ключ !== ключ) { м3.сцена.remove(ф.g); ф = null; }
+    if (!ф) { const g = фигура3D(ч.вид || 'человечек', ч.цв, ч.шляпа); м3.сцена.add(g);
+      const имя = надпись(ч.имя || 'Игрок', ид === мойИд ? '#ffe08a' : '#eaf0ff'); имя.position.y = g.userData.высота; g.add(имя);
+      const пуз = new Т.Sprite(new Т.SpriteMaterial({ transparent:true, depthTest:false })); пуз.scale.set(3, 0.94, 1); пуз.position.y = g.userData.высота + 0.75; пуз.visible = false; пуз.renderOrder = 11; g.add(пуз);
+      ф = м3.люди[ид] = { g, ключ, имя, имяТекст:ч.имя, пуз, фраза:'', фаза:Math.random()*6 }; }
+    if (ф.имяТекст !== ч.имя) { ф.g.remove(ф.имя); ф.имя = надпись(ч.имя || 'Игрок', ид === мойИд ? '#ffe08a' : '#eaf0ff'); ф.имя.position.y = ф.g.userData.высота; ф.g.add(ф.имя); ф.имяТекст = ч.имя; }
+    return ф;
+  }
+  function сменитьИд(ид) {                                  // новый адрес после переподключения — свой человечек остаётся на месте
+    const старый = человечки[мойИд]; if (мойИд !== ид && старый) { человечки[ид] = старый; delete человечки[мойИд];
+      if (м3 && м3.люди[мойИд]) { м3.сцена.remove(м3.люди[мойИд].g); delete м3.люди[мойИд]; } }
+    мойИд = ид; }
+  let тянуМир = null, мир3Готов = false;
+  async function включитьМир3() {
+    if (м3 || мир3Готов === 'нет') return !!м3;
+    Т = await загрузитьТри();
+    if (!Т) { мир3Готов = 'нет'; return false; }
+    try { м3 = построитьМир3(); } catch (e) { console.warn('3D-мир:', e); мир3Готов = 'нет'; return false; }
+    const box = $('mkn-мир'); box.appendChild(м3.рен.domElement); м3.рен.domElement.id = 'mkn-мир3';
+    $('mkn-пол').style.display = 'none'; box.style.display = 'block';
+    setTimeout(() => { try { if ($('mkn-экран').classList.contains('mkn-on')) box.scrollIntoView({ block:'center' }); } catch (_) {} }, 120);
+    const кв = м3.рен.domElement;
+    const точка = e => { const r = кв.getBoundingClientRect(), v = new Т.Vector2(((e.clientX - r.left)/r.width)*2 - 1, -((e.clientY - r.top)/r.height)*2 + 1);
+      м3.луч.setFromCamera(v, м3.кам); const p = new Т.Vector3(); return м3.луч.ray.intersectPlane(м3.пол, p) ? p : null; };
+    кв.addEventListener('pointerdown', e => { тянуМир = точка(e); try { кв.setPointerCapture(e.pointerId); } catch (_) {} });
+    кв.addEventListener('pointermove', e => { if (тянуМир) тянуМир = точка(e) || тянуМир; });
+    кв.addEventListener('pointerup', () => тянуМир = null); кв.addEventListener('pointercancel', () => тянуМир = null);
+    мир3Готов = true; return true;
+  }
+  let порталРядом = null;
+  function тикМира3(dt) {
+    const box = $('mkn-мир'), W = box.clientWidth || 600, H = Math.round(Math.min(W*0.62, innerHeight*(innerHeight < 560 ? 0.8 : 0.52)));   // телефон боком — мир почти во весь экран
+    if (м3.рен.domElement.width !== Math.round(W*м3.рен.getPixelRatio()) || м3.H !== H) { м3.рен.setSize(W, H); м3.кам.aspect = W/H; м3.кам.updateProjectionMatrix(); м3.H = H; }
+    const я = мойЧеловечек(); if (я.wx === undefined) { const a = Math.random()*Math.PI*2; я.wx = Math.cos(a)*4; я.wz = 4 + Math.sin(a)*1.5; я.r = Math.PI; }
+    let dx = 0, dz = 0;
+    if (КЛАВ.ArrowLeft || КЛАВ.KeyA) dx -= 1; if (КЛАВ.ArrowRight || КЛАВ.KeyD) dx += 1;
+    if (КЛАВ.ArrowUp || КЛАВ.KeyW) dz -= 1; if (КЛАВ.ArrowDown || КЛАВ.KeyS) dz += 1;
+    if (тянуМир) { dx = тянуМир.x - я.wx; dz = тянуМир.z - я.wz; const д = Math.hypot(dx, dz); if (д < 0.15) dx = dz = 0; }
+    const д = Math.hypot(dx, dz); я.идёт = д > 0.01;
+    if (я.идёт) { const ск = мойВид === 'пылесос' ? 5.2 : 4.4; я.wx += dx/д*ск*dt; я.wz += dz/д*ск*dt; я.r = Math.atan2(dx, dz);
+      const рр = Math.hypot(я.wx, я.wz); if (рр > R_ПЛОЩАДИ) { я.wx *= R_ПЛОЩАДИ/рр; я.wz *= R_ПЛОЩАДИ/рр; }
+      if (рр < 2.7) { я.wx *= 2.7/Math.max(0.01, рр); я.wz *= 2.7/Math.max(0.01, рр); } }
+    const п01 = из3(я.wx, я.wz); я.x = п01.x; я.y = п01.y; я.вид = мойВид;
+    // все фигуры
+    const живые = new Set([мойИд, ...игроки.map(г => г.ид)]);
+    for (const ид in человечки) {
+      const ч = человечки[ид]; if (ид !== мойИд && игроки.length && !живые.has(ид)) continue;
+      const заблок = ид !== мойИд && вБлоке(ч.имя);
+      if (ид !== мойИд) { if (ч.цwx === undefined) { const w = вМир(ч.цx ?? 0.5, ч.цy ?? 0.6); ч.цwx = w.x; ч.цwz = w.z; }
+        if (ч.wx === undefined) { ч.wx = ч.цwx; ч.wz = ч.цwz; }
+        const бx = ч.wx, бz = ч.wz; ч.wx += (ч.цwx - ч.wx)*Math.min(1, dt*8); ч.wz += (ч.цwz - ч.wz)*Math.min(1, dt*8);
+        ч.идёт = Math.hypot(ч.wx - бx, ч.wz - бz) > dt*0.4; if (ч.цr !== undefined) ч.r = ч.цr; }
+      const ф = фигураИгрока(ид, ч); ф.g.visible = !заблок;
+      ф.g.position.set(ч.wx, 0, ч.wz); ф.g.rotation.y = ч.r || 0;
+      const u = ф.g.userData; ф.фаза += dt*(ч.идёт ? 11 : 2);
+      if (u.вид === 'пылесос') { u.ноги.forEach(к => к.rotation.x += ч.идёт ? dt*12 : 0); u.тело.position.y = ч.идёт ? Math.abs(Math.sin(ф.фаза))*0.04 : 0; }
+      else { const a = ч.идёт ? Math.sin(ф.фаза)*0.7 : 0; u.ноги[0].rotation.x = a; u.ноги[1].rotation.x = -a; u.руки[0].rotation.x = -a*0.8; u.руки[1].rotation.x = a*0.8;
+        u.тело.position.y = ч.идёт ? Math.abs(Math.sin(ф.фаза))*0.06 : Math.sin(ф.фаза*0.5)*0.015; }
+      if (u.шляпа && u.шляпа.userData.крутить) u.шляпа.userData.крутить.rotation.y += dt*2;
+      if (ч.фразаT > 0 && !заблок) { if (ф.фраза !== ч.фраза) { ф.фраза = ч.фраза; пузырьТ(ф.пуз, ч.фраза); } ф.пуз.visible = true; ч.фразаT -= dt; } else ф.пуз.visible = false;
+    }
+    for (const ид in м3.люди) if (!человечки[ид] || (ид !== мойИд && игроки.length && !живые.has(ид))) { м3.сцена.remove(м3.люди[ид].g); delete м3.люди[ид]; }
+    // фонтан, порталы
+    const t = performance.now()/1000;
+    м3.струи.forEach(с => { const k = (с.ф + t*0.6) % 1, a = с.ф*Math.PI*2; с.с.position.set(Math.cos(a)*k*1.5, 1.8 + Math.sin(k*Math.PI)*0.9 - k*1.2, Math.sin(a)*k*1.5); });
+    let рядом = null; for (const п of м3.порталы) { п.дыра.material.opacity = 0.35 + Math.sin(t*3 + п.x)*0.12; if (Math.hypot(я.wx - п.x, я.wz - п.z) < 1.5) рядом = п; }
+    if (рядом !== порталРядом) { порталРядом = рядом; показатьПортал(рядом); }
+    // камера сзади-сверху, мягко
+    м3.камЦ.lerp(new Т.Vector3(я.wx, 0, я.wz), Math.min(1, dt*5));
+    м3.кам.position.set(м3.камЦ.x, 6.4, м3.камЦ.z + 8.2); м3.кам.lookAt(м3.камЦ.x, 0.9, м3.камЦ.z);
+    м3.рен.render(м3.сцена, м3.кам);
+  }
+  /* 🚪 стоишь в портале — можно позвать всех в игру (хозяин) или предложить её (гость) */
+  function показатьПортал(п) {
+    const э = $('mkn-портал'); if (!э) return;
+    if (!п) { э.style.display = 'none'; э.innerHTML = ''; return; }
+    э.style.display = 'block';
+    э.innerHTML = '<b>' + п.и.em + ' ' + п.и.имя + '</b><div class="mkn-ряд" style="margin-top:8px">' +
+      (хозяин ? '<button class="mkn-кн mkn-зел" id="mkn-порталВсе">▶ ПОЗВАТЬ ВСЕХ</button>' : '<button class="mkn-кн mkn-зел" id="mkn-порталСказать">💬 ПРЕДЛОЖИТЬ</button>') +
+      '<button class="mkn-кн mkn-сер" id="mkn-порталОдин">🎮 ИГРАТЬ ОДНОМУ</button></div>';
+    const все = $('mkn-порталВсе'); if (все) все.onclick = () => позватьВИгру(адресИгры(п.и.id), п.и.id);
+    const ск = $('mkn-порталСказать'); if (ск) ск.onclick = () => сказать('🎮 Давай в «' + п.и.имя + '»!');
+    $('mkn-порталОдин').onclick = () => { location.href = адресИгры(п.и.id); };
+  }
+
+  /* ═══════════ 🌍 СЕРВЕРЫ ПО КОДАМ: зашёл — и ты уже онлайн ═══════════
+     Сервер = комната с кодом. Кто первым пришёл на код, тот и держит сервер (хозяин), остальные заходят к нему.
+     Ушёл хозяин — сервер не пропадает: кто-то из оставшихся сам становится хозяином, остальные переподключаются. */
+  const КЛЮЧ_СЕРВ = 'мк-сервер', КЛЮЧ_МОЙ = 'мк-мойсервер';
+  let мойСервер = ''; try { мойСервер = localStorage.getItem(КЛЮЧ_МОЙ) || ''; } catch (_) {}
+  if (!/^[А-Я]{5}$/.test(мойСервер)) { мойСервер = новыйКод(); try { localStorage.setItem(КЛЮЧ_МОЙ, мойСервер); } catch (_) {} }
+  let наСервереНадо = '', попыткиСерв = 0;
+  function наСервер(к) {
+    к = String(к || '').toUpperCase().replace(/[^А-ЯЁ]/g, '').slice(0, 5);
+    if (к.length !== 5) { состояние('Код сервера — ровно пять русских букв', true); return; }
+    if (peer && код === к && (хозяин || (хозСвязь && хозСвязь.open))) return;
+    наСервереНадо = к; try { localStorage.setItem(КЛЮЧ_СЕРВ, к); } catch (_) {}
+    if (peer) { тихоВыйти(); }
+    создатьКомнату(к, true);                                // сначала пробуем стать хозяином; занято — заходим гостем
+  }
+  function тихоВыйти() { убратьВсехЧужих(); try { if (peer) peer.destroy(); } catch (_) {} peer = null; связи = []; хозСвязь = null; игроки = []; код = ''; хозяин = false; }
+  function переподключить() {                               // хозяин пропал — сервер переходит к кому-то из нас
+    if (!наСервереНадо) return; const к = наСервереНадо;
+    if (++попыткиСерв > 8) { состояние('😕 Сервер ' + к + ' не отвечает. Нажми «Мой сервер» или введи код ещё раз.', true); попыткиСерв = 0; return; }
+    состояние('🔄 Хозяин сервера вышел — держим сервер ' + к + ' сами…');
+    тихоВыйти(); setTimeout(() => { if (наСервереНадо === к && !peer) создатьКомнату(к, true); }, 400 + Math.random()*1600);
+  }
+
+  /* ═══════════ 🤝 ДРУЗЬЯ ПО НИКУ И 🚫 БЛОК ═══════════ */
+  const КЛЮЧ_БЛОК = 'мк-блок', КЛЮЧ_ЗАЯВКИ = 'мк-заявки';
+  let блок = [], заявки = [];
+  try { блок = JSON.parse(localStorage.getItem(КЛЮЧ_БЛОК) || '[]'); заявки = JSON.parse(localStorage.getItem(КЛЮЧ_ЗАЯВКИ) || '[]'); } catch (_) {}
+  const сохранитьБлок = () => { try { localStorage.setItem(КЛЮЧ_БЛОК, JSON.stringify(блок)); localStorage.setItem(КЛЮЧ_ЗАЯВКИ, JSON.stringify(заявки)); } catch (_) {} };
+  const чистыйНик = н => String(н || '').trim().slice(0, 18);
+  const одинНик = (a, b) => чистыйНик(a).toLowerCase() === чистыйНик(b).toLowerCase();
+  function вБлоке(имя) { return !!имя && блок.some(б => одинНик(б, имя)); }
+  function другЛи(имя) { return друзья.some(д => одинНик(д.имя, имя)); }
+  function найтиНаСервере(ник) { return игроки.find(г => г.ид !== мойИд && одинНик(г.имя, ник)); }
+  function предложитьДружбу(ник) {
+    ник = чистыйНик(ник); if (!ник) { пузырь('Впиши ник героя'); return; }
+    if (одинНик(ник, профиль.имя)) { пузырь('Это же ты сам 🙂'); return; }
+    if (другЛи(ник)) { пузырь('⭐ ' + ник + ' уже твой друг'); return; }
+    if (вБлоке(ник)) { блок = блок.filter(б => !одинНик(б, ник)); }
+    if (!заявки.some(з => одинНик(з, ник))) заявки.push(ник); сохранитьБлок();
+    if (peer && найтиНаСервере(ник)) { разослать({ т:'дружба?', от:профиль.имя, ава:профиль.ава, кому:ник }); пузырь('📨 Заявка ушла: ' + ник, 3); }
+    else пузырь('📨 ' + ник + ' сейчас нет на сервере — заявка уйдёт, как только вы встретитесь', 4.5);
+    рисоватьДрузей();
+  }
+  function заблокировать(ник) {
+    ник = чистыйНик(ник); if (!ник) { пузырь('Впиши ник героя'); return; }
+    if (одинНик(ник, профиль.имя)) { пузырь('Себя не заблокируешь 🙂'); return; }
+    if (!вБлоке(ник)) блок.push(ник);
+    друзья = друзья.filter(д => !одинНик(д.имя, ник)); заявки = заявки.filter(з => !одинНик(з, ник));
+    сохранитьБлок(); сохранитьПрофиль(); рисоватьДрузей(); рисоватьИгроков();
+    пузырь('🚫 ' + ник + ' заблокирован: его сообщений и человечка ты больше не видишь', 4);
+  }
+  function разблокировать(ник) { блок = блок.filter(б => !одинНик(б, ник)); сохранитьБлок(); рисоватьДрузей(); рисоватьИгроков(); пузырь('✅ ' + ник + ' разблокирован', 2.5); }
+  function послатьЗаявки() {                                // кто из ждущих заявки появился на сервере — тому и шлём
+    if (!peer) return;
+    for (const ник of заявки) if (найтиНаСервере(ник)) разослать({ т:'дружба?', от:профиль.имя, ава:профиль.ава, кому:ник });
+  }
+  const входящие = [];
+  function показатьВходящие() {
+    const э = $('mkn-заявка'); if (!э) return;
+    const з = входящие[0]; if (!з) { э.style.display = 'none'; return; }
+    э.style.display = 'block';
+    э.innerHTML = '🤝 <b></b> хочет с тобой дружить!<div class="mkn-ряд" style="margin-top:8px"><button class="mkn-кн mkn-зел" id="mkn-дружбаДа">✅ ДА</button>' +
+      '<button class="mkn-кн mkn-сер" id="mkn-дружбаНет">❌ НЕТ</button><button class="mkn-кн mkn-сер" id="mkn-дружбаБлок">🚫</button></div>';
+    э.querySelector('b').textContent = з.от;
+    $('mkn-дружбаДа').onclick = () => { входящие.shift(); запомнитьДруга({ имя:з.от, ава:з.ава }); заявки = заявки.filter(x => !одинНик(x, з.от)); сохранитьБлок();
+      разослать({ т:'дружба!', от:профиль.имя, ава:профиль.ава, кому:з.от }); пузырь('⭐ Теперь вы с ' + з.от + ' друзья!', 3.5); показатьВходящие(); };
+    $('mkn-дружбаНет').onclick = () => { входящие.shift(); разослать({ т:'дружбаНет', от:профиль.имя, кому:з.от }); показатьВходящие(); };
+    $('mkn-дружбаБлок').onclick = () => { входящие.shift(); заблокировать(з.от); показатьВходящие(); };
+  }
+  function принятьДружбу(d) {                               // заявки и ответы, адресованные мне
+    if (!d.кому || !одинНик(d.кому, профиль.имя) || вБлоке(d.от)) return;
+    if (d.т === 'дружба?') { if (другЛи(d.от)) { разослать({ т:'дружба!', от:профиль.имя, ава:профиль.ава, кому:d.от }); return; }
+      if (заявки.some(з => одинНик(з, d.от))) { заявки = заявки.filter(з => !одинНик(з, d.от)); сохранитьБлок(); запомнитьДруга({ имя:d.от, ава:d.ава });   // оба позвали друг друга
+        разослать({ т:'дружба!', от:профиль.имя, ава:профиль.ава, кому:d.от }); пузырь('⭐ Теперь вы с ' + d.от + ' друзья!', 3.5); return; }
+      if (!входящие.some(з => одинНик(з.от, d.от))) { входящие.push({ от:d.от, ава:d.ава }); пузырь('🤝 ' + d.от + ' хочет с тобой дружить!', 4); показатьВходящие();
+        try { if (window.МКГолос) МКГолос.сказать(d.от + ' хочет с тобой дружить!'); } catch (_) {} } }
+    if (d.т === 'дружба!') { заявки = заявки.filter(з => !одинНик(з, d.от)); сохранитьБлок(); запомнитьДруга({ имя:d.от, ава:d.ава }); пузырь('⭐ ' + d.от + ' принял дружбу!', 3.5); }
+    if (d.т === 'дружбаНет') { заявки = заявки.filter(з => !одинНик(з, d.от)); сохранитьБлок(); рисоватьДрузей(); пузырь('🙁 ' + d.от + ' пока не хочет дружить', 3); }
+  }
 
   /* ═══ ⚡ ГОНКА: два режима комнаты (заказ Марка 19.09.2026) ═══
      «Молниеносный забег» — игры одна за другой из списка комнаты.
@@ -8401,13 +8755,12 @@ window.__dbg = {
     пузырь('✅ Сохранил: ' + и);
   };
   /* 🏠 если Марк вписал свой код — создаём комнату ИМЕННО с ним, а не со случайным */
-  $('mkn-создать').onclick = () => {
-    const свой = ($('mkn-поле').value || '').toUpperCase().replace(/[^А-ЯЁ]/g, '').slice(0, 5);
-    if (свой && свой.length !== 5)
-      пузырь('Код — ровно 5 русских букв. Или оставь поле пустым, код придумается сам', 5);
-    создатьКомнату(свой.length === 5 ? свой : undefined);
-  };
-  $('mkn-войти').onclick = () => войтиВКомнату();
+  $('mkn-создать').onclick = () => { const к = новыйКод(); пузырь('🎲 Новый сервер ' + к, 3); наСервер(к); };
+  $('mkn-войти').onclick = () => наСервер($('mkn-поле').value);
+  $('mkn-мойсервер').onclick = () => наСервер(мойСервер);
+  $('mkn-дружить').onclick = () => { предложитьДружбу($('mkn-ник').value); $('mkn-ник').value = ''; };
+  $('mkn-заблок').onclick = () => { заблокировать($('mkn-ник').value); $('mkn-ник').value = ''; };
+  $('mkn-ник').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); $('mkn-дружить').click(); } };
   /* 💬 свои слова в чат */
   { const поле = $('mkn-своё'), кн = $('mkn-послать');
     const послать = () => { const т = (поле.value || '').trim();
@@ -8484,8 +8837,8 @@ window.__dbg = {
     const к = (п.get('мк') || '').toUpperCase();
     if (!к || к.length !== 5) return;
     setTimeout(() => {
-      if (п.get('хоз') === '1') создатьКомнату(к); else войтиВКомнату(к);
-      пузырь('👥 Возвращаюсь в комнату ' + к, 4);
+      наСервер(к);
+      пузырь('🌍 Возвращаюсь на сервер ' + к, 4);
     }, 900);
   })();
 
@@ -8597,6 +8950,14 @@ window.__dbg = {
     позватьВИгру,
     создать: создатьКомнату,
     войти: войтиВКомнату,
+    наСервер, get сервер() { return код; }, get мойСервер() { return мойСервер; },
+    get мир3() { return !!м3; }, get вид() { return мойВид; },
+    get я3() { const я = человечки[мойИд]; return я ? { x:я.wx, z:я.wz } : null; },
+    идти3(x, z) { const я = мойЧеловечек(); я.wx = x; я.wz = z; послатьМесто(); return true; },
+    get друзья() { return друзья.map(д => д.имя); }, get блок() { return блок.slice(); }, get заявки() { return заявки.slice(); },
+    get входящие() { return входящие.map(з => з.от); },
+    предложитьДружбу, заблокировать, разблокировать,
+    get видимыеЛюди() { return м3 ? Object.entries(м3.люди).filter(([, ф]) => ф.g.visible).map(([ид]) => (человечки[ид] || {}).имя) : []; },
     аватарка: рисоватьАву,
     АВАТАРКИ, ФРАЗЫ,
   };
@@ -8769,6 +9130,7 @@ window.__dbg = {
     choiceQ:       {},                               // Эмоц. планета: «👤 Морф шепчет: …»
     'сюжетТекст':  { роль:'пылинка' },               // Пыльный мститель: рассказ выжившей
     say:           { толькоИмя:true },               // say бывает и подсказкой — тогда молчим
+    'субтитры':    {},                               // Отель Полтергейстовых: «МОРФ: …», «ПРОФЕССОР: …»
   };
 
   /* мусор, который вслух читать не надо */
