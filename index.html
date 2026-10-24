@@ -200,7 +200,7 @@ body.вдвоём #шум{top:auto;bottom:170px;left:60px}
   <link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png">
   <meta name="msapplication-TileImage" content="icon-192.png">
   <meta name="msapplication-TileColor" content="#65a30d">
-  <script>window.__APP_VER = "6158d30815";</script>
+  <script>window.__APP_VER = "f1ecdf81e3";</script>
 </head>
 <body>
 <div id="menu">
@@ -1873,6 +1873,7 @@ const ЭПИЗОДЫ = [
     кратко2:'👥 Кроты гонятся! Бегите вдвоём к выходу у пруда.', старт:()=>эпОбвал(), вдвоём:()=>эпОбвал(true) },
   { id:'лягушки', сад:true, em:'🐸', имя:'Лягушки потерялись!', кратко:'Три лягушки ускакали в высокую траву и потерялись. Найди их по кваканью, садись верхом ✋ — и скачи к пруду! Прыжок — большой скачок выше травы.',
     кратко2:'👥 Ищите лягушек вдвоём — у каждого своя лягушка-скакун!', старт:()=>эпЛягушки(), вдвоём:()=>эпЛягушки(true) },
+  { id:'мышь', сад:true, em:'🌧', имя:'Мышь утащила!', кратко:'Дождь. Мышь схватила героя за кофту и утащила в нору! Ты играешь за ДРУГА: найди героя в ходах, разорви лист ✋ — и бегите к свету, пока мышь не догнала!', старт:()=>эпМышь() },
 ];
 const СЛУЧАИ = [
   { id:'звон',   em:'⏰', имя:'Будильник зазвенел!',   старт:()=>случЗвон() },
@@ -5804,6 +5805,7 @@ function садТик(dt) {
       if (с.срублен && с.жертва && с.жертва.rotation.z > 0.001) с.жертва.rotation.z = Math.max(0, с.жертва.rotation.z - dt*0.5); }
     if (КОС.g.visible && КОС.вкл) { const d = Math.hypot(player.x - КОС.x, player.z - КОС.z); Snd.косилкаРядом(clamp(1.15 - d/170, 0.18, 1)); }
   } else { звериТик(dt, НОРА.шум || 0); }
+  дождьТик(dt);
 }
 /* у каждого игрока: топорик и замах, фонарик в норе */
 function садИгрок(dt) {
@@ -5899,7 +5901,7 @@ function садСброс() {
   НОРА.пробка.g.position.set(3.5, -2, нz(178.5)); НОРА.пробка.g.rotation.set(0, 0, 0); НОРА.пробка.g.scale.set(1, 1, 1); НОРА.пробка.упала = undefined; Object.assign(НОРА.пробка.кирпич, { y0:-2, y1:4 });
   for (const б of НОРА.барьеры) { б.м.visible = false; б.к.y0 = -50; б.к.y1 = -49; }
   for (const И of [И1, И2]) Object.assign(И.player, { рубит:0, место:null, кдРуб:0 });
-  лягушкиСброс();
+  лягушкиСброс(); мышьСброс();
 }
 
 /* ═══════════ 📖 ИСТОРИИ САДА: одна за другой, как одно большое приключение (а потом любую можно переиграть) ═══════════ */
@@ -6284,8 +6286,250 @@ function эпЛягушки(в2, опц) {
         САД.лягушки.forEach((л, i) => dcLater(() => { л.ква = 0.7; Snd.ква(0.9); }, 300 + i*350));
         dcLater(() => { say('🐸 Лягушка: «Ква-ква! Спасибо, все сестрички дома! Ой… смотрите, тучи собираются. Сейчас пойдёт дождь!»', 6); }, 1400);
         if (!в2) dcLater(() => другГоворит('Ура! Все лягушки дома!', '#15803d', 2.6), 600);
-        dcLater(() => итог(true, '🐸 ВСЕ ЛЯГУШКИ ДОМА!', 'Ты нашёл в траве всех трёх лягушек по кваканью и прискакал на них к пруду! Квакушка, Пучеглазка и Попрыгушка сидят на кувшинках. А небо хмурится — скоро дождь…'), 5200); }
+        dcLater(() => { if (в2) итог(true, '🐸 ВСЕ ЛЯГУШКИ ДОМА!', 'Вы нашли в траве всех трёх лягушек по кваканью и прискакали на них к пруду! Квакушка, Пучеглазка и Попрыгушка сидят на кувшинках. А небо хмурится — скоро дождь…');
+          else перейтиКИстории('мышь', () => эпМышь()); }, 5200); }                                   // 🌧 одному — сразу дальше: дождь и мышь
     } };
+}
+
+/* ═══════ 6. 🌧 МЫШЬ УТАЩИЛА! (замысел Марка 24.10.2026) — «наоборот»: спасать надо самого героя ═══════
+   «Начинается с заставки: два друга идут по саду травой, идёт дождь. За их спиной что-то прошмыгнуло — это мышь.
+   И уже справа она берёт его за кофту и тащит к тоннелю. И потом ты уже играешь за друга, идёшь в ходы
+   и ищешь главного героя — спасти в ходах и убежать, пока мышь не вернулась.»
+   Ты — ДРУГ (зелёная куртка, розовая кепка). Мышь унесла героя в свою кладовку под корнями яблони и
+   завернула в лист — «запас на зиму». Найди его по крику «Я тут!», разорви лист ✋ ×3 — и бегите по ходу
+   к свету, мышь гонится. Играется одному (герой ведь в плену). */
+const ЦВ_ГЕРОЯ = { куртка:0xe2572b, тёмн:0xa33a18, штаны:0x2f4a78, кепка:0x2563eb, рюк:0x3f6f3a };
+const ЦВ_ДРУГА = { куртка:0x16a34a, тёмн:0x0f5f2e, штаны:0x6b21a8, кепка:0xf472b6, рюк:0xfacc15 };
+function перекрасить(g, из, в) {                                  // меняем цвета одежды человечка: из одной палитры в другую
+  const пары = Object.keys(из).map(k => [new THREE.Color(из[k]), в[k]]);
+  g.traverse(o => { if (!o.isMesh) return; for (const м of [].concat(o.material)) { if (!м.color) continue; const п = пары.find(([c]) => м.color.equals(c)); if (п) м.color.setHex(п[1]); } });
+}
+let ролиНаоборот = false;
+function поменятьРоли(вкл) {                                       // 🔁 ты — друг (зелёный), а друг-спутник — герой (оранжевый)
+  if (вкл === ролиНаоборот || !друг) return; ролиНаоборот = вкл;
+  const [а, б] = вкл ? [ЦВ_ГЕРОЯ, ЦВ_ДРУГА] : [ЦВ_ДРУГА, ЦВ_ГЕРОЯ];
+  перекрасить(И1.герой.g, а, б); перекрасить(друг.g, б, а);
+}
+/* 🌧 ДОЖДЬ В САДУ: косые струи вокруг камеры, серое небо, гром со вспышкой, шум капель */
+const ДОЖДЬ = { вкл:false, линии:null, капли:[], N:1500, громT:6, вспышка:0 };
+function дождь(вкл) {
+  ДОЖДЬ.вкл = вкл;
+  if (вкл && !ДОЖДЬ.линии) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(ДОЖДЬ.N*6), 3));
+    ДОЖДЬ.линии = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color:0xc8d8ea, transparent:true, opacity:0.5, depthWrite:false })); ДОЖДЬ.линии.frustumCulled = false; scene.add(ДОЖДЬ.линии);
+    for (let i = 0; i < ДОЖДЬ.N; i++) ДОЖДЬ.капли.push({ x:rnd(-55, 55), y:rnd(-5, 55), z:rnd(-55, 55) }); }
+  if (ДОЖДЬ.линии) ДОЖДЬ.линии.visible = вкл && мир === 'сад';
+  Snd.дождь(вкл, мир === 'нора');
+  if (мир !== 'сад') return;
+  if (вкл) { солнце.intensity = 0.9; небо.color.setHex(0xa3b0c0); небо.groundColor.setHex(0x3f5a2c); небо.intensity = 0.9;
+    scene.background = new THREE.Color(0x66717d); scene.fog = new THREE.Fog(0x7b8692, 50, 360); ДОЖДЬ.громT = 3; }
+  else { солнце.intensity = 3.2; небо.color.setHex(0xd4e9ff); небо.groundColor.setHex(0x5a7a34); небо.intensity = 0.95;
+    scene.background = new THREE.Color(0x7fb4ea); scene.fog = new THREE.Fog(0xc6dcec, 170, 620); }
+}
+function дождьТик(dt) {
+  const Л = ДОЖДЬ.линии; if (!Л) return; Л.visible = ДОЖДЬ.вкл && мир === 'сад'; if (!Л.visible) return;
+  const c = camera.position, a = Л.geometry.attributes.position.array, обёрт = (v, ц) => v - ц > 55 ? v - 110 : v - ц < -55 ? v + 110 : v;
+  for (let i = 0; i < ДОЖДЬ.N; i++) { const к = ДОЖДЬ.капли[i]; к.y -= 78*dt; к.x += 6*dt; к.x = обёрт(к.x, c.x); к.z = обёрт(к.z, c.z);
+    if (к.y < c.y - 25 || к.y < -1) к.y = c.y + rnd(20, 45);
+    a[i*6] = к.x; a[i*6 + 1] = к.y; a[i*6 + 2] = к.z; a[i*6 + 3] = к.x - 0.25; a[i*6 + 4] = к.y + 2.6; a[i*6 + 5] = к.z; }
+  Л.geometry.attributes.position.needsUpdate = true;
+  if ((ДОЖДЬ.громT -= dt) <= 0) { ДОЖДЬ.громT = rnd(13, 24); ДОЖДЬ.вспышка = 0.22; Snd.гром(); }
+  if (ДОЖДЬ.вспышка > 0) { ДОЖДЬ.вспышка -= dt; небо.intensity = 0.9 + (ДОЖДЬ.вспышка > 0.12 || (ДОЖДЬ.вспышка > 0 && ДОЖДЬ.вспышка < 0.05) ? 2.6 : 0); }
+}
+Object.assign(Snd, {
+  дождь(вкл, глухо) { if (!this.ctx) return; const c = this.ctx, t = c.currentTime;
+    if (вкл && !this.дожд) { const s = this.шум(), вч = c.createBiquadFilter(), нч = c.createBiquadFilter(), г = c.createGain();
+      вч.type = 'highpass'; вч.frequency.value = 900; нч.type = 'lowpass'; нч.frequency.value = 6500; г.gain.value = 0;
+      s.connect(вч); вч.connect(нч); нч.connect(г); г.connect(this.общий); s.start(t); this.дожд = { s, г, нч }; }
+    if (!вкл && this.дожд) { const д = this.дожд; this.дожд = null; д.г.gain.setTargetAtTime(0, t, 0.4); д.s.stop(t + 2); return; }
+    if (this.дожд) { this.дожд.г.gain.setTargetAtTime(глухо ? 0.06 : 0.26, t, 0.5); this.дожд.нч.frequency.setTargetAtTime(глухо ? 700 : 6500, t, 0.3); } },
+  гром() { if (!this.ctx) return; const c = this.ctx, t = c.currentTime + 0.4, s = c.createBufferSource(); s.buffer = this.шумБуф; s.loop = true;
+    const ф = c.createBiquadFilter(); ф.type = 'lowpass'; ф.frequency.value = 180; const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.9, t + 0.25); g.gain.exponentialRampToValueAtTime(0.0001, t + 3.6);
+    s.connect(ф); ф.connect(g); g.connect(this.общий); s.start(t); s.stop(t + 3.8); },
+});
+/* 🌈 радуга над садом — когда дождь кончился */
+let радуга = null;
+function радугаПоказать(вид) {
+  if (!радуга && вид) { const т = холст(16, 256, (g, w, h) => { ['#ef4444', '#f97316', '#facc15', '#22c55e', '#3b82f6', '#6366f1', '#a855f7'].forEach((c, i) => { g.fillStyle = c; g.fillRect(0, i*h/7, w, h/7 + 1); }); });
+    радуга = new THREE.Mesh(new THREE.TorusGeometry(240, 9, 10, 80, Math.PI), new THREE.MeshBasicMaterial({ map:т, transparent:true, opacity:0.55, fog:false, depthWrite:false, side:THREE.DoubleSide }));
+    радуга.position.set(-20, -10, сz(-430)); scene.add(радуга); }
+  if (радуга) радуга.visible = !!вид;
+}
+/* 🐭 МЫШЬ-ПОХИТИТЕЛЬНИЦА (больше спящих), кокон из листа и кладовка с запасами */
+const МШ = { мышь:null, кокон:null, запасы:null, рвать:0 };
+function мышьБольшая() {
+  if (!МШ.мышь) { МШ.мышь = мышьМодель(); МШ.мышь.g.scale.setScalar(2); МШ.мышь.спит = false; scene.add(МШ.мышь.g); }
+  return МШ.мышь;
+}
+function мышьБежит(м, dt, быстро) { м.фаза += dt*(быстро ? 18 : 10); м.тело.position.y = Math.abs(Math.sin(м.фаза))*0.12; м.тело.rotation.z = 0; м.тело.scale.set(1, 1, 1 + Math.sin(м.фаза)*0.05); м.гол.rotation.set(-0.15 + Math.sin(м.фаза*0.5)*0.08, 0, 0); }
+function коконИЗапасы() {
+  const К = НОРА.камеры[3], x = К.x - 8, z = К.z + 6;
+  if (!МШ.кокон) {
+    const листТ = холст(256, 128, (g, w, h) => { g.fillStyle = '#4d8a2f'; g.fillRect(0, 0, w, h); g.strokeStyle = 'rgba(190,230,140,.55)'; g.lineWidth = 3;
+      g.beginPath(); g.moveTo(0, h/2); g.lineTo(w, h/2); g.stroke(); for (let i = 1; i < 9; i++) { g.beginPath(); g.moveTo(i*w/9, h/2); g.lineTo(i*w/9 + 18, 6); g.moveTo(i*w/9, h/2); g.lineTo(i*w/9 + 18, h - 6); g.stroke(); } });
+    const к = new THREE.Group(); scene.add(к);
+    const л = new THREE.Mesh(new THREE.CapsuleGeometry(0.75, 1.5, 8, 16), new THREE.MeshStandardMaterial({ map:листТ, roughness:0.6 })); л.rotation.z = Math.PI/2; л.position.y = 0.75; к.add(л);
+    const хвост = new THREE.Mesh(new THREE.ConeGeometry(0.35, 1.4, 8), new THREE.MeshStandardMaterial({ color:0x3f7a26, roughness:0.6 })); хвост.rotation.z = -Math.PI/2; хвост.position.set(-1.9, 0.75, 0); к.add(хвост);
+    for (const dx of [-0.6, 0.6]) { const п = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.06, 6, 20), мат.пластик(0xc9b07a, 0.9)); п.rotation.y = Math.PI/2; п.position.set(dx, 0.75, 0); к.add(п); }   // перевязан травинками
+    МШ.кокон = к; МШ.коконЛист = л;
+    const з = new THREE.Group(); scene.add(з); МШ.запасы = з;                                                   // 🍓 запасы мыши: земляника, жёлуди, семечки, сено
+    const ягода = сетка(new THREE.SphereGeometry(1.3, 18, 14), мат.глянец(0xdc2626), 2.6, 1.2, -1.8, з); ягода.scale.set(1, 1.25, 1);
+    for (let i = 0; i < 30; i++) { const a = rnd(0, 6.3), b = rnd(-1, 1); сетка(new THREE.SphereGeometry(0.07, 5, 4), мат.пластик(0xfde68a, 0.5), 2.6 + Math.cos(a)*1.25*Math.sqrt(1 - b*b), 1.2 + b*1.6, -1.8 + Math.sin(a)*1.25*Math.sqrt(1 - b*b), з); }
+    for (const [dx, dz] of [[-2.4, -2.6], [-3.4, -1.2], [3.6, 1.6]]) { сетка(new THREE.SphereGeometry(0.7, 14, 10), мат.глянец(0xa16207), dx, 0.75, dz, з).scale.set(0.8, 1.1, 0.8);
+      сетка(new THREE.SphereGeometry(0.62, 12, 8, 0, 6.3, 0, 1.3), мат.пластик(0x6b4423, 0.9), dx, 1.2, dz, з); }
+    const семГ = new THREE.SphereGeometry(1, 10, 6); семГ.scale(0.3, 0.12, 0.6);
+    for (let i = 0; i < 18; i++) сетка(семГ, мат.пластик(i % 2 ? 0x1c1917 : 0xe7e5e4, 0.6), rnd(-3, 3), 0.15, rnd(1.5, 3.5), з).rotation.y = rnd(0, 6);
+    const сено = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.06, 0.06, 2.4, 3), мат.пластик(0xc9b07a, 0.9), 120);
+    for (let i = 0; i < 120; i++) { const a = rnd(0, 6.3), r = rnd(1.4, 3); поставить(сено, i, Math.cos(a)*r, 0.1, Math.sin(a)*r, Math.PI/2, rnd(0, 6), rnd(-0.2, 0.2)); }
+    з.add(сено); }
+  МШ.кокон.position.set(x, К.y, z); МШ.кокон.rotation.set(0, 0.6, 0); МШ.кокон.scale.setScalar(1); МШ.кокон.visible = true; МШ.коконЛист.scale.set(1, 1, 1);
+  МШ.запасы.position.set(x, К.y, z); МШ.запасы.visible = true; МШ.рвать = 0;
+  return МШ.кокон;
+}
+function мышьСброс() {
+  if (МШ.мышь) МШ.мышь.g.visible = false; if (МШ.кокон) МШ.кокон.visible = false; if (МШ.запасы) МШ.запасы.visible = false;
+  дождь(false); радугаПоказать(false); поменятьРоли(false);
+}
+function обвалТихо() {                                            // 🌱 после «Обвала корней»: клубок у хода к пруду осел, упавшие корни лежат
+  НОРА.корниЧ.forEach((к, i) => { if (i % 2 === 0) { к.упал = true; к.м.position.y = -6; } });
+  НОРА.пробка.упала = 1; НОРА.пробка.g.scale.y = 0.14; Object.assign(НОРА.пробка.кирпич, { y0:-2, y1:-1.3 });
+  for (const б of НОРА.барьеры) { б.м.visible = true; б.к.y0 = б.s.y - 1; б.к.y1 = б.y1; }
+}
+function эпМышь() {
+  const В = САД.выходНоры, м = мышьБольшая(), я = И1.player, Х = НОРА.н.h5, К = НОРА.камеры[3], _в = new THREE.Vector3();
+  let шаг = 'кино', t = 0, кадр = 0, звалT = 2, погоняT = 0, финиш = false;
+  поменятьРоли(true); САД.естьТопор = false; коробкаУбрать();
+  // 🎬 старт мультика: идут под дождём по каменной дорожке к пруду (там трава не закрывает), ты (друг) слева, герой справа
+  вСад({ x:58.4, z:сz(20), h:0 }); садДругНа(61.6, 0, сz(20), 0); дождь(true);
+  м.g.visible = false; м.g.position.set(0, 0, сz(120));
+  const ТР = ТРАВА.u;
+  const кино = dt => {
+    t += dt; сюжет.кт = t;
+    const идут = t < 9.2, P = друг.g.position;
+    if (идут) { const z = сz(20 + t*3.2); я.x = 58.4; я.z = z; я.h = 0; я.скор = 3.2; я.фаза += dt*6; я.наЗемле = true; другИдёт(61.6, z, dt, 3.2); }
+    // 🎬 1) спереди: идут под ливнем
+    if (t < 4.5) { кадр = 0;
+      if (t > 0.6 && !сюжет.с1) { сюжет.с1 = true; сказатьНад(P, 'Бр-р! Ну и ливень!', '#c2410c', 2.6); }
+      if (t > 2.6 && !сюжет.с2) { сюжет.с2 = true; яГоворю('Скорее домой, под крышу!', '#15803d', 2.4); } }
+    // 🎬 2) сзади: за спиной в траве что-то прошмыгнуло
+    else if (t < 8) { кадр = 1;
+      const f = clamp((t - 5.8)/1.1, 0, 1); if (f > 0 && f < 1) { м.g.visible = true; м.g.position.set(82 - f*44, 0, я.z - 7); м.g.rotation.set(0, -Math.PI/2, 0); мышьБежит(м, dt, true); ТР.uP3.value.copy(м.g.position); }
+      else if (f >= 1) м.g.visible = false;
+      if (t > 5.9 && !сюжет.с3) { сюжет.с3 = true; Snd.шорох(1); setTimeout(() => Snd.шорох(0.8), 220); }
+      if (t > 7.1 && !сюжет.с4) { сюжет.с4 = true; яГоворю('Ты слышал?.. Кто-то шуршит…', '#15803d', 2.2); dcLater(() => сказатьНад(P, 'Это дождь шуршит…', '#c2410c', 1.8), 900); } }
+    // 🎬 3) справа выскочила мышь — схватила героя за кофту!
+    else if (t < 11.6) { кадр = 2;
+      if (!сюжет.с5) { сюжет.с5 = true; м.g.visible = true; м.g.position.set(P.x + 18, 0, P.z + 2); Snd.писк(); }
+      if (t < 9.2) { const ц = { x:P.x + 3.2, z:P.z + 0.4 }, dx = ц.x - м.g.position.x, dz = ц.z - м.g.position.z, d = Math.hypot(dx, dz) || 1;
+        м.g.position.x += dx/d*Math.min(d, 18*dt); м.g.position.z += dz/d*Math.min(d, 18*dt); м.g.rotation.set(0, Math.atan2(dx, dz), 0); мышьБежит(м, dt, true); }
+      else { if (!сюжет.с6) { сюжет.с6 = true; Snd.писк(); сказатьНад(P, 'А-А-А! ПОМОГИ-И-ИТЕ!', '#c2410c', 2.6); dcLater(() => яГоворю('ЭЙ! ОТПУСТИ ЕГО!', '#15803d', 2.2), 700); }
+        я.скор = 0; const нос = м.гол.localToWorld(_в.set(0, -0.35, 1.0));
+        P.set(нос.x, нос.y - 1.44, нос.z); друг.g.rotation.set(Math.sin(time*7)*0.15, м.g.rotation.y + Math.PI/2, Math.sin(time*9)*0.2);
+        друг.руки.forEach((р, i) => р.rotation.x = -2.6 + Math.sin(time*14 + i*3)*0.6); друг.ноги.forEach((н, i) => н.rotation.x = Math.sin(time*16 + i*3)*0.7);
+        if (t > 9.8) { const dx = В.x - м.g.position.x, dz = сz(В.z) - м.g.position.z, d = Math.hypot(dx, dz) || 1;               // и потащила к норе
+          м.g.position.x += dx/d*Math.min(d, 10*dt); м.g.position.z += dz/d*Math.min(d, 10*dt); м.g.rotation.set(0, Math.atan2(dx, dz), 0); мышьБежит(м, dt, true); } }
+      ТР.uP3.value.copy(м.g.position); }
+    // 🎬 4) мышь — на кротовину и в нору; ты бежишь следом
+    else if (t < 15.2) { кадр = 3;
+      const dx = В.x - м.g.position.x, dz = сz(В.z) - м.g.position.z, d = Math.hypot(dx, dz);
+      if (d > 0.4) { м.g.position.x += dx/d*Math.min(d, 10*dt); м.g.position.z += dz/d*Math.min(d, 10*dt); м.g.position.y = clamp((7 - d)/7, 0, 1)*2.9; мышьБежит(м, dt, true); }
+      else { м.g.position.y -= dt*9; м.g.rotation.x = 0.9; if (м.g.position.y < -5) м.g.visible = false; }
+      const нос = м.гол.localToWorld(_в.set(0, -0.35, 1.0)); P.set(нос.x, нос.y - 1.44, нос.z); друг.g.visible = м.g.visible && м.g.position.y > -3;
+      друг.руки.forEach((р, i) => р.rotation.x = -2.6 + Math.sin(time*14 + i*3)*0.6);
+      const цx = В.x - 3, цz = сz(В.z) - 8, ex = цx - я.x, ez = цz - я.z, ed = Math.hypot(ex, ez);
+      if (ed > 0.5) { я.x += ex/ed*Math.min(ed, 7*dt); я.z += ez/ed*Math.min(ed, 7*dt); я.h = Math.atan2(ex, ez); я.скор = 7; я.фаза += dt*12; } else я.скор = 0;
+      if (t > 13.4 && !сюжет.с7) { сюжет.с7 = true; яГоворю('Держись! Я тебя найду!', '#15803d', 2.4); }
+      if (t > 14.6 && !сюжет.с8) { сюжет.с8 = true; $('затемнение').style.opacity = 1; }
+      ТР.uP3.value.copy(м.g.position); }
+    else { вИгру(); return; }
+    ТР.uP2.value.set(P.x, P.y, P.z);                                 // трава раздвигается и вокруг героя
+  };
+  const вИгру = () => {                                              // ▶ в нору — ищем героя
+    if (шаг !== 'кино') return; шаг = 'поиск'; t = 0;
+    сюжет.кино = false; сюжет.кадр = null; молчаПузыри(); $('затемнение').style.opacity = 0;
+    м.g.visible = false; ТР.uP3.value.set(0, -99, 0);
+    const s = Х.обр[Х.обр.length - 5];
+    вНору({ x:s.x, y:s.y + 0.2, z:s.z, h:Math.atan2(-s.tx, -s.tz) }); обвалТихо(); дождь(true); НОРА.шум = 0; $('шум').style.display = 'none';
+    НОРА.звери.forEach(з => з.спит = true);
+    коконИЗапасы(); друг.g.visible = false;                         // герой — в коконе из листа
+    yaw = Math.atan2(-s.tx, -s.tz); pitch = 0.25; камера(0, true);
+    сюжет.лимит = 150; сюжет.время = 0;
+    bigMsg('🌧 ТЫ — ДРУГ!\nнайди героя', 2.8, '#86efac');
+    say('🐭 Мышь утащила твоего друга-героя в нору — «запас на зиму»! Иди по ходу вглубь, слушай крик «Я тут!» и найди его. Мышь ушла за новыми запасами — успей, пока она не вернулась!', 10);
+  };
+  const освободить = () => {                                          // 🍃 лист разорван — герой свободен, мышь услышала
+    шаг = 'бежим'; сюжет.лимит = 0; $('таймер').style.display = 'none'; погоняT = 4;
+    МШ.кокон.visible = false; for (let i = 0; i < 10; i++) пых(МШ.кокон.position.x + rnd(-1.5, 1.5), К.y + 1, МШ.кокон.position.z + rnd(-1.5, 1.5), 2, 0x6aa83a);
+    другНа(МШ.кокон.position.x, К.y, МШ.кокон.position.z, Math.atan2(я.x - МШ.кокон.position.x, я.z - МШ.кокон.position.z)); друг.статус = 'сад'; ДРУГ_СТ.след = [];
+    bigMsg('🍃 СВОБОДЕН!', 2, '#86efac'); сказатьНад(друг.g.position, 'Ура! Ты меня нашёл! Бежим, пока мышь не вернулась!', '#c2410c', 3);
+    dcLater(() => { Snd.писк(); setTimeout(() => Snd.писк(), 200); bigMsg('🐭 ПИ-И-И!', 1.6, '#fca5a5');
+      say('🐭 Мышь: «Пи-и-и! Кто трогает мой запас на зиму?!» — она возвращается! Бегите по ходу на восток, к свету! Упавшие корни — ПРЫЖОК!', 7); }, 1400);
+    Object.assign(м, { x:К.x - 15, y:К.y, z:К.z, s:-1 }); м.g.position.set(м.x, м.y, м.z); м.g.rotation.set(0, Math.PI/2, 0);   // 🐭 вылезет из своей дырки в дальней стене — за коконом, не у выхода
+  };
+  const sНа = q => { let bi = 0, bd = Infinity; for (let i = 0; i < Х.обр.length; i += 2) { const s = Х.обр[i], d = (s.x - q.x)**2 + ((s.y - q.y)*2)**2 + (s.z - q.z)**2; if (d < bd) { bd = d; bi = i; } } return bd < 40 ? Х.обр[bi].s : -1; };
+  сюжет = { кино:true, цель:'🎬 Мультик «Мышь утащила!»… (✋ — пропустить)',
+    кадр() {                                                           // 🎬 камера мультика
+      const zc = кадр < 2 ? (я.z + друг.g.position.z)/2 : я.z;
+      if (кадр === 0) { camera.position.set(60, 3.4, zc + 9.5); camera.lookAt(60, 1.6, zc); }                    // спереди: идут под ливнем
+      else if (кадр === 1) { camera.position.set(58.5, 4.6, zc - 13); camera.lookAt(60, 1.4, zc + 1); }          // сзади: за спиной что-то шмыгнуло
+      else if (кадр === 2) { camera.position.set(57, 4.8, zc + 11); camera.lookAt(62.5, 1.4, zc - 0.5); }        // спереди-сбоку: мышь выскочила справа
+      else { camera.position.set(55, 8.5, Math.min(zc, сz(70)) - 9); camera.lookAt(61, 2, сz(80)); }           // мышь тащит к норе и ныряет
+    },
+    действие() {
+      if (шаг === 'кино') { вИгру(); return true; }
+      if (шаг === 'поиск' && МШ.кокон.visible && Math.hypot(я.x - МШ.кокон.position.x, я.z - МШ.кокон.position.z) < 4.2 && Math.abs(я.y - К.y) < 2.5) {
+        МШ.рвать++; Snd.рубка(); Snd.шумок(0.2, 0.25, 2200, 1.2); МШ.коконЛист.scale.set(1 - МШ.рвать*0.18, 1 - МШ.рвать*0.18, 1 - МШ.рвать*0.18);
+        for (let i = 0; i < 4; i++) пых(МШ.кокон.position.x + rnd(-1, 1), К.y + 1.2, МШ.кокон.position.z + rnd(-1, 1), 2, 0x6aa83a);
+        if (МШ.рвать >= 3) освободить(); else { bigMsg(`🍃 РВЁШЬ ЛИСТ! ${МШ.рвать}/3`, 1.2, '#a7f3d0'); сказатьНад(МШ.кокон.position, МШ.рвать === 1 ? 'Ещё! Ещё!' : 'Почти!', '#c2410c', 1.4); }
+        return true; }
+      return false; },
+    засосало() { return false; },
+    когдаВремя() { if (шаг === 'поиск') итог(false, '🐭 МЫШЬ ВЕРНУЛАСЬ!', 'Мышь вернулась с новыми запасами раньше, чем ты нашёл друга. Иди по ходу вглубь — к корням яблони — и слушай крик «Я тут!»'); },
+    тик(dt) { МШ.шаг = шаг;
+      if (шаг === 'кино') { кино(dt); return; }
+      t += dt;
+      if (шаг === 'поиск') {                                         // 🔎 ищем: герой зовёт из кокона
+        if ((звалT -= dt) <= 0) { звалT = 3.4; сказатьНад(МШ.кокон.position, ['М-м-м! Я тут!', 'Помогите! Я в листе!', 'Я ту-у-ут!'][Math.floor(Math.random()*3)], '#c2410c', 1.8);
+          const d = Math.hypot(я.x - МШ.кокон.position.x, я.z - МШ.кокон.position.z); Snd.тон(rnd(520, 640), 0.18, 'triangle', clamp(0.09 - d/2400, 0.012, 0.09), 420); }
+        МШ.кокон.rotation.z = Math.sin(time*6)*0.06;                  // кокон дёргается — герой барахтается
+        const вКамере = Math.hypot(я.x - К.x, я.z - К.z) < К.r + 1 && Math.abs(я.y - К.y) < 3;
+        let т;
+        if (вКамере) { const d = Math.round(Math.hypot(я.x - МШ.кокон.position.x, я.z - МШ.кокон.position.z));
+          т = d < 4.2 ? '✋ — рви лист! Освободи героя (нужно 3 раза)' : `🌳 Кладовка мыши под корнями! Кокон из листа ${стрелкаК(МШ.кокон.position.x, МШ.кокон.position.z)} ≈ ${d} шагов`; }
+        else { const sП = sНа(я), i = sП < 0 ? 0 : Math.max(0, Math.round((sП - 6)/(Х.L/(Х.обр.length - 1)))), ц = Х.обр[Math.min(Х.обр.length - 1, i)];
+          const ст = стрелкаК(ц.x, ц.z); т = `👂 Слушай «Я тут!» — иди по ходу вглубь: ${ст} ${НАПРАВЛЕНИЯ[ст]}. Упавший корень — ПРЫЖОК`; }
+        цель(т); return; }
+      if (шаг === 'бежим') {                                         // 🏃 мышь гонится — к свету!
+        const P = друг.g.position;
+        if (погоняT > 0) { погоняT -= dt; if (погоняT <= 0) { м.g.visible = true; Snd.писк(); сказатьНад(м.g.position, 'Пи-и! Мой запас!', '#7f1d1d', 2); for (let i = 0; i < 6; i++) пых(м.x + rnd(-1, 1), м.y + rnd(1, 3), м.z + rnd(-1.5, 1.5), 3, 0x6a4a2e); } }
+        else { const sЦ = sНа(я), д = Math.hypot(я.x - м.x, я.z - м.z); м.скор = д > 18 ? 9.6 : д < 7 ? 7.6 : 8.4;
+          if (м.s < 0) { const кx = sЦ >= 0 ? Х.обр[0].x : я.x, кz = sЦ >= 0 ? Х.обр[0].z : я.z, dd = Math.hypot(кx - м.x, кz - м.z) || 1;
+            м.x += (кx - м.x)/dd*м.скор*dt; м.z += (кz - м.z)/dd*м.скор*dt; м.y = К.y; м.пов = Math.atan2(кx - м.x, кz - м.z); if (sЦ >= 0 && dd < 2) м.s = 0; }
+          else { if (sЦ < 0 && м.s < 1) м.s = -1;
+            else { const куда = sЦ < 0 ? 0 : sЦ; м.s = clamp(м.s + Math.sign(куда - м.s)*Math.min(Math.abs(куда - м.s), м.скор*dt), 0, Х.L - 0.5);
+              const i = Math.min(Х.обр.length - 1, Math.round(м.s/(Х.L/(Х.обр.length - 1)))), s = Х.обр[i];
+              м.x = s.x; м.z = s.z; м.y = s.y + (НОРА.барьеры.some(б => Math.abs(б.s.s - м.s) < 2.4) ? 1.5 : 0); м.пов = Math.atan2(s.tx, s.tz); } }
+          м.g.position.set(м.x, м.y, м.z); м.g.rotation.set(0, м.пов, 0); мышьБежит(м, dt, true);
+          if (д < 2.8 && Math.abs(я.y - м.y) < 2.4 && state === 'play') { итог(false, '🐭 МЫШЬ ПОЙМАЛА!', 'Мышь утащила вас обоих в кладовку! Беги без остановки по ходу к свету (Shift или джойстик до края) и перепрыгивай упавшие корни.'); return; } }
+        // 🧒 герой бежит впереди и зовёт
+        const sП = Math.max(0, sНа(я)), sД = Math.min(Х.L - 1, sП + 5), iД = Math.round(sД/(Х.L/(Х.обр.length - 1))), sд = Х.обр[Math.min(Х.обр.length - 1, iД)];
+        if (sНа(я) < 0) другИдёт(Х.обр[4].x, Х.обр[4].z, dt, 9); else { другИдёт(sд.x, sд.z, dt, 10.5); P.y += (sд.y - P.y)*Math.min(1, dt*8); }
+        if (Math.random() < dt*0.3) сказатьНад(P, ['Быстрее!', 'Прыгай через корень!', 'Она догоняет!', 'Свет! Там выход!'][Math.floor(Math.random()*4)], '#c2410c', 1.5);
+        const ост = Math.round(Х.L - sП); цель(`🏃 БЕГИ к свету! До выхода ≈ ${ост} шагов. Мышь сзади! Упавший корень — ПРЫЖОК`);
+        if (!финиш && sНа(я) > Х.L - 4.5) { финиш = true; затемнитьСад(() => выход(), 300); }
+      }
+    } };
+  const выход = () => {                                              // 🌈 выбрались — дождь кончается
+    шаг = 'конец'; м.g.visible = false;
+    вСад({ x:В.x - 4, z:сz(В.z) + 7, h:0.4 }); садДругНа(В.x - 1.5, 0, сz(В.z) + 8.5, -2.6); дождь(true);
+    let кт = 0; сюжет.тик = dt => { кт += dt; другПоза(); друг.g.rotation.y = Math.atan2(я.x - друг.g.position.x, я.z - друг.g.position.z); };
+    сюжет.кадр = () => { if (кт < 2.6) { camera.position.set(В.x - 13, 5, сz(В.z) + 18); camera.lookAt(В.x - 3, 2.4, сz(В.z) + 7); }        // обнимаются под дождём
+      else { const k = Math.min(1, (кт - 2.6)/1.5); camera.position.set(В.x - 13 + k*9, 5 + k*3, сz(В.z) + 18 + k*10); camera.lookAt(В.x - 3 - k*5, 2.4 + k*36, сz(В.z) + 7 - k*110); } };   // камера — к небу: радуга
+    bigMsg('🌧 ВЫБРАЛИСЬ!', 2, '#86efac');
+    dcLater(() => сказатьНад(друг.g.position, 'Спасибо, друг! Ты меня спас!', '#c2410c', 3), 600);
+    dcLater(() => { дождь(false); радугаПоказать(true); bigMsg('🌈 ДОЖДЬ КОНЧИЛСЯ!', 2, '#fde68a'); яГоворю('Смотри — радуга!', '#15803d', 2.4); }, 2600);
+    dcLater(() => итог(true, '🌈 ГЕРОЙ СПАСЁН!', 'Ты — друг — нашёл героя в мышиной кладовке под корнями яблони, разорвал лист и убежал от мыши по ходу к свету! Дождь кончился, над садом радуга.'), 5600);
+  };
 }
 
 /* 🌳 прогулка по саду (кнопка в меню) */
@@ -7217,6 +7461,8 @@ window.__dbg = {
   setNoise(v){ НОРА.шум = v; return v; },
   get кт(){ return сюжет && сюжет.кт || 0; },
   get кино(){ return !!(сюжет && сюжет.кино); },
+  get мышь(){ const к = МШ.кокон, м = МШ.мышь; return { шаг:МШ.шаг, рвать:МШ.рвать, кокон:к && к.visible ? { x:+к.position.x.toFixed(1), y:+к.position.y.toFixed(1), z:+к.position.z.toFixed(1) } : null, мышь:м ? { x:+м.g.position.x.toFixed(1), y:+м.g.position.y.toFixed(1), z:+м.g.position.z.toFixed(1), видно:м.g.visible } : null, роли:ролиНаоборот, дождь:ДОЖДЬ.вкл, мир }; },
+  выходМыши(){ const s = НОРА.н.h5.обр.at(-3); return { x:s.x, y:s.y, z:s.z }; },
   get лягушки(){ return { дома:ЛЯГ.дома, верхом:!!player.наЛягушке, pos:{ x:+player.x.toFixed(1), y:+player.y.toFixed(1), z:+player.z.toFixed(1) }, список:ЛЯГ.потеряшки.map(л => ({ имя:л.имя, x:+л.g.position.x.toFixed(1), z:+л.g.position.z.toFixed(1), дома:л.дома, ездок:!!л.ездок, видно:л.g.visible })) }; },
   get щётка(){ const п = ВИХРЬ.пасть; return { x:+п.x.toFixed(1), z:+п.z.toFixed(1), вкл:ВИХРЬ.вкл, вел:{ x:+ВЕЛ.x.toFixed(1), z:+ВЕЛ.z.toFixed(1), виден:ВЕЛ.виден } }; },
   get сборка(){ return СБ.детали.map(д => ({ id:д.id, сост:д.сост, x:+д.g.position.x.toFixed(1), y:+д.g.position.y.toFixed(1), z:+д.g.position.z.toFixed(1), наСундуке:!!д.наСундуке, куда:{ x:д.куда.x, z:д.куда.z } })).concat([{ готово:СБ.готово, вкл:!!СБ.вкл }]); },
